@@ -14,7 +14,7 @@
 
 	<description>Spring公共配置</description>
 
-	<context:component-scan base-package="com.scu.book.shop">
+	<context:component-scan base-package="com.mlnx.doc">
 		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller" />
 		<context:exclude-filter type="annotation" expression="org.springframework.web.bind.annotation.ControllerAdvice" />
 	</context:component-scan>
@@ -22,7 +22,7 @@
 	<bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
 		<property name="dataSource" ref="dataSource" />
 		<property name="jpaVendorAdapter" ref="hibernateJpaVendorAdapter" />
-		<property name="packagesToScan" value="com.scu.book.shop" />
+		<property name="packagesToScan" value="com.mlnx.doc" />
 		<property name="jpaProperties">
 			<props>
 				<prop key="hibernate.dialect">${hibernate.dialect}</prop>
@@ -30,13 +30,13 @@
 				<prop key="hibernate.format_sql">${hibernate.format_sql}</prop>
 				<prop key="hibernate.hbm2ddl.auto">${hibernate.hbm2ddl.auto}</prop>
 				<prop key="hibernate.ejb.naming_strategy">org.hibernate.cfg.ImprovedNamingStrategy</prop>
-			</props>
+			</props> 
 		</property>
 	</bean>
 
 	<bean id="hibernateJpaVendorAdapter" class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter" />
 
-	<jpa:repositories base-package="com.scu.book.shop" transaction-manager-ref="transactionManager" entity-manager-factory-ref="entityManagerFactory" />
+	<jpa:repositories base-package="com.mlnx.doc" transaction-manager-ref="transactionManager" entity-manager-factory-ref="entityManagerFactory" />
 
 	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
 		<property name="entityManagerFactory" ref="entityManagerFactory" />
