@@ -15,11 +15,14 @@
 	<description>Spring公共配置</description>
 
 	<context:component-scan base-package="com.mlnx.doc">
-		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller" />
-		<context:exclude-filter type="annotation" expression="org.springframework.web.bind.annotation.ControllerAdvice" />
+		<context:exclude-filter type="annotation"
+			expression="org.springframework.stereotype.Controller" />
+		<context:exclude-filter type="annotation"
+			expression="org.springframework.web.bind.annotation.ControllerAdvice" />
 	</context:component-scan>
 
-	<bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+	<bean id="entityManagerFactory"
+		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
 		<property name="dataSource" ref="dataSource" />
 		<property name="jpaVendorAdapter" ref="hibernateJpaVendorAdapter" />
 		<property name="packagesToScan" value="com.mlnx.doc" />
@@ -30,25 +33,34 @@
 				<prop key="hibernate.format_sql">${hibernate.format_sql}</prop>
 				<prop key="hibernate.hbm2ddl.auto">${hibernate.hbm2ddl.auto}</prop>
 				<prop key="hibernate.ejb.naming_strategy">org.hibernate.cfg.ImprovedNamingStrategy</prop>
-			</props> 
+			</props>
 		</property>
 	</bean>
 
-	<bean id="hibernateJpaVendorAdapter" class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter" />
+	<bean id="hibernateJpaVendorAdapter"
+		class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter" />
 
-	<jpa:repositories base-package="com.mlnx.doc" transaction-manager-ref="transactionManager" entity-manager-factory-ref="entityManagerFactory" />
+	<jpa:repositories base-package="com.mlnx.doc"
+		transaction-manager-ref="transactionManager"
+		entity-manager-factory-ref="entityManagerFactory" />
 
 	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
 		<property name="entityManagerFactory" ref="entityManagerFactory" />
 	</bean>
 
-	<tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true" />
+	<tx:annotation-driven transaction-manager="transactionManager"
+		proxy-target-class="true" />
 
-<!-- 
-	<bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean" />
- -->
- 
-	<context:property-placeholder ignore-unresolvable="true"
+	<bean
+		class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" />
+	<!-- persistence -->
+	<bean
+		class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor" />
+	<!-- <bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean" 
+		/> -->
+
+	<context:property-placeholder
+		ignore-unresolvable="true"
 		location="classpath*:/property/jdbc.properties,
 				  classpath*:/property/hibernate.properties,
 				  classpath*:/property/image.properties" />

@@ -1,13 +1,13 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	
+
 	<groupId>com.mlnx</groupId>
 	<artifactId>doc</artifactId>
 	<packaging>war</packaging>
 	<version>0.0.1-SNAPSHOT</version>
-	
-	
+
+
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -33,7 +33,11 @@
 		</dependencies>
 	</dependencyManagement>
 	<dependencies>
-	
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>fastjson</artifactId>
+			<version>1.1.15</version>
+		</dependency>
 		<!-- j2ee web -->
 		<dependency>
 			<groupId>javax.servlet</groupId>
@@ -58,12 +62,12 @@
 			</exclusions>
 		</dependency>
 		<!-- j2ee web -->
-		
+
 		<!-- spring -->
 		<dependency>
-	        <groupId>org.springframework</groupId>
-	        <artifactId>spring-context</artifactId>
-	    </dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-context-support</artifactId>
@@ -85,18 +89,18 @@
 			<artifactId>spring-test</artifactId>
 		</dependency>
 		<!-- spring -->
-		
+
 		<!-- aop -->
 		<dependency>
-		    <groupId>org.aspectj</groupId>
-		    <artifactId>aspectjrt</artifactId>
+			<groupId>org.aspectj</groupId>
+			<artifactId>aspectjrt</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.aspectj</groupId>
 			<artifactId>aspectjweaver</artifactId>
 		</dependency>
 		<!-- aop -->
-		
+
 		<!-- spring mvc -->
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -107,12 +111,12 @@
 			<artifactId>spring-webmvc</artifactId>
 		</dependency>
 		<!-- spring mvc -->
-		
+
 		<!-- jackson -->
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-core</artifactId>
-		</dependency>			
+		</dependency>
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-databind</artifactId>
@@ -122,30 +126,30 @@
 			<artifactId>jackson-module-jaxb-annotations</artifactId>
 			<version>${jackson.version}</version>
 		</dependency>
-        <!-- jackson -->
-        
-        <!-- hibernate -->
+		<!-- jackson -->
+
+		<!-- hibernate -->
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-entitymanager</artifactId>
 		</dependency>
-        <!-- hibernate -->
-        
-        <!-- spring data -->
+		<!-- hibernate -->
+
+		<!-- spring data -->
 		<dependency>
 			<groupId>org.springframework.data</groupId>
 			<artifactId>spring-data-jpa</artifactId>
 		</dependency>
 		<!-- spring data -->
-		
+
 		<!-- JSR303 BeanValidator -->
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-validator</artifactId>
 		</dependency>
 		<!-- JSR303 BeanValidator -->
-		
-        <!-- log -->
+
+		<!-- log -->
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
@@ -165,18 +169,18 @@
 			<scope>runtime</scope>
 		</dependency>
 		<dependency>
-       		<groupId>org.slf4j</groupId>
-       		<artifactId>jul-to-slf4j</artifactId>
-       		<scope>runtime</scope>
-     		</dependency>
-     		<dependency>
- 			<groupId>org.bgee.log4jdbc-log4j2</groupId>
- 				<artifactId>log4jdbc-log4j2-jdbc4</artifactId>
- 				<version>1.15</version>
+			<groupId>org.slf4j</groupId>
+			<artifactId>jul-to-slf4j</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.bgee.log4jdbc-log4j2</groupId>
+			<artifactId>log4jdbc-log4j2-jdbc4</artifactId>
+			<version>1.15</version>
 			<scope>runtime</scope>
 		</dependency>
 		<!-- log -->
-		
+
 		<!-- mail -->
 		<dependency>
 			<groupId>javax.mail</groupId>
@@ -188,62 +192,62 @@
 			<artifactId>activation</artifactId>
 		</dependency>
 		<!-- mail -->
-		
+
 		<!-- util -->
 		<dependency>
-		    <groupId>org.apache.commons</groupId>
-		    <artifactId>commons-lang3</artifactId>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
 		</dependency>
 		<dependency>
-		    <groupId>org.jsoup</groupId>
-		    <artifactId>jsoup</artifactId>
-		    <version>1.7.3</version>
+			<groupId>org.jsoup</groupId>
+			<artifactId>jsoup</artifactId>
+			<version>1.7.3</version>
 		</dependency>
 		<dependency>
 			<groupId>commons-lang</groupId>
-  			<artifactId>commons-lang</artifactId>
-		</dependency>	
+			<artifactId>commons-lang</artifactId>
+		</dependency>
 		<dependency>
-		    <groupId>dom4j</groupId>
-		    <artifactId>dom4j</artifactId>
+			<groupId>dom4j</groupId>
+			<artifactId>dom4j</artifactId>
 		</dependency>
 		<!-- util -->
-		
+
 		<!-- jdbc -->
-		
+
 		<dependency>
-		    <groupId>org.apache.tomcat</groupId>
-		    <artifactId>tomcat-jdbc</artifactId>
-		    <scope>runtime</scope>
+			<groupId>org.apache.tomcat</groupId>
+			<artifactId>tomcat-jdbc</artifactId>
+			<scope>runtime</scope>
 		</dependency>
 		<dependency>
-		    <groupId>mysql</groupId>
-		    <artifactId>mysql-connector-java</artifactId>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
 		</dependency>
 		<!-- jdbc -->
-		
+
 		<!-- junit -->
 		<dependency>
-		    <groupId>junit</groupId>
-		    <artifactId>junit</artifactId>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
 		</dependency>
 		<dependency>
-		    <groupId>org.hamcrest</groupId>
-		    <artifactId>hamcrest-core</artifactId>
+			<groupId>org.hamcrest</groupId>
+			<artifactId>hamcrest-core</artifactId>
 		</dependency>
 		<!-- junit -->
-		
+
 		<!-- fileupload -->
 		<dependency>
 			<groupId>commons-fileupload</groupId>
 			<artifactId>commons-fileupload</artifactId>
 		</dependency>
 		<!-- fileupload -->
-		
+
 	</dependencies>
-	
+
 	<build>
-	
+
 		<finalName>book-shop</finalName>
 		<plugins>
 			<plugin>
@@ -256,13 +260,13 @@
 					<showWarnings>true</showWarnings>
 				</configuration>
 			</plugin>
-			
+
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-resources-plugin</artifactId>
 				<version>2.6</version>
 			</plugin>
-				
+
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-war-plugin</artifactId>
@@ -271,14 +275,14 @@
 					<warName>${project.artifactId}</warName>
 				</configuration>
 			</plugin>
-			
+
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-clean-plugin</artifactId>
 				<version>2.5</version>
 			</plugin>
 		</plugins>
-		
+
 	</build>
-	
+
 </project>
