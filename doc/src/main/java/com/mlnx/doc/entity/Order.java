@@ -38,7 +38,7 @@ public class Order implements Serializable {
 		this.id = id;
 	}
 
-	@Column(name="hospital_name", nullable=false)
+	@Column(name="hospital_name", nullable=true)
 	public String getHospital_name() {
 		return hospital_name;
 	}
@@ -47,7 +47,7 @@ public class Order implements Serializable {
 		this.hospital_name = hospital_name;
 	}
 	
-	@Column(name="doctor_name", nullable=false)
+	@Column(name="doctor_name", nullable=true)
 	public String getDoctor_name() {
 		return doctor_name;
 	}
@@ -56,7 +56,7 @@ public class Order implements Serializable {
 		this.doctor_name = doctor_name;
 	}
 
-	@Column(name="state", nullable=false)
+	@Column(name="state", nullable=true)
 	public Integer getState() {
 		return state;
 	}
@@ -66,7 +66,7 @@ public class Order implements Serializable {
 	}
 	
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name="date", nullable=false)
+	@Column(name="date", nullable=true)
 	public Date getDate() {
 		return date;
 	}
@@ -79,6 +79,7 @@ public class Order implements Serializable {
 		return doctor_id;
 	}
 
+	@Column(name="doctor_id", nullable=false)
 	public void setDoctor_id(Integer doctor_id) {
 		this.doctor_id = doctor_id;
 	}
@@ -86,7 +87,8 @@ public class Order implements Serializable {
 	public Integer getFriend_id() {
 		return friend_id;
 	}
-
+	
+	@Column(name="friend_id", nullable=false)
 	public void setFriend_id(Integer friend_id) {
 		this.friend_id = friend_id;
 	}

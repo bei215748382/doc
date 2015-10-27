@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -20,13 +21,13 @@ public class ProvinceCol {
 	@Autowired
 	private ProvinceService provinceService;
 
-	@RequestMapping(value = "all")
+	@RequestMapping(value = "all.do")
 	@ResponseBody
 	public List<Province> findAll() {
 		return provinceService.findAll();
 	}
 	
-	@RequestMapping(value = "register",method=RequestMethod.POST, consumes="application/json",produces="application/json")
+	@RequestMapping(value = "register.do",method=RequestMethod.POST, consumes="application/json",produces="application/json")
 	@ResponseBody
 	public Response register(@RequestBody Province province){
 		provinceService.save(province);
@@ -36,9 +37,19 @@ public class ProvinceCol {
 		return response;
 	}
 	
-	@RequestMapping(value = "find/name", method = RequestMethod.GET, consumes = "application/json", produces = "application/json")
+	@RequestMapping(value = "find/name.do", method = RequestMethod.GET, consumes = "application/json", produces = "application/json")
 	@ResponseBody
 	public List<Province> findByProvinceId(@RequestBody String name) {
 		return provinceService.findByName(name);
+	}
+	
+	@RequestMapping(value = "delete/{id}/province.do", method = RequestMethod.GET, consumes = "application/json", produces = "application/json")
+	@ResponseBody
+	public Response delete(@PathVariable int id) {
+		provinceService.delete(id);
+		Response response = new Response();
+		response.setResponseCode(EnumCollection.ResponseCode.PROVINCE_DELETE_SUCCESS.getCode());
+		response.setMsg(EnumCollection.ResponseCode.PROVINCE_DELETE_SUCCESS.getMsg());
+		return response;
 	}
 }

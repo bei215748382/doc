@@ -22,13 +22,13 @@ public class HospitalCol {
 	@Autowired
 	private HospitalService hospitalService;
 
-	@RequestMapping(value = "all")
+	@RequestMapping(value = "all.do")
 	@ResponseBody
 	public List<Hospital> findAll() {
 		return hospitalService.findAll();
 	}
 
-	@RequestMapping(value = "register", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
+	@RequestMapping(value = "register.do", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
 	@ResponseBody
 	public Response register(@RequestBody Hospital hospital) {
 		hospitalService.save(hospital);
@@ -40,13 +40,13 @@ public class HospitalCol {
 		return response;
 	}
 
-	@RequestMapping(value = "find/city/{id}", method = RequestMethod.GET, consumes = "application/json", produces = "application/json")
+	@RequestMapping(value = "find/city/{id}/hospital.do", method = RequestMethod.GET, consumes = "application/json", produces = "application/json")
 	@ResponseBody
 	public List<Hospital> findByProvinceId(@PathVariable int id) {
 		return hospitalService.findByCityId(id);
 	}
 
-	@RequestMapping(value = "find/name", method = RequestMethod.GET, consumes = "application/json", produces = "application/json")
+	@RequestMapping(value = "find/name.do", method = RequestMethod.GET, consumes = "application/json", produces = "application/json")
 	@ResponseBody
 	public List<Hospital> findByName(@RequestBody String name) {
 		return hospitalService.findByName(name);

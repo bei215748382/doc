@@ -10,13 +10,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import com.mlnx.doc.entity.Doctor;
+import com.mlnx.doc.entity.Order;
 import com.mlnx.doc.entity.Order;
 import com.mlnx.doc.repository.OrderDao;
 import com.mlnx.doc.service.OrderService;
 
 @Service
+@Transactional
 public class OrderServiceImpl implements OrderService {
 
 	@Autowired
@@ -55,7 +57,7 @@ public class OrderServiceImpl implements OrderService {
 	@Override
 	public List<Order> findByDoctorId(Integer id) {
 		String sql = "SELECT * FROM t_order where doctor_id = " + id;
-		Query query = em.createNativeQuery(sql, Doctor.class);
+		Query query = em.createNativeQuery(sql, Order.class);
 		return query.getResultList();
 	}
 
@@ -63,30 +65,37 @@ public class OrderServiceImpl implements OrderService {
 	public List<Order> findByDoctorIdAndState(Integer id, Integer state) {
 		String sql = "SELECT * FROM t_order where doctor_id = " + id
 				+ " and state = " + state;
-		Query query = em.createNativeQuery(sql, Doctor.class);
+		Query query = em.createNativeQuery(sql, Order.class);
 		return query.getResultList();
 	}
 
 	@Override
 	public List<Order> findByFriendIdAndState(Integer id, Integer state) {
-		String sql = "SELECT * FROM t_order where doctor_id = " + id
+		String sql = "SELECT * FROM t_order where friend_id = " + id
 				+ " and state = " + state;
-		Query query = em.createNativeQuery(sql, Doctor.class);
+		Query query = em.createNativeQuery(sql, Order.class);
 		return query.getResultList();
 	}
 
 	@Override
 	public List<Order> findByDoctorIdAndToday(Integer id) {
 		String sql = "SELECT * FROM t_order where date(date) = curdate() and doctor_id = " + id;
-		Query query = em.createNativeQuery(sql, Doctor.class);
+		Query query = em.createNativeQuery(sql, Order.class);
 		return query.getResultList();
 	}
 
 	@Override
 	public List<Order> findByFriendIdAndToday(Integer id) {
 		String sql = "SELECT * FROM t_order where date(date) = curdate() and friend_id = " + id;
-		Query query = em.createNativeQuery(sql, Doctor.class);
+		Query query = em.createNativeQuery(sql, Order.class);
 		return query.getResultList();
+	}
+
+	@Override
+	public void updateRemind(Integer id) {
+		String sql = "UPDATE t_order set remind = 1 where id = " + id;
+		Query query = em.createNativeQuery(sql);
+		query.executeUpdate();
 	}
 
 

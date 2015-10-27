@@ -11,47 +11,23 @@ public class HospitalTest {
 	private static void regist() {
 
 		JSONObject obj = new JSONObject();
-		obj.put("name", "江苏省中医院");
+		obj.put("name", "江苏省第一医院");
+		obj.put("city_id",1);
 		String sr = HttpUtil.sendPost(
-				"http://localhost:8080/hospital-doctor/rest/hospitals",
+				"http://localhost:8080/doc/hospitals/register.do",
 				obj.toJSONString());
-		System.out.println(sr);
-	}
-
-	private static void findAll() {
-
-		String sr = HttpUtil
-				.sendGet("http://localhost:8080/hospital-doctor/rest/hospitals/all");
-		System.out.println(sr);
-	}
-
-	private static void delete() {
-
-		String sr = HttpUtil.sendPost(
-				"http://localhost:8080/hospital-doctor/rest/hospitals/delete",
-				"{id}");
-		System.out.println(sr);
-	}
-
-	private static void findById() {
-
-		String sr = HttpUtil
-				.sendGet("http://localhost:8080/hospital-doctor/rest/hospitals/{id}");
 		System.out.println(sr);
 	}
 
 	private static void findByCity(){
 		String sr = HttpUtil
-				.sendGet("http://localhost:8080/hospital-doctor/rest/hospitals/city/7");
+				.sendGet("http://localhost:8080/doc/hospitals/find/city/1/hospital.do");
 		System.out.println(sr);
 	}
 	
 	public static void main(String[] args) {
 
-//		regist();
-//		findAll();
-//		delete();
-//		findById();
-//		findByCity();
+		regist();
+		findByCity();
 	}
 }

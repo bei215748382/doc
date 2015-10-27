@@ -31,8 +31,8 @@ public class ProvinceServiceImpl implements ProvinceService {
 	}
 
 	@Override
-	public void save(Province book) {
-		provinceDao.save(book);
+	public void save(Province province) {
+		provinceDao.save(province);
 	}
 
 	@Override

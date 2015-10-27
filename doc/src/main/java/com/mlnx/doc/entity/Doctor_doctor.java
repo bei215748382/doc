@@ -10,7 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "t_city")
+@Table(name = "t_doctor_doctor")
 public class Doctor_doctor implements Serializable {
 	private Integer id;
 	private Integer doctor_id;

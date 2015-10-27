@@ -70,4 +70,18 @@ public interface DoctorService {
 	 * @return
 	 */
 	List<Doctor> findByDoctorId(Integer id);
+
+	/**
+	 * 用户登入
+	 * @param doctor
+	 * @return
+	 */
+	Response login(Doctor doctor);
+
+	/**
+	 * 修改个人信息
+	 * @param doctor
+	 * @return
+	 */
+	Response modify(Doctor doctor);
 }

@@ -11,9 +11,9 @@ public class ProvinceTest {
 	private static void regist() {
 
 		JSONObject obj = new JSONObject();
-		obj.put("name", "江苏");
+		obj.put("name", "浙江省");
 		String sr = HttpUtil.sendPost(
-				"http://localhost:8080/doc/provinces/register",
+				"http://localhost:8080/doc/provinces/register.do",
 				obj.toJSONString());
 		System.out.println(sr);
 	}
@@ -21,30 +21,14 @@ public class ProvinceTest {
 	private static void findAll() {
 
 		String sr = HttpUtil
-				.sendGet("http://localhost:8080/doc/provinces/all");
+				.sendGet("http://localhost:8080/doc/provinces/all.do");
 		System.out.println(sr);
 	}
 
-	private static void delete() {
-
-		String sr = HttpUtil.sendPost(
-				"http://localhost:8080/doc/provinces/delete",
-				"{id}");
-		System.out.println(sr);
-	}
-
-	private static void findById() {
-
-		String sr = HttpUtil
-				.sendGet("http://localhost:8080/doc/provinces/{id}");
-		System.out.println(sr);
-	}
 
 	public static void main(String[] args) {
 
-//		regist();
-		findAll();
-//		delete();
-//		findById();
+		regist();
+//		findAll();
 	}
 }

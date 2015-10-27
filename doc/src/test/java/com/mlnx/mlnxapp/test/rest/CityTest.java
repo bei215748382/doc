@@ -14,43 +14,22 @@ public class CityTest {
 	private static void regist() {
 
 		JSONObject obj = new JSONObject();
-		obj.put("name", "南京");
+		obj.put("name", "无锡");
+		obj.put("province_id", 1);
 		String sr = HttpUtil.sendPost(
-				"http://localhost:8080/hospital-doctor/rest/citys",
+				"http://localhost:8080/doc/cities/register.do",
 				obj.toJSONString());
-		System.out.println(sr);
-	}
-
-	private static void findAll() {
-
-		String sr = HttpUtil
-				.sendGet("http://localhost:8080/hospital-doctor/rest/citys/all");
-		System.out.println(sr);
-	}
-
-	private static void delete() {
-
-		String sr = HttpUtil.sendPost(
-				"http://localhost:8080/hospital-doctor/rest/citys/delete",
-				"{id}");
-		System.out.println(sr);
-	}
-
-	private static void findById() {
-
-		String sr = HttpUtil
-				.sendGet("http://localhost:8080/hospital-doctor/rest/citys/{id}");
 		System.out.println(sr);
 	}
 
 	private static void findByProvinceId(){
 		String sr = HttpUtil
-				.sendGet("http://localhost:8080/hospital-doctor/rest/citys/province/6");
+				.sendGet("http://localhost:8080/doc/cities/find/province/1/cities.do");
 		System.out.println(sr);
 	}
 	public static void main(String[] args) {
 
-//		regist();
+		regist();
 //		findAll();
 //		delete();
 //		findById();

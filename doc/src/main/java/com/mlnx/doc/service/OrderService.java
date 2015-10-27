@@ -76,5 +76,11 @@ public interface OrderService {
 	 * @return
 	 */
 	List<Order> findByFriendIdAndToday(Integer id);
+	
+	/**
+	 * 提醒操作
+	 * @param id
+	 */
+	void updateRemind(Integer id);
 
 }

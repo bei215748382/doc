@@ -31,8 +31,8 @@ public class PatientServiceImpl implements PatientService {
 	}
 
 	@Override
-	public void save(Patient book) {
-		patientDao.save(book);
+	public void save(Patient patient) {
+		patientDao.save(patient);
 	}
 
 	@Override
@@ -71,5 +71,10 @@ public class PatientServiceImpl implements PatientService {
 		String sqlString = "select * from t_patient where doctor_id = " + id +" and state = '"+state+"'";
 		Query query = em.createNativeQuery(sqlString);
 		return query.getResultList();
+	}
+
+	@Override
+	public void modifyPatient(Patient patient) {
+		em.merge(patient);
 	}
 }

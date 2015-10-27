@@ -22,13 +22,13 @@ public class PatientCol {
 	@Autowired
 	private PatientService patientService;
 
-	@RequestMapping(value = "all")
+	@RequestMapping(value = "all.do")
 	@ResponseBody
 	public List<Patient> findAll() {
 		return patientService.findAll();
 	}
 	
-	@RequestMapping(value = "register",method=RequestMethod.POST, consumes="application/json",produces="application/json")
+	@RequestMapping(value = "register.do",method=RequestMethod.POST, consumes="application/json",produces="application/json")
 	@ResponseBody
 	public Response register(@RequestBody Patient patient){
 		patientService.save(patient);
@@ -40,7 +40,7 @@ public class PatientCol {
 		return response;
 	}
 	
-	@RequestMapping(value = "modify",method=RequestMethod.POST, consumes="application/json",produces="application/json")
+	@RequestMapping(value = "modify.do",method=RequestMethod.POST, consumes="application/json",produces="application/json")
 	@ResponseBody
 	public Response modify(@RequestBody Patient patient){
 		patientService.save(patient);
@@ -52,13 +52,13 @@ public class PatientCol {
 		return response;
 	}
 	
-	@RequestMapping(value = "find/doctor/{id}/state",method=RequestMethod.POST, consumes="application/json",produces="application/json")
+	@RequestMapping(value = "find/doctor/{id}/state.do",method=RequestMethod.POST, consumes="application/json",produces="application/json")
 	@ResponseBody
 	public List<Patient> findByName(@PathVariable int id,@RequestBody String state){
 		return patientService.findByStateAndDoctorId(state, id);
 	}
 	
-	@RequestMapping(value = "find/{id}",method=RequestMethod.GET, consumes="application/json",produces="application/json")
+	@RequestMapping(value = "find/{id}/patient.do",method=RequestMethod.GET, consumes="application/json",produces="application/json")
 	@ResponseBody
 	public Patient findById(@PathVariable int id){
 		return patientService.get(id);

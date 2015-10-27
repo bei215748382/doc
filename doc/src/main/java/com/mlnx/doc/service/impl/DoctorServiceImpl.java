@@ -102,9 +102,9 @@ public class DoctorServiceImpl implements DoctorService {
 			// 异常返回输出错误码和错误信息
 			log.info("错误码=" + result.get("statusCode") + " 错误信息= "
 					+ result.get("statusMsg"));
-			response.setResponseCode(EnumCollection.ResponseCode.EXIST
+			response.setResponseCode(EnumCollection.ResponseCode.VOIP_EXIST
 					.getCode());
-			response.setMsg(EnumCollection.ResponseCode.EXIST.getMsg());
+			response.setMsg(EnumCollection.ResponseCode.VOIP_EXIST.getMsg());
 			return response;
 		}
 		doctor.setVoipAccount(voipAccount);
@@ -143,8 +143,59 @@ public class DoctorServiceImpl implements DoctorService {
 
 	@Override
 	public List<Doctor> findByDoctorId(Integer id) {
-		String sql = "SELECT * FROM t_doctor where id in (select friend_id where doctor_id = "+id+")";
+		String sql = "SELECT * FROM t_doctor where id in (select friend_id from t_doctor_doctor where doctor_id = "
+				+ id + ")";
 		Query query = em.createNativeQuery(sql, Doctor.class);
 		return query.getResultList();
+	}
+
+	@Override
+	public Response login(Doctor doctor) {
+		Response response = new Response();
+		String sql = "SELECT * FROM t_doctor where username = '"
+				+ doctor.getUsername() + "'";
+		Query query = em.createNativeQuery(sql, Doctor.class);
+		try {
+			Doctor d = (Doctor) query.getSingleResult();
+			if (d != null) {
+				if (doctor.getPassword().equals(d.getPassword())) {
+					// 返回登入成功
+					response.setResponseCode(EnumCollection.ResponseCode.LOGIN_SUCCESS
+							.getCode());
+					response.setMsg(EnumCollection.ResponseCode.LOGIN_SUCCESS
+							.getMsg());
+					return response;
+				} else {
+					// 返回用户名密码错误
+					response.setResponseCode(EnumCollection.ResponseCode.LOGIN_PASSWORD_ERROR
+							.getCode());
+					response.setMsg(EnumCollection.ResponseCode.LOGIN_PASSWORD_ERROR
+							.getMsg());
+					return response;
+				}
+			} 
+		} catch (Exception e) {
+			// 返回用户名不存在
+			
+		}
+		response.setResponseCode(EnumCollection.ResponseCode.LOGIN_USERNAME_NOT_EXIST
+				.getCode());
+		response.setMsg(EnumCollection.ResponseCode.LOGIN_USERNAME_NOT_EXIST
+				.getMsg());
+		return response;
+	}
+
+	@Override
+	public Response modify(Doctor doctor) {
+		StringBuilder sql = new StringBuilder("UPDATE t_doctor SET ");
+		if(doctor.getAchievement()!=null){
+			sql.append("achievement = '" +doctor.getAchievement()+"'");
+		}
+		Response response = new Response();
+		response.setResponseCode(EnumCollection.ResponseCode.DOCTOR_MODIFY_SUCCESS
+				.getCode());
+		response.setMsg(EnumCollection.ResponseCode.DOCTOR_MODIFY_SUCCESS
+				.getMsg());
+		return response;
 	}
 }

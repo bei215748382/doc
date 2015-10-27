@@ -20,4 +20,9 @@ public class Response {
 		this.msg = msg;
 	}
 
+	@Override
+	public String toString() {
+		return "Response [responseCode=" + responseCode + ", msg=" + msg + "]";
+	}
+
 }

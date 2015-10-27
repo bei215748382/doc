@@ -21,45 +21,57 @@ public class DoctorCol {
 	@Autowired
 	private DoctorService doctorService;
 
-	@RequestMapping(value = "all",method=RequestMethod.GET, consumes="application/json",produces="application/json")
+	@RequestMapping(value = "all.do",method=RequestMethod.GET, consumes="application/json",produces="application/json")
 	@ResponseBody
 	public List<Doctor> findAll() {
 		return doctorService.findAll();
 	}
 	
-	@RequestMapping(value = "register",method=RequestMethod.POST, consumes="application/json",produces="application/json")
+	@RequestMapping(value = "register.do",method=RequestMethod.POST, consumes="application/json",produces="application/json")
 	@ResponseBody
 	public Response register(@RequestBody Doctor doctor){
 		return doctorService.register(doctor);
 	}
 	
-	@RequestMapping(value = "find/name",method=RequestMethod.POST, consumes="application/json",produces="application/json")
+	@RequestMapping(value = "modify.do",method=RequestMethod.POST, consumes="application/json",produces="application/json")
+	@ResponseBody
+	public Response modify(@RequestBody Doctor doctor){
+		return doctorService.modify(doctor);
+	}
+	
+	@RequestMapping(value = "login.do",method=RequestMethod.POST, consumes="application/json",produces="application/json")
+	@ResponseBody
+	public Response login(@RequestBody Doctor doctor){
+		return doctorService.login(doctor);
+	}
+	
+	@RequestMapping(value = "find/name.do",method=RequestMethod.POST, consumes="application/json",produces="application/json")
 	@ResponseBody
 	public List<Doctor> findByName(@RequestBody String name){
 		return doctorService.findByName(name);
 	}
 	
-	@RequestMapping(value = "find/phone",method=RequestMethod.POST, consumes="application/json",produces="application/json")
+	@RequestMapping(value = "find/phone.do",method=RequestMethod.POST, consumes="application/json",produces="application/json")
 	@ResponseBody
 	public List<Doctor> findByPhone(@RequestBody String phone){
 		return doctorService.findByPhone(phone);
 	}
 	
-	@RequestMapping(value = "find/hospital/{id}",method=RequestMethod.GET, consumes="application/json",produces="application/json")
+	@RequestMapping(value = "find/hospital/{id}/doctors.do",method=RequestMethod.GET, consumes="application/json",produces="application/json")
 	@ResponseBody
 	public List<Doctor> findByHospitalId(@PathVariable int id){
 		return doctorService.findByHospitalId(id);
 	}
 	
-	@RequestMapping(value = "find/{id}",method=RequestMethod.GET, consumes="application/json",produces="application/json")
+	@RequestMapping(value = "find/{id}/doctor.do",method=RequestMethod.GET, consumes="application/json",produces="application/json")
 	@ResponseBody
 	public Doctor findById(@PathVariable int id){
 		return doctorService.get(id);
 	}
 	
-	@RequestMapping(value = "find/doctor/{id}",method=RequestMethod.GET, consumes="application/json",produces="application/json")
+	@RequestMapping(value = "find/{id}/friends.do",method=RequestMethod.GET, consumes="application/json",produces="application/json")
 	@ResponseBody
-	public Doctor findByDoctorId(@PathVariable int id){
-		return doctorService.get(id);
+	public List<Doctor> findByDoctorId(@PathVariable int id){
+		return doctorService.findByDoctorId(id);
 	}
 }

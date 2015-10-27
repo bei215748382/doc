@@ -1,5 +1,9 @@
 package com.mlnx.mlnxapp.test.rest;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.mlnx.mlnxapp.test.util.HttpUtil;
 /**
@@ -41,11 +45,22 @@ public class Doctor_doctorTest {
 		System.out.println(sr);
 	}
 
+	private static void addFriends(){
+		JSONArray arr = new JSONArray();
+		arr.add(1);
+		arr.add(2);
+		String sr = HttpUtil.sendPost(
+				"http://localhost:8080/doc/doctor_doctors/addFriends/4/doctor.do",
+				arr.toJSONString());
+		System.out.println(sr);
+	}
+	
 	public static void main(String[] args) {
 
 //		regist();
-		findAll();
+//		findAll();
 //		delete();
 //		findById();
+		addFriends();
 	}
 }

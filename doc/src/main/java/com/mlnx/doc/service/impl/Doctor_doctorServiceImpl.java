@@ -30,8 +30,8 @@ public class Doctor_doctorServiceImpl implements Doctor_doctorService {
 	}
 
 	@Override
-	public void save(Doctor_doctor city) {
-		doctor_doctorDao.save(city);
+	public void save(Doctor_doctor doctor_doctor) {
+		doctor_doctorDao.save(doctor_doctor);
 	}
 
 	@Override

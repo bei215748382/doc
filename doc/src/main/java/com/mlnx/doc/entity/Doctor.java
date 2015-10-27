@@ -17,11 +17,12 @@ public class Doctor implements Serializable {
 	@GeneratedValue
 	private int id;
 
-	@NotNull
 	private String phone;
 
 	@NotNull
 	private String password;
+	
+	private String username;
 
 	private Date date;
 
@@ -77,6 +78,14 @@ public class Doctor implements Serializable {
 
 	public String getPassword() {
 		return password;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
 	public void setDate(Date date) {
@@ -205,6 +214,19 @@ public class Doctor implements Serializable {
 
 	public void setHospital_id(Integer hospital_id) {
 		this.hospital_id = hospital_id;
+	}
+
+	@Override
+	public String toString() {
+		return "Doctor [id=" + id + ", phone=" + phone + ", password="
+				+ password + ", username=" + username + ", date=" + date
+				+ ", name=" + name + ", sex=" + sex + ", birthday=" + birthday
+				+ ", hospital=" + hospital + ", office=" + office + ", title="
+				+ title + ", skill=" + skill + ", background=" + background
+				+ ", achievement=" + achievement + ", province=" + province
+				+ ", city=" + city + ", pic=" + pic + ", voipAccount="
+				+ voipAccount + ", voipPassword=" + voipPassword
+				+ ", hospital_id=" + hospital_id + "]";
 	}
 
 }

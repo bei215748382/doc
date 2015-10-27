@@ -56,4 +56,9 @@ public interface PatientService {
 	 * @return
 	 */
 	List<Patient> findByStateAndDoctorId(String state,Integer id);
+	
+	/**
+	 * 修改病人信息
+	 */
+	void modifyPatient(Patient patient);
 }

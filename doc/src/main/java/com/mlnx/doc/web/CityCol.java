@@ -22,13 +22,13 @@ public class CityCol {
 	@Autowired
 	private CityService cityService;
 
-	@RequestMapping(value = "all")
+	@RequestMapping(value = "all.do")
 	@ResponseBody
 	public List<City> findAll() {
 		return cityService.findAll();
 	}
 
-	@RequestMapping(value = "register", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
+	@RequestMapping(value = "register.do", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
 	@ResponseBody
 	public Response register(@RequestBody City city) {
 		cityService.save(city);
@@ -40,13 +40,13 @@ public class CityCol {
 		return response;
 	}
 
-	@RequestMapping(value = "find/province/{id}", method = RequestMethod.GET, consumes = "application/json", produces = "application/json")
+	@RequestMapping(value = "find/province/{id}/cities.do", method = RequestMethod.GET, consumes = "application/json", produces = "application/json")
 	@ResponseBody
 	public List<City> findByProvinceId(@PathVariable int id) {
 		return cityService.findByProvinceId(id);
 	}
 	
-	@RequestMapping(value = "find/name", method = RequestMethod.GET, consumes = "application/json", produces = "application/json")
+	@RequestMapping(value = "find/name.do", method = RequestMethod.GET, consumes = "application/json", produces = "application/json")
 	@ResponseBody
 	public List<City> findByProvinceId(@RequestBody String name) {
 		return cityService.findByName(name);
