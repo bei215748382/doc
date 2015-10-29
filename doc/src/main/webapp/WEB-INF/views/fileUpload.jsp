@@ -8,7 +8,7 @@
 </head>
 <body>
 	<h1>Please upload a file</h1>
-	<form method="post" action="../form" enctype="multipart/form-data">
+	<form method="post" action="form.do" enctype="multipart/form-data">
 		<input type="text" name="name" /> <br/>
 		<input type="file" name="file" /> <br/>
 		<input

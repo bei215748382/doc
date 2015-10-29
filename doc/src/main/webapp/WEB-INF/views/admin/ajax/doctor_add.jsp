@@ -28,7 +28,8 @@
 			<div class="box-content">
 				<h4 class="page-header">填写医生信息</h4>
 				<form class="form-horizontal" role="form" method="POST"
-					id="defaultForm" action="doctor_add_json.do">
+					id="defaultForm" action="doctor_add_json.do"
+					enctype="multipart/form-data">
 					<div class="form-group">
 						<label class="col-sm-2 control-label">用户名</label>
 						<div class="col-sm-4">
@@ -54,6 +55,10 @@
 							<input type="text" class="form-control" placeholder="真实姓名"
 								data-toggle="tooltip" data-placement="top" title="输入医生真实姓名"
 								name="name">
+						</div>
+						<label class="col-sm-2 control-label">头像</label>
+						<div class="col-sm-4">
+							<input type="file" name="file">
 						</div>
 					</div>
 					<div class="form-group">
@@ -158,77 +163,80 @@
 		$('#city').select2();
 		$('#hospital').select2();
 	}
-	function loadProvince(){
+	function loadProvince() {
 		$.ajax({
-			mimeType: 'text/html; charset=utf-8', 
-			url: "../provinces/all.do",
-			type: 'GET',
-			success: function(data) {
+			mimeType : 'text/html; charset=utf-8',
+			url : "../provinces/all.do",
+			type : 'GET',
+			success : function(data) {
 				var htmlString = "<option value=''>-- 选择省 --</option>";
-				console.log("data",data);
-				 for(var i=0; i<data.length; i++){
-					 htmlString += "<option value='"+data[i].id+"'>"+data[i].name+"</option>";
-	             }   
-	             $("#province").html(htmlString); 
+				console.log("data", data);
+				for (var i = 0; i < data.length; i++) {
+					htmlString += "<option value='"+data[i].id+"'>"
+							+ data[i].name + "</option>";
+				}
+				$("#province").html(htmlString);
 			},
-			error: function (jqXHR, textStatus, errorThrown) {
+			error : function(jqXHR, textStatus, errorThrown) {
 				alert(errorThrown);
 			},
-			dataType: "json",
-			async: true
+			dataType : "json",
+			async : true
 		});
 	}
-	function bang(){
-		$("#province").change(function(){
-			var p1=$(this).children('option:selected').val();//这就是selected的值 
-			 $("#s2id_city .select2-chosen").html("-- 选择市 --"); 
+	function bang() {
+		$("#province").change(function() {
+			var p1 = $(this).children('option:selected').val();//这就是selected的值 
+			$("#s2id_city .select2-chosen").html("-- 选择市 --");
 			loadCities(p1);
 		});
-		$("#city").change(function(){
-			var p1=$(this).children('option:selected').val();//这就是selected的值 
-			 $("#s2id_hospital .select2-chosen").html("-- 选择医院 --"); 
+		$("#city").change(function() {
+			var p1 = $(this).children('option:selected').val();//这就是selected的值 
+			$("#s2id_hospital .select2-chosen").html("-- 选择医院 --");
 			loadHospitals(p1);
 		});
-		
+
 	}
-	function loadCities(provinceId){
+	function loadCities(provinceId) {
 		$.ajax({
-			contentType: 'application/json;', 
-			url: "../cities/find/province/"+provinceId+"/cities.do",
-			type: 'GET',
-			success: function(data) {
+			contentType : 'application/json;',
+			url : "../cities/find/province/" + provinceId + "/cities.do",
+			type : 'GET',
+			success : function(data) {
 				var htmlString = "<option value=''>-- 选择市 --</option>";
-				console.log("data",data);
-				 for(var i=0; i<data.length; i++){
-					 htmlString += "<option value='"+data[i][0]+"'>"+data[i][1]+"</option>";
-	             }   
-	             $("#city").html(htmlString); 
+				console.log("data", data);
+				for (var i = 0; i < data.length; i++) {
+					htmlString += "<option value='"+data[i][0]+"'>"
+							+ data[i][1] + "</option>";
+				}
+				$("#city").html(htmlString);
 			},
-			error: function (jqXHR, textStatus, errorThrown) {
+			error : function(jqXHR, textStatus, errorThrown) {
 				alert(errorThrown);
 			},
-			dataType: "json",
-			async: true
+			dataType : "json",
+			async : true
 		});
 	}
-	function loadHospitals(cityId){
+	function loadHospitals(cityId) {
 		$.ajax({
-			contentType: 'application/json;', 
-			url: "../hospitals/find/city/"+cityId+"/hospital.do",
-			type: 'GET',
-			success: function(data) {
+			contentType : 'application/json;',
+			url : "../hospitals/find/city/" + cityId + "/hospital.do",
+			type : 'GET',
+			success : function(data) {
 				var htmlString = "<option value=''>-- 选择医院 --</option>";
-				console.log("data",data);
-				 for(var i=0; i<data.length; i++){
-					 htmlString += "<option value='"+data[i][2]+"'>"+data[i][2]+"</option>";
-	             }   
-	             $("#hospital").html(htmlString); 
+				console.log("data", data);
+				for (var i = 0; i < data.length; i++) {
+					htmlString += "<option value='"+data[i][2]+"'>"
+							+ data[i][2] + "</option>";
+				}
+				$("#hospital").html(htmlString);
 			},
-			error: function (jqXHR, textStatus, errorThrown) {
+			error : function(jqXHR, textStatus, errorThrown) {
 				alert(errorThrown);
 			},
-			dataType: "json",
-			async: true
+			dataType : "json",
+			async : true
 		});
 	}
 	$(document).ready(function() {

@@ -165,7 +165,7 @@
 						 <span class="hidden-xs">容联云子账号管理</span>
 					</a>
 					<ul class="dropdown-menu">
-						<li><a class="ajax-link" href="doctors_info.do">账号明细</a></li>
+						<li><a class="ajax-link" href="voip_all.do">账号明细</a></li>
 					</ul>
 				</li>
 			</ul>

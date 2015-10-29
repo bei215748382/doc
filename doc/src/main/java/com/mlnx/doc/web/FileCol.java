@@ -17,14 +17,16 @@ public class FileCol {
 	@RequestMapping(value = "/form", method = RequestMethod.POST)
 	public String handleFormUpload(@RequestParam("file") MultipartFile file,
 			HttpServletRequest request, ModelMap model) throws IOException {
-
-		System.out.println("开始");
+		//V:\tomcatspringmvc\apache-tomcat-7.0.57\webapps\doc\
 		String path = request.getSession().getServletContext()
-				.getRealPath("upload");
+				.getRealPath("/");
+		int a = path.indexOf("webapps");
+		
+		String realPath = path.substring(0,a+7)+"/upload";
 		String fileName = file.getOriginalFilename();
 		// String fileName = new Date().getTime()+".jpg";
-		System.out.println(path);
-		File targetFile = new File(path, fileName);
+		System.out.println(realPath);
+		File targetFile = new File(realPath, fileName);
 		if (!targetFile.exists()) {
 			targetFile.mkdirs();
 		}
@@ -35,7 +37,7 @@ public class FileCol {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		model.addAttribute("fileUrl", request.getContextPath() + "/upload/"
+		model.addAttribute("fileUrl",  "/upload/"
 				+ fileName);
 
 //		if (!file.isEmpty()) {
