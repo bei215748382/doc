@@ -67,7 +67,8 @@ public class CityServiceImpl implements CityService {
 	public List<City> findByProvinceId(Integer id) {
 		String sqlString = "select * from t_city where province_id = " + id;
 		Query query = em.createNativeQuery(sqlString);
-		return query.getResultList();
+		List<City> cities = query.getResultList();
+		return cities;
 	}
 
 }

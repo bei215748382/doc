@@ -42,6 +42,13 @@ public interface DoctorService {
 	 * @return
 	 */
 	Response register(Doctor doctor);
+	
+	/**
+	 * 注册医生
+	 * @param doctor
+	 * @return
+	 */
+	Response registerByUsername(Doctor doctor);
 
 	/**
 	 * 根据姓名模糊查找医生
@@ -84,4 +91,11 @@ public interface DoctorService {
 	 * @return
 	 */
 	Response modify(Doctor doctor);
+
+	/**
+	 * 验证用户名是否已存在
+	 * @param username
+	 * @return
+	 */
+	boolean findByUsername(String username);
 }

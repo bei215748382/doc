@@ -1,6 +1,16 @@
+<!-- Override feedback icon position -->
+#defaultForm .has-feedback .form-control-feedback {
+    top: 0;
+    right: -15px;
+}
+#defaultForm .has-feedback .input-group .form-control-feedback {
+    top: 0;
+    right: -30px;
+}
+
 body {
   color: #525252;
-  background: #6AA6D6 url(../img/devoops_pattern_b10.png) 0 0 repeat;
+  background: #6AA6D6 url(../../img/admin/devoops_pattern_b10.png) 0 0 repeat;
 }
 .body-expanded, .modal-open {
   overflow-y:hidden;
@@ -18,7 +28,7 @@ h1, .h1, h2, .h2, h3, .h3 {
 }
 #logo {
   position:relative;
-  background: #525252 url(../img/devoops_pattern_b10.png) 0 0 repeat;
+  background: #525252 url(../../img/admin/devoops_pattern_b10.png) 0 0 repeat;
 }
 #logo a {
   color: #fff;
@@ -26,7 +36,7 @@ h1, .h1, h2, .h2, h3, .h3 {
   display: block;
   font-size: 20px;
   line-height: 50px;
-  background: url(../img/logo.png) right 42px no-repeat;
+  background: url(../../img/admin/logo.png) right 42px no-repeat;
   -webkit-transition: 0.5s;
   -moz-transition: 0.5s;
   -o-transition: 0.5s;
@@ -69,7 +79,7 @@ a.show-sidebar:hover {
   z-index: inherit;
   padding-bottom: 3000px !important;
   margin-bottom: -3000px !important;
-  background: #6AA6D6 url(../img/devoops_pattern_b10.png) 0 0 repeat;
+  background: #6AA6D6 url(../../img/admin/devoops_pattern_b10.png) 0 0 repeat;
   -webkit-transition: 0.2s;
   -moz-transition: 0.2s;
   -o-transition: 0.2s;
@@ -144,7 +154,7 @@ a.show-sidebar:hover {
   -moz-border-radius: 0 4px 4px 0;
   border-radius: 0 4px 4px 0;
   padding: 0;
-  background: #6AA6D6 url(../img/devoops_pattern_b10.png) 0 0 repeat;
+  background: #6AA6D6 url(../../img/admin/devoops_pattern_b10.png) 0 0 repeat;
   box-shadow: none;
   visibility:hidden;
 }
@@ -512,17 +522,17 @@ table.no-border-bottom tr:last-child td {
   width: 40px;
 }
 .table-datatable .sorting {
-  background:url(../img/sort.png) right center no-repeat;
+  background:url(../../img/admin/sort.png) right center no-repeat;
   padding-right:16px;
   cursor:pointer;
 }
 .table-datatable .sorting_asc {
-  background:url(../img/sort-asc.png) right center no-repeat;
+  background:url(../../img/admin/sort-asc.png) right center no-repeat;
   padding-right: 16px;
   cursor:pointer;
 }
 .table-datatable .sorting_desc {
-  background:url(../img/sort-desc.png) right center no-repeat;
+  background:url(../../img/admin/sort-desc.png) right center no-repeat;
   padding-right: 16px;
   cursor:pointer;
 }
@@ -602,7 +612,7 @@ ul.DTTT_dropdown.dropdown-menu > li:hover > a {
   padding: 0;
   line-height: 40px;
   background: #525252;
-  background: #5a8db6 url(../img/devoops_pattern_b10.png) 0 0 repeat;
+  background: #5a8db6 url(../../img/admin/devoops_pattern_b10.png) 0 0 repeat;
   margin-bottom: 20px;
 }
 .breadcrumb {
@@ -1474,16 +1484,16 @@ td.beauty-hover {
   cursor: pointer;
 }
 .ui-icon-circle-triangle-w {
-  background: url(../img/ui-left.png) 0 0 no-repeat !important;
+  background: url(../../img/admin/ui-left.png) 0 0 no-repeat !important;
 }
 .ui-icon-circle-triangle-e {
-  background: url(../img/ui-right.png) 0 0 no-repeat !important;
+  background: url(../../img/admin/ui-right.png) 0 0 no-repeat !important;
 }
 .ui-icon-circle-arrow-s {
-  background: url(../img/ui-accordion-down.png) 0 0 no-repeat !important;
+  background: url(../../img/admin/ui-accordion-down.png) 0 0 no-repeat !important;
 }
 .ui-icon-circle-arrow-e {
-  background: url(../img/ui-accordion-right.png) 0 0 no-repeat !important;
+  background: url(../../img/admin/ui-accordion-right.png) 0 0 no-repeat !important;
 }
 #ui-datepicker-div .ui-slider-horizontal {
   background: rgba(0, 0, 0, 0.5);
@@ -1680,7 +1690,7 @@ td.beauty-hover {
   padding: 0;
 }
 #dashboard_links .nav {
-  background:#3575A0 url(../img/devoops_pattern_b10.png) 0 0 repeat;
+  background:#3575A0 url(../../img/admin/devoops_pattern_b10.png) 0 0 repeat;
   -webkit-border-radius: 0 4px 4px 0;
   -moz-border-radius: 0 4px 4px 0;
   border-radius: 0 4px 4px 0;
@@ -2241,15 +2251,15 @@ td.beauty-hover {
   position: fixed;
   top: 20px;
   right: 36px;
-  background: url(../img/times.png) 0 0 no-repeat;
+  background: url(../../img/admin/times.png) 0 0 no-repeat;
 }
 .fancybox-prev span {
   left: 21px;
-  background: url(../img/chevron-left.png) 0 0 no-repeat;
+  background: url(../../img/admin/chevron-left.png) 0 0 no-repeat;
 }
 .fancybox-next span {
   right: 36px;
-  background: url(../img/chevron-right.png) 0 0 no-repeat;
+  background: url(../../img/admin/chevron-right.png) 0 0 no-repeat;
 }
 #social a {
   margin: 10px 3px;

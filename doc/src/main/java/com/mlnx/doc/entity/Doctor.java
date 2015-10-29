@@ -42,6 +42,7 @@ public class Doctor implements Serializable {
 
 	private String background;
 
+	
 	private String achievement;
 
 	private String province;

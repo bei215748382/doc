@@ -52,6 +52,11 @@ public class City implements Serializable {
 	public void setProvince_id(Integer province_id) {
 		this.province_id = province_id;
 	}
-	
 
+	@Override
+	public String toString() {
+		return "City [id=" + id + ", name=" + name + ", province_id="
+				+ province_id + "]";
+	}
+	
 }

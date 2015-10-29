@@ -35,4 +35,9 @@ public class Province implements Serializable {
 		this.name = name;
 	}
 
+	@Override
+	public String toString() {
+		return "Province [id=" + id + ", name=" + name + "]";
+	}
+
 }

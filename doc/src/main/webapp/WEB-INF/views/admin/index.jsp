@@ -1,10 +1,12 @@
+<%@ page language="java" contentType="text/html; charset=utf-8"
+    pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:set var="ctx" value="${pageContext.request.contextPath}" />
 <!DOCTYPE html>
 <html lang="en">
 	<head>
 		<meta charset="utf-8">
-		<title>DevOOPS</title>
+		<title>医生交流平台---管理后台</title>
 		<meta name="description" content="description">
 		<meta name="author" content="DevOOPS">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -51,7 +53,7 @@
 	<div class="container-fluid expanded-panel">
 		<div class="row">
 			<div id="logo" class="col-xs-12 col-sm-2">
-				<a href="index.html">DevOOPS</a>
+				<a href="index.do">DevOOPS</a>
 			</div>
 			<div id="top-panel" class="col-xs-12 col-sm-10">
 				<div class="row">
@@ -150,12 +152,20 @@
 				<li class="dropdown">
 					<a href="#" class="dropdown-toggle">
 						<i class="fa fa-table"></i>
-						 <span class="hidden-xs">Tables</span>
+						 <span class="hidden-xs">医生信息管理</span>
 					</a>
 					<ul class="dropdown-menu">
-						<li><a class="ajax-link" href="tables_simple">Simple Tables</a></li>
-						<li><a class="ajax-link" href="tables_datatables">Data Tables</a></li>
-						<li><a class="ajax-link" href="tables_beauty">Beauty Tables</a></li>
+						<li><a class="ajax-link" href="doctors_info.do">信息预览</a></li>
+						<li><a class="ajax-link" href="doctor_add.do">添加</a></li>
+					</ul>
+				</li>
+				<li class="dropdown">
+					<a href="#" class="dropdown-toggle">
+						<i class="fa fa-table"></i>
+						 <span class="hidden-xs">容联云子账号管理</span>
+					</a>
+					<ul class="dropdown-menu">
+						<li><a class="ajax-link" href="doctors_info.do">账号明细</a></li>
 					</ul>
 				</li>
 			</ul>
@@ -163,7 +173,7 @@
 		<!--Start Content-->
 		<div id="content" class="col-xs-12 col-sm-10">
 			<div class="preloader">
-				<img src="img/devoops_getdata.gif" class="devoops-getdata" alt="preloader"/>
+				<img src="${ctx}/common/img/admin/devoops_getdata.gif" class="devoops-getdata" alt="preloader"/>
 			</div>
 			<div id="ajax-content"></div>
 		</div>

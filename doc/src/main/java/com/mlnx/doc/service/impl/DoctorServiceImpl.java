@@ -29,6 +29,8 @@ public class DoctorServiceImpl implements DoctorService {
 	private static Logger log = LoggerFactory
 			.getLogger(DoctorServiceImpl.class);
 
+	private String table_name = "t_doctor";
+
 	@Autowired
 	private DoctorDao doctorDao;
 
@@ -115,6 +117,63 @@ public class DoctorServiceImpl implements DoctorService {
 		return response;
 	}
 
+	/**
+	 * 根据用户名 注册voip账号
+	 * @param doctor
+	 * @return
+	 */
+	public Response registerByUsername(Doctor doctor) {
+		Response response = new Response();
+		String sqlString = String.format("select * from %s where username = '%s'"
+				,table_name,doctor.getUsername());
+		Query query = em.createNativeQuery(sqlString);
+		List<Doctor> list = query.getResultList();
+		if (list != null && list.size() != 0) {
+			response.setResponseCode(EnumCollection.ResponseCode.EXIST
+					.getCode());
+			response.setMsg(EnumCollection.ResponseCode.EXIST.getMsg());
+			return response;
+		}
+		String voipAccount = null;
+		String voipPassword = null;
+		HashMap<String, Object> result = null;
+		CCPRestSDK restAPI = new CCPRestSDK();
+		restAPI.init("sandboxapp.cloopen.com", "8883");// 初始化服务器地址和端口，格式如下，服务器地址不需要写https://
+		restAPI.setAccount(StringUtil.accountSid, StringUtil.accountToken);// 初始化主帐号和主帐号TOKEN
+		restAPI.setAppId(StringUtil.appId);// 初始化应用ID
+		result = restAPI.createSubAccount(doctor.getUsername());
+		log.info("SDKTestCreateSubAccount result=" + result);
+		if ("000000".equals(result.get("statusCode"))) {
+			// 正常返回输出data包体信息（map）
+			HashMap<String, Object> data = (HashMap<String, Object>) result
+					.get("data");
+			Set<String> keySet = data.keySet();
+			for (String key : keySet) {
+				Object object = data.get(key);
+				log.info(key + " = " + object);
+				String[] s = object.toString().split(",");
+				String[] a = s[1].split("=");
+				String[] b = s[3].split("=");
+				voipAccount = a[1];
+				voipPassword = b[1];
+			}
+		} else {
+			// 异常返回输出错误码和错误信息
+			log.info("错误码=" + result.get("statusCode") + " 错误信息= "
+					+ result.get("statusMsg"));
+			response.setResponseCode(EnumCollection.ResponseCode.VOIP_EXIST
+					.getCode());
+			response.setMsg(EnumCollection.ResponseCode.VOIP_EXIST.getMsg());
+			return response;
+		}
+		doctor.setVoipAccount(voipAccount);
+		doctor.setVoipPassword(voipPassword);
+		doctorDao.save(doctor);
+		response.setResponseCode(EnumCollection.ResponseCode.SUCCESS.getCode());
+		response.setMsg(EnumCollection.ResponseCode.SUCCESS.getMsg());
+		return response;
+	}
+	
 	@Override
 	public List<Doctor> findByName(String name) {
 		String sql = "SELECT * FROM t_doctor where name like '%" + name + "%'";
@@ -173,10 +232,10 @@ public class DoctorServiceImpl implements DoctorService {
 							.getMsg());
 					return response;
 				}
-			} 
+			}
 		} catch (Exception e) {
 			// 返回用户名不存在
-			
+
 		}
 		response.setResponseCode(EnumCollection.ResponseCode.LOGIN_USERNAME_NOT_EXIST
 				.getCode());
@@ -187,9 +246,10 @@ public class DoctorServiceImpl implements DoctorService {
 
 	@Override
 	public Response modify(Doctor doctor) {
+		// TODO 未完成，要么修改全字段
 		StringBuilder sql = new StringBuilder("UPDATE t_doctor SET ");
-		if(doctor.getAchievement()!=null){
-			sql.append("achievement = '" +doctor.getAchievement()+"'");
+		if (doctor.getAchievement() != null) {
+			sql.append("achievement = '" + doctor.getAchievement() + "'");
 		}
 		Response response = new Response();
 		response.setResponseCode(EnumCollection.ResponseCode.DOCTOR_MODIFY_SUCCESS
@@ -197,5 +257,18 @@ public class DoctorServiceImpl implements DoctorService {
 		response.setMsg(EnumCollection.ResponseCode.DOCTOR_MODIFY_SUCCESS
 				.getMsg());
 		return response;
+	}
+
+	@Override
+	public boolean findByUsername(String username) {
+		String sql = String.format("SELECT * FROM %s WHERE username = '%s'",
+				table_name, username);
+			Query query = em.createNativeQuery(sql, Doctor.class);
+			List<Doctor> doctors = query.getResultList();
+			if(doctors!=null&&doctors.size()>0){
+				return false;
+			} 
+			return true;
+		
 	}
 }

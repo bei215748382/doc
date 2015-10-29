@@ -1,9 +1,14 @@
 package com.mlnx.doc.web;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -55,6 +60,15 @@ public class DoctorCol {
 	@ResponseBody
 	public List<Doctor> findByPhone(@RequestBody String phone){
 		return doctorService.findByPhone(phone);
+	}
+	
+	@RequestMapping(value = "find/username",method=RequestMethod.POST,produces="application/json")
+	@ResponseBody
+	public Map<String,Boolean> findByUsername(String username){
+		boolean valid = doctorService.findByUsername(username);
+		Map<String,Boolean> map = new HashMap<String, Boolean>();
+		map.put("valid", valid);
+		return map;
 	}
 	
 	@RequestMapping(value = "find/hospital/{id}/doctors.do",method=RequestMethod.GET, consumes="application/json",produces="application/json")
