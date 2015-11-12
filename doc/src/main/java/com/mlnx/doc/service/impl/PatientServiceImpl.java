@@ -55,21 +55,21 @@ public class PatientServiceImpl implements PatientService {
 	public List<Patient> findByName(String name) {
 		String sqlString = "select * from t_patient where name like '%" + name
 				+ "%'";
-		Query query = em.createNativeQuery(sqlString);
+		Query query = em.createNativeQuery(sqlString,Patient.class);
 		return query.getResultList();
 	}
 
 	@Override
 	public List<Patient> findByDoctorId(Integer id) {
 		String sqlString = "select * from t_patient where doctor_id = " + id;
-		Query query = em.createNativeQuery(sqlString);
+		Query query = em.createNativeQuery(sqlString,Patient.class);
 		return query.getResultList();
 	}
 
 	@Override
 	public List<Patient> findByStateAndDoctorId(String state, Integer id) {
 		String sqlString = "select * from t_patient where doctor_id = " + id +" and state = '"+state+"'";
-		Query query = em.createNativeQuery(sqlString);
+		Query query = em.createNativeQuery(sqlString,Patient.class);
 		return query.getResultList();
 	}
 

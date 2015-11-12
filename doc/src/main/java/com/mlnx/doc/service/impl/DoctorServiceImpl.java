@@ -2,6 +2,7 @@ package com.mlnx.doc.service.impl;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import javax.persistence.EntityManager;
@@ -119,13 +120,15 @@ public class DoctorServiceImpl implements DoctorService {
 
 	/**
 	 * 根据用户名 注册voip账号
+	 * 
 	 * @param doctor
 	 * @return
 	 */
 	public Response registerByUsername(Doctor doctor) {
 		Response response = new Response();
-		String sqlString = String.format("select * from %s where username = '%s'"
-				,table_name,doctor.getUsername());
+		String sqlString = String.format(
+				"select * from %s where username = '%s'", table_name,
+				doctor.getUsername());
 		Query query = em.createNativeQuery(sqlString);
 		List<Doctor> list = query.getResultList();
 		if (list != null && list.size() != 0) {
@@ -173,7 +176,7 @@ public class DoctorServiceImpl implements DoctorService {
 		response.setMsg(EnumCollection.ResponseCode.SUCCESS.getMsg());
 		return response;
 	}
-	
+
 	@Override
 	public List<Doctor> findByName(String name) {
 		String sql = "SELECT * FROM t_doctor where name like '%" + name + "%'";
@@ -208,40 +211,53 @@ public class DoctorServiceImpl implements DoctorService {
 		return query.getResultList();
 	}
 
+	/**
+	 * 根据用户名或者手机号登入
+	 */
 	@Override
-	public Response login(Doctor doctor) {
-		Response response = new Response();
-		String sql = "SELECT * FROM t_doctor where username = '"
-				+ doctor.getUsername() + "'";
+	public Map<String, String> login(Doctor doctor) {
+		Map<String, String> map = new HashMap<String, String>();
+		String sql = null;
+		if (doctor.getUsername() != null && doctor.getUsername() != "") {
+			sql = "SELECT * FROM t_doctor where username = '"
+					+ doctor.getUsername() + "'";
+		}
+		if (doctor.getPhone() != null && doctor.getPhone() != "") {
+			sql = "SELECT * FROM t_doctor where phone = '"
+					+ doctor.getPhone() + "'";
+		}
 		Query query = em.createNativeQuery(sql, Doctor.class);
 		try {
 			Doctor d = (Doctor) query.getSingleResult();
 			if (d != null) {
 				if (doctor.getPassword().equals(d.getPassword())) {
 					// 返回登入成功
-					response.setResponseCode(EnumCollection.ResponseCode.LOGIN_SUCCESS
-							.getCode());
-					response.setMsg(EnumCollection.ResponseCode.LOGIN_SUCCESS
-							.getMsg());
-					return response;
+					map.put("responseCode",
+							EnumCollection.ResponseCode.LOGIN_SUCCESS.getCode());
+					map.put("msg",
+							EnumCollection.ResponseCode.LOGIN_SUCCESS.getMsg());
+					map.put("id", d.getId() + "");
+					return map;
 				} else {
 					// 返回用户名密码错误
-					response.setResponseCode(EnumCollection.ResponseCode.LOGIN_PASSWORD_ERROR
-							.getCode());
-					response.setMsg(EnumCollection.ResponseCode.LOGIN_PASSWORD_ERROR
-							.getMsg());
-					return response;
+					map.put("responseCode",
+							EnumCollection.ResponseCode.LOGIN_PASSWORD_ERROR
+									.getCode());
+					map.put("msg",
+							EnumCollection.ResponseCode.LOGIN_PASSWORD_ERROR
+									.getMsg());
+					return map;
 				}
 			}
 		} catch (Exception e) {
 			// 返回用户名不存在
 
 		}
-		response.setResponseCode(EnumCollection.ResponseCode.LOGIN_USERNAME_NOT_EXIST
-				.getCode());
-		response.setMsg(EnumCollection.ResponseCode.LOGIN_USERNAME_NOT_EXIST
-				.getMsg());
-		return response;
+		map.put("responseCode",
+				EnumCollection.ResponseCode.LOGIN_USERNAME_NOT_EXIST.getCode());
+		map.put("msg",
+				EnumCollection.ResponseCode.LOGIN_USERNAME_NOT_EXIST.getMsg());
+		return map;
 	}
 
 	@Override
@@ -263,12 +279,12 @@ public class DoctorServiceImpl implements DoctorService {
 	public boolean findByUsername(String username) {
 		String sql = String.format("SELECT * FROM %s WHERE username = '%s'",
 				table_name, username);
-			Query query = em.createNativeQuery(sql, Doctor.class);
-			List<Doctor> doctors = query.getResultList();
-			if(doctors!=null&&doctors.size()>0){
-				return false;
-			} 
-			return true;
-		
+		Query query = em.createNativeQuery(sql, Doctor.class);
+		List<Doctor> doctors = query.getResultList();
+		if (doctors != null && doctors.size() > 0) {
+			return false;
+		}
+		return true;
+
 	}
 }

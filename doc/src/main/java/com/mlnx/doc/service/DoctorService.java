@@ -1,6 +1,7 @@
 package com.mlnx.doc.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -83,7 +84,7 @@ public interface DoctorService {
 	 * @param doctor
 	 * @return
 	 */
-	Response login(Doctor doctor);
+	Map<String,String> login(Doctor doctor);
 
 	/**
 	 * 修改个人信息
@@ -98,4 +99,5 @@ public interface DoctorService {
 	 * @return
 	 */
 	boolean findByUsername(String username);
+
 }

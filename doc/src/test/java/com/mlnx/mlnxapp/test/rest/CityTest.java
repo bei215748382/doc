@@ -27,9 +27,14 @@ public class CityTest {
 				.sendGet("http://localhost:8080/doc/cities/find/province/1/cities.do");
 		System.out.println(sr);
 	}
+	private static void findAll(){
+		String sr = HttpUtil
+				.sendGet("http://localhost:8080/doc/cities/find/province/all.do");
+		System.out.println(sr);
+	}
 	public static void main(String[] args) {
 
-		regist();
+//		regist();
 //		findAll();
 //		delete();
 //		findById();

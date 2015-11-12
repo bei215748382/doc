@@ -3,6 +3,7 @@ package com.mlnx.doc.web;
 import static org.junit.Assert.*;
 
 import java.util.List;
+import java.util.Map;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -38,8 +39,8 @@ public class DoctorColTest {
 		doctor.setPhone("15864521558");
 		doctor.setUsername("admin");
 		doctor.setPassword("123456");
-		Response respone = doctorService.login(doctor);
-		System.out.println(respone.toString());
+		Map<String, String> map = doctorService.login(doctor);
+		System.out.println(map.toString());
 	}
 	
 	@Test

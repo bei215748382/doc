@@ -13,7 +13,7 @@ public class DoctorTest {
 	private static void regist() {
 
 		JSONObject obj = new JSONObject();
-		obj.put("phone", "15867404007");
+		obj.put("phone", "15867404001");
 		obj.put("password","123456");
 //		obj.put("date", new Date());
 		String sr = HttpUtil.sendPost(
@@ -90,8 +90,8 @@ public class DoctorTest {
 	}
 	public static void main(String[] args) {
 
-//		regist();
-		login();
+		regist();
+//		login();
 //		findAll();
 //		delete();
 //		findById();

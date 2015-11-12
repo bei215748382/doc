@@ -29,6 +29,6 @@ public class ProvinceTest {
 	public static void main(String[] args) {
 
 		regist();
-//		findAll();
+		findAll();
 	}
 }

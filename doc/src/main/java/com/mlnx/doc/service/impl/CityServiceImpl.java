@@ -59,14 +59,14 @@ public class CityServiceImpl implements CityService {
 	public List<City> findByName(String name) {
 		String sqlString = "select * from t_city where name like '%" + name
 				+ "'%";
-		Query query = em.createNativeQuery(sqlString);
+		Query query = em.createNativeQuery(sqlString,City.class);
 		return query.getResultList();
 	}
 
 	@Override
 	public List<City> findByProvinceId(Integer id) {
 		String sqlString = "select * from t_city where province_id = " + id;
-		Query query = em.createNativeQuery(sqlString);
+		Query query = em.createNativeQuery(sqlString,City.class);
 		List<City> cities = query.getResultList();
 		return cities;
 	}

@@ -46,7 +46,7 @@ public class DoctorCol {
 	
 	@RequestMapping(value = "login.do",method=RequestMethod.POST, consumes="application/json",produces="application/json")
 	@ResponseBody
-	public Response login(@RequestBody Doctor doctor){
+	public Map<String,String> login(@RequestBody Doctor doctor){
 		return doctorService.login(doctor);
 	}
 	

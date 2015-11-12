@@ -55,7 +55,7 @@ public class ProvinceServiceImpl implements ProvinceService {
 	public List<Province> findByName(String name) {
 		String sqlString = "select * from t_province where name like '%" + name
 				+ "%'";
-		Query query = em.createNativeQuery(sqlString);
+		Query query = em.createNativeQuery(sqlString,Province.class);
 		return query.getResultList();
 	}
 

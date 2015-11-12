@@ -55,14 +55,14 @@ public class HospitalServiceImpl implements HospitalService {
 	public List<Hospital> findByName(String name) {
 		String sqlString = "select * from t_hospital where name like '%" + name
 				+ "%'";
-		Query query = em.createNativeQuery(sqlString);
+		Query query = em.createNativeQuery(sqlString,Hospital.class);
 		return query.getResultList();
 	}
 
 	@Override
 	public List<Hospital> findByCityId(Integer id) {
 		String sqlString = "select * from t_hospital where city_id = " + id;
-		Query query = em.createNativeQuery(sqlString);
+		Query query = em.createNativeQuery(sqlString,Hospital.class);
 		return query.getResultList();
 	}
 

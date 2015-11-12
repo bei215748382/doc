@@ -48,7 +48,7 @@
 						<c:forEach items="${doctors}" var="doctor">
 							<tr>
 							<td>${doctor.id}</td>
-							<td><img class="img-rounded" src="${doctor.pic}" alt="${doctor.pic}" onerror="this.src='http://i.forbesimg.com/media/lists/people/carlos-slim-helu_50x50.jpg'">${doctor.name}</td>
+							<td><img class="img-rounded" src="${doctor.pic}" alt="${doctor.pic}" onerror="this.src='http://i.forbesimg.com/media/lists/people/carlos-slim-helu_50x50.jpg'"/>${doctor.name}</td>
 							<td>${doctor.hospital}</td>
 							<td>${doctor.username}</td>
 							<td>${doctor.phone}</td>
