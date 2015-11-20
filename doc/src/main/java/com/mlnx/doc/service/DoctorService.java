@@ -29,7 +29,7 @@ public interface DoctorService {
 	/**
 	 * 删除
 	 */
-	void delete(Integer id);
+	Response delete(Integer id);
 	
 	/**
 	 * 查找所有
@@ -99,5 +99,19 @@ public interface DoctorService {
 	 * @return
 	 */
 	boolean findByUsername(String username);
+
+	/**
+	 * 更新医生信息
+	 * @param doctor
+	 * @return
+	 */
+	void update(Doctor doctor);
+
+	/**
+	 * 验证手机号是否被注册
+	 * @param phone
+	 * @return
+	 */
+	boolean findByRegistPhone(String phone);
 
 }

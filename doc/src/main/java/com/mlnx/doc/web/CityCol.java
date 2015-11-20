@@ -33,9 +33,9 @@ public class CityCol {
 	public Response register(@RequestBody City city) {
 		cityService.save(city);
 		Response response = new Response();
-		response.setResponseCode(EnumCollection.ResponseCode.CITY_REGISTER_SUSSESS
+		response.setResponseCode(EnumCollection.ResponseCode.CITY_REGISTER_SUCCESS
 				.getCode());
-		response.setMsg(EnumCollection.ResponseCode.CITY_REGISTER_SUSSESS
+		response.setMsg(EnumCollection.ResponseCode.CITY_REGISTER_SUCCESS
 				.getMsg());
 		return response;
 	}
@@ -48,7 +48,7 @@ public class CityCol {
 	
 	@RequestMapping(value = "find/name.do", method = RequestMethod.GET, consumes = "application/json", produces = "application/json")
 	@ResponseBody
-	public List<City> findByProvinceId(@RequestBody String name) {
+	public List<City> findByName(@RequestBody String name) {
 		return cityService.findByName(name);
 	}
 }

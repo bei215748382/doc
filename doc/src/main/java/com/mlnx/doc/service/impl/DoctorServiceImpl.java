@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.cloopen.rest.sdk.CCPRestSDK;
 import com.mlnx.doc.entity.Doctor;
@@ -55,8 +56,9 @@ public class DoctorServiceImpl implements DoctorService {
 	}
 
 	@Override
-	public void delete(Integer id) {
+	public Response delete(Integer id) {
 		doctorDao.delete(id);
+		return new Response(EnumCollection.ResponseCode.DELETE_DOCTOR_SUCCESS);
 
 	}
 
@@ -223,8 +225,8 @@ public class DoctorServiceImpl implements DoctorService {
 					+ doctor.getUsername() + "'";
 		}
 		if (doctor.getPhone() != null && doctor.getPhone() != "") {
-			sql = "SELECT * FROM t_doctor where phone = '"
-					+ doctor.getPhone() + "'";
+			sql = "SELECT * FROM t_doctor where phone = '" + doctor.getPhone()
+					+ "'";
 		}
 		Query query = em.createNativeQuery(sql, Doctor.class);
 		try {
@@ -267,12 +269,7 @@ public class DoctorServiceImpl implements DoctorService {
 		if (doctor.getAchievement() != null) {
 			sql.append("achievement = '" + doctor.getAchievement() + "'");
 		}
-		Response response = new Response();
-		response.setResponseCode(EnumCollection.ResponseCode.DOCTOR_MODIFY_SUCCESS
-				.getCode());
-		response.setMsg(EnumCollection.ResponseCode.DOCTOR_MODIFY_SUCCESS
-				.getMsg());
-		return response;
+		return new Response(EnumCollection.ResponseCode.DOCTOR_MODIFY_SUCCESS);
 	}
 
 	@Override
@@ -286,5 +283,24 @@ public class DoctorServiceImpl implements DoctorService {
 		}
 		return true;
 
+	}
+
+	@Transactional
+	@Override
+	public void update(Doctor doctor) {
+		em.merge(doctor);
+		em.flush();// 手动将更新立刻刷新进数据库
+	}
+
+	@Override
+	public boolean findByRegistPhone(String phone) {
+		String sql = String.format("SELECT * FROM %s WHERE phone = '%s'",
+				table_name, phone);
+		Query query = em.createNativeQuery(sql, Doctor.class);
+		List<Doctor> doctors = query.getResultList();
+		if (doctors != null && doctors.size() > 0) {
+			return false;
+		}
+		return true;
 	}
 }

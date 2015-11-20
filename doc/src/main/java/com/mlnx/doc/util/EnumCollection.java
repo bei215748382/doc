@@ -3,13 +3,17 @@ package com.mlnx.doc.util;
 public class EnumCollection {
 	public enum ResponseCode {
 		EXIST("000001", "注册用户已存在"), SUCCESS("000002", "用户注册成功"), PROVINCE_REGISTER_SUCCESS(
-				"000003", "注册城市成功"), CITY_REGISTER_SUSSESS("000004", "注册城市成功"), HOSPITAL_REGISTER_SUSSESS(
-				"000005", "注册医院成功"), PATIENT_REGISTER_SUSSESS("000006",
-				"注册病人成功"), PATIENT_MODIFY_SUSSESS("000007", "修改病人成功"), ORDER_REGISTER_SUSSESS(
+				"000003", "注册城市成功"), CITY_REGISTER_SUCCESS("000004", "注册城市成功"), HOSPITAL_REGISTER_SUCCESS(
+				"000005", "注册医院成功"), PATIENT_REGISTER_SUCCESS("000006",
+				"注册病人成功"), PATIENT_MODIFY_SUCCESS("000007", "修改病人成功"), ORDER_REGISTER_SUCCESS(
 				"000008", "注册预约成功"), VOIP_EXIST("000009", "容联云申请子账户名称重复"), LOGIN_SUCCESS(
 				"000010", "登入成功"), LOGIN_PASSWORD_ERROR("000011", "用户名密码错误"), LOGIN_USERNAME_NOT_EXIST(
 				"000012", "用户名不存在"), ADD_FRIENDS_SUCCESS("000013", "添加好友成功"), PROVINCE_DELETE_SUCCESS(
-				"000014", "删除省成功"), ORDER_REMIND_SUCCESS("000015", "设置提醒成功"),DOCTOR_MODIFY_SUCCESS("000016","修改医生信息成功");
+				"000014", "删除省成功"), ORDER_REMIND_SUCCESS("000015", "设置提醒成功"), DOCTOR_MODIFY_SUCCESS(
+				"000016", "修改医生信息成功"), DOMAIN_REGISTER_SUCCESS("000017",
+				"注册病区成功"), ROOM_REGISTER_SUCCESS("000018", "注册房间成功"), BED_REGISTER_SUCCESS(
+				"000019", "注册床号成功"), DELETE_DOCTOR_SUCCESS("000020", "删除医生成功"), DELETE_PATIENT_SUCCESS(
+				"000021", "删除病人成功"), UPDATE_DOCTOR_SUCCESS("000022", "修改医生信息成功");
 		// 成员变量
 		private String code;
 		private String msg;

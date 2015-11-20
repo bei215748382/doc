@@ -52,4 +52,10 @@ public interface HospitalService {
 	 */
 	List<Hospital> findByCityId(Integer id);
 
+	/**
+	 * 更新数据
+	 * @param hospital
+	 */
+	void update(Hospital hospital);
+
 }

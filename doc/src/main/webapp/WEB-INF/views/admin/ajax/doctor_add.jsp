@@ -56,21 +56,32 @@
 								data-toggle="tooltip" data-placement="top" title="输入医生真实姓名"
 								name="name">
 						</div>
-						<label class="col-sm-2 control-label">头像</label>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label">手机号</label>
 						<div class="col-sm-4">
-							<input type="file" name="file">
+							<input type="text" class="form-control" name="phone" />
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label">头像</label>
+						<div id="localImag" class="col-sm-4">
+							<img id="preview" class="img-rounded" src="" alt="" /> <input
+								type="file" name="file"
+								onchange="javascript:setImagePreview(this,localImag,preview);"
+								class="margin-top-15">
 						</div>
 					</div>
 					<div class="form-group">
 						<label class="col-sm-2 control-label">性别</label>
 						<div class="col-sm-4">
 							<div class="radio-inline">
-								<label> <input type="radio" name="radio-inline" checked>
+								<label> <input type="radio" name="sex" checked>
 									男 <i class="fa fa-circle-o"></i>
 								</label>
 							</div>
 							<div class="radio-inline">
-								<label> <input type="radio" name="radio-inline">
+								<label> <input type="radio" name="sex">
 									女 <i class="fa fa-circle-o"></i>
 								</label>
 							</div>
@@ -98,7 +109,7 @@
 							</select>
 						</div>
 						<div class="col-sm-3">
-							<select class="populate placeholder" name="hospital"
+							<select class="populate placeholder" name="hospital_id"
 								id="hospital">
 								<option value="">-- 选择医院 --</option>
 							</select>
@@ -178,7 +189,7 @@
 				$("#province").html(htmlString);
 			},
 			error : function(jqXHR, textStatus, errorThrown) {
-				alert(errorThrown);
+				console.log(errorThrown);
 			},
 			dataType : "json",
 			async : true
@@ -206,13 +217,13 @@
 				var htmlString = "<option value=''>-- 选择市 --</option>";
 				console.log("data", data);
 				for (var i = 0; i < data.length; i++) {
-					htmlString += "<option value='"+data[i][0]+"'>"
-							+ data[i][1] + "</option>";
+					htmlString += "<option value='"+data[i].id+"'>"
+							+ data[i].name + "</option>";
 				}
 				$("#city").html(htmlString);
 			},
 			error : function(jqXHR, textStatus, errorThrown) {
-				alert(errorThrown);
+				console.log(errorThrown);
 			},
 			dataType : "json",
 			async : true
@@ -227,13 +238,13 @@
 				var htmlString = "<option value=''>-- 选择医院 --</option>";
 				console.log("data", data);
 				for (var i = 0; i < data.length; i++) {
-					htmlString += "<option value='"+data[i][2]+"'>"
-							+ data[i][2] + "</option>";
+					htmlString += "<option value='"+data[i].id+"'>"
+							+ data[i].name + "</option>";
 				}
 				$("#hospital").html(htmlString);
 			},
 			error : function(jqXHR, textStatus, errorThrown) {
-				alert(errorThrown);
+				console.log(errorThrown);
 			},
 			dataType : "json",
 			async : true
@@ -252,7 +263,7 @@
 		$('.form-control').tooltip();
 		LoadSelect2Script(DemoSelect2);
 		// Load example of form validation
-		LoadBootstrapValidatorScript(DemoFormValidator);
+		LoadBootstrapValidatorScript(DoctorAddFormValidator);
 		// Add drag-n-drop feature to boxes
 		WinMove();
 		//加載省
@@ -261,4 +272,107 @@
 		bang();
 		//加载医院
 	});
+	function DoctorAddFormValidator() {
+		$('#defaultForm')
+				.bootstrapValidator(
+						{
+							feedbackIcons : {
+								valid : 'fa fa-check',
+								invalid : 'glyphicon glyphicon-remove',
+								validating : 'glyphicon glyphicon-refresh'
+							},
+							message : 'This value is not valid',
+							fields : {
+								phone:{
+									validators:{
+										remote : {
+											message : '手机号已注册',
+											url : '../doctors/find/regist/phone.do'
+										}
+									}
+								},
+								name : {
+									validators : {
+										notEmpty : {
+											message : '姓名不能为空'
+										}
+									}
+								},
+								username : {
+									message : 'The username is not valid',
+									validators : {
+										notEmpty : {
+											message : '用户名不能为空'
+										},
+										stringLength : {
+											min : 4,
+											max : 30,
+											message : '用户名的长度在4个和30个字符之间'
+										},
+										regexp : {
+											regexp : /^[a-zA-Z0-9_\.]+$/,
+											message : '用户名只允许包含数字、大小写字母下划线和。,不允许包含其他字符'
+										}
+									}
+								},
+								acceptTerms : {
+									validators : {
+										notEmpty : {
+											message : '你必须同意本协议'
+										}
+									}
+								},
+								email : {
+									validators : {
+										notEmpty : {
+											message : 'The email address is required and can\'t be empty'
+										},
+										emailAddress : {
+											message : 'The input is not a valid email address'
+										}
+									}
+								},
+								website : {
+									validators : {
+										uri : {
+											message : 'The input is not a valid URL'
+										}
+									}
+								},
+								password : {
+									validators : {
+										notEmpty : {
+											message : '密码不能为空'
+										},
+										identical : {
+											field : 'confirmPassword',
+											message : '2次密码不一致'
+										}
+									}
+								},
+								confirmPassword : {
+									validators : {
+										notEmpty : {
+											message : '确认密码不能为空'
+										},
+										identical : {
+											field : 'password',
+											message : '2次密码输入不一致，请重新输入'
+										}
+									}
+								},
+								date : {
+									validators : {
+										notEmpty : {
+											message : '日期不能为空'
+										},
+										date : {
+											format : 'MM/DD/YYYY',
+											message : '格式不正确'
+										}
+									}
+								}
+							}
+						});
+	}
 </script>

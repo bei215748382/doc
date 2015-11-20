@@ -6,6 +6,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import com.mlnx.doc.entity.Patient;
+import com.mlnx.doc.util.Response;
 
 public interface PatientService {
 
@@ -27,7 +28,7 @@ public interface PatientService {
 	/**
 	 * 删除
 	 */
-	void delete(Integer id);
+	Response delete(Integer id);
 	
 	/**
 	 * 查找所有
@@ -61,4 +62,18 @@ public interface PatientService {
 	 * 修改病人信息
 	 */
 	void modifyPatient(Patient patient);
+	
+	/**
+	 * 根据床位号查找病人
+	 * @param id
+	 * @return
+	 */
+	Patient findByBedId(Integer id);
+	
+	/**
+	 * 注册病人，包括原服务器的病人注册
+	 * @param patient
+	 * @return
+	 */
+	Response register(Patient patient);
 }

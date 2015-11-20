@@ -16,11 +16,10 @@ public class OrderTest {
 	private static void regist() {
 
 		JSONObject obj = new JSONObject();
-		obj.put("doctor_id", 1);
-		obj.put("friend_id", 4);
-		obj.put("date", new Date());
-		String sr = HttpUtil.sendPost(
-				"http://localhost:8080/doc/orders/register.do",
+		obj.put("doctor_id", 60);
+		obj.put("friend_id", 62);
+		String sr = HttpUtil.sendPost(String.format("http://localhost:8080/doc/orders/%d/register.do", new Date().getTime())
+				,
 				obj.toJSONString());
 		System.out.println(sr);
 	}
@@ -53,11 +52,11 @@ public class OrderTest {
 	}
 	public static void main(String[] args) {
 
-//		regist();
+		regist();
 //		findOrdersByDoctorIdAndState();
 //		findOrdersByFriendIdAndState();
 //		findByDoctorIdAndToday();
 //		findByFriendIdAndToday();
-		updateRemind();
+//		updateRemind();
 	}
 }

@@ -4,9 +4,9 @@
 <div class="row">
 	<div id="breadcrumb" class="col-md-12">
 		<ol class="breadcrumb">
-			<li><a href="#">Dashboard</a></li>
-			<li><a href="#">Tables</a></li>
-			<li><a href="#">Data Tables</a></li>
+				<li><a href="index.do">医生交流平台</a></li>
+			<li><a href="index.do">voip账号管理</a></li>
+			<li><a href="#">voip账号列表</a></li>
 		</ol>
 	</div>
 </div>
@@ -16,7 +16,7 @@
 			<div class="box-header">
 				<div class="box-name">
 					<i class="fa fa-usd"></i>
-					<span>The World's billionaries</span>
+					<span>voip账号查看---不能手动添加删除</span>
 				</div>
 				<div class="box-icons">
 					<a class="collapse-link">

@@ -10,9 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.mlnx.doc.entity.City;
 import com.mlnx.doc.entity.Doctor_doctor;
-import com.mlnx.doc.service.CityService;
 import com.mlnx.doc.service.Doctor_doctorService;
 import com.mlnx.doc.util.EnumCollection;
 import com.mlnx.doc.util.Response;

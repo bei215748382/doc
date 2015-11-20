@@ -17,7 +17,7 @@ public interface ProvinceService {
 	/**
 	 * 保存
 	 */
-	void save(Province patient);
+	void save(Province province);
 
 	/**
 	 * 查询
@@ -41,5 +41,11 @@ public interface ProvinceService {
 	 * @return
 	 */
 	List<Province> findByName(String name);
+
+	/**
+	 * 更新数据
+	 * @param province
+	 */
+	void update(Province province);
 
 }

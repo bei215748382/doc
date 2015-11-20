@@ -13,7 +13,6 @@
 		<link href="${ctx}/common/plugins/bootstrap/bootstrap.css" rel="stylesheet">
 		<link href="${ctx}/common/plugins/jquery-ui/jquery-ui.min.css" rel="stylesheet">
 		<link href="${ctx}/common/css/admin/font-awesome.css" rel="stylesheet">
-		<link href="${ctx}/common/css/admin/css.css" rel='stylesheet' type='text/css'>
 		<link href="${ctx}/common/plugins/fancybox/jquery.fancybox.css" rel="stylesheet">
 		<link href="${ctx}/common/plugins/fullcalendar/fullcalendar.css" rel="stylesheet">
 		<link href="${ctx}/common/plugins/xcharts/xcharts.min.css" rel="stylesheet">
@@ -159,6 +158,16 @@
 						<li><a class="ajax-link" href="doctor_add.do">添加</a></li>
 					</ul>
 				</li>
+					<li class="dropdown">
+					<a href="#" class="dropdown-toggle">
+						<i class="fa fa-table"></i>
+						 <span class="hidden-xs">病人信息管理</span>
+					</a>
+					<ul class="dropdown-menu">
+						<li><a class="ajax-link" href="patients_info.do">信息预览</a></li>
+						<li><a class="ajax-link" href="patient_add.do">添加</a></li>
+					</ul>
+				</li>
 				<li class="dropdown">
 					<a href="#" class="dropdown-toggle">
 						<i class="fa fa-table"></i>
@@ -166,6 +175,15 @@
 					</a>
 					<ul class="dropdown-menu">
 						<li><a class="ajax-link" href="voip_all.do">账号明细</a></li>
+					</ul>
+				</li>
+				<li class="dropdown">
+					<a href="#" class="dropdown-toggle">
+						<i class="fa fa-table"></i>
+						 <span class="hidden-xs">字典管理</span>
+					</a>
+					<ul class="dropdown-menu">
+						<li><a class="ajax-link" href="dictionary_info.do">内容明细</a></li>
 					</ul>
 				</li>
 			</ul>

@@ -10,7 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import com.mlnx.doc.entity.Bed;
 import com.mlnx.doc.entity.City;
 import com.mlnx.doc.entity.Province;
 import com.mlnx.doc.repository.CityDao;
@@ -69,6 +71,13 @@ public class CityServiceImpl implements CityService {
 		Query query = em.createNativeQuery(sqlString,City.class);
 		List<City> cities = query.getResultList();
 		return cities;
+	}
+	@Transactional
+	@Override
+	public void update(City city) {
+		String sqlString =String.format("update t_city set name = '%s' where id = %d",city.getName(),city.getId());
+		Query query = em.createNativeQuery(sqlString,City.class);
+		query.executeUpdate();
 	}
 
 }

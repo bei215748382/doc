@@ -10,7 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import com.mlnx.doc.entity.Bed;
 import com.mlnx.doc.entity.Hospital;
 import com.mlnx.doc.repository.HospitalDao;
 import com.mlnx.doc.service.HospitalService;
@@ -64,6 +66,13 @@ public class HospitalServiceImpl implements HospitalService {
 		String sqlString = "select * from t_hospital where city_id = " + id;
 		Query query = em.createNativeQuery(sqlString,Hospital.class);
 		return query.getResultList();
+	}
+	@Transactional
+	@Override
+	public void update(Hospital hospital) {
+		String sqlString =String.format("update t_hospital set name = '%s' where id = %d",hospital.getName(),hospital.getId());
+		Query query = em.createNativeQuery(sqlString,Hospital.class);
+		query.executeUpdate();
 	}
 
 }

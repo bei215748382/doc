@@ -10,7 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import com.mlnx.doc.entity.Bed;
 import com.mlnx.doc.entity.Province;
 import com.mlnx.doc.repository.ProvinceDao;
 import com.mlnx.doc.service.ProvinceService;
@@ -57,6 +59,14 @@ public class ProvinceServiceImpl implements ProvinceService {
 				+ "%'";
 		Query query = em.createNativeQuery(sqlString,Province.class);
 		return query.getResultList();
+	}
+	@Transactional
+	@Override
+	public void update(Province province) {
+		String sqlString =String.format("update t_province set name = '%s' where id = %d",province.getName(),province.getId());
+		Query query = em.createNativeQuery(sqlString,Province.class);
+		query.executeUpdate();
+		
 	}
 
 }

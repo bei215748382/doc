@@ -1,5 +1,6 @@
 package com.mlnx.doc.web;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,19 +34,25 @@ public class OrderCol {
 		return orderService.findAll();
 	}
 
-	@RequestMapping(value = "register.do", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
+	/**
+	 * 预约
+	 * @param order
+	 * @return
+	 */
+	@RequestMapping(value = "/{date}/register.do", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
 	@ResponseBody
-	public Response register(@RequestBody Order order) {
+	public Response register(@PathVariable long date,@RequestBody Order order) {
 		int id = order.getFriend_id();
 		Doctor doctor = doctorService.get(id);
 		order.setDoctor_name(doctor.getName());
 		order.setHospital_name(doctor.getHospital());
 		order.setState(0);// 状态为0表示未接受
+		order.setDate(new Date(date));
 		orderService.save(order);
 		Response response = new Response();
-		response.setResponseCode(EnumCollection.ResponseCode.ORDER_REGISTER_SUSSESS
+		response.setResponseCode(EnumCollection.ResponseCode.ORDER_REGISTER_SUCCESS
 				.getCode());
-		response.setMsg(EnumCollection.ResponseCode.ORDER_REGISTER_SUSSESS
+		response.setMsg(EnumCollection.ResponseCode.ORDER_REGISTER_SUCCESS
 				.getMsg());
 		return response;
 	}

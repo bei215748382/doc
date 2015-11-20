@@ -1,9 +1,20 @@
 package com.mlnx.doc.util;
 
+import com.mlnx.doc.util.EnumCollection.ResponseCode;
+
 public class Response {
 	private String responseCode;
 	private String msg;
-
+	
+	public Response(){
+		
+	}
+	
+	public Response(ResponseCode responseCode) {
+		this.responseCode = responseCode.getCode();
+		this.msg = responseCode.getMsg();
+	}
+	
 	public String getResponseCode() {
 		return responseCode;
 	}

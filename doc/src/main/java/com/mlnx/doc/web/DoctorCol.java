@@ -55,7 +55,7 @@ public class DoctorCol {
 	public List<Doctor> findByName(@RequestBody String name){
 		return doctorService.findByName(name);
 	}
-	
+
 	@RequestMapping(value = "find/phone.do",method=RequestMethod.POST, consumes="application/json",produces="application/json")
 	@ResponseBody
 	public List<Doctor> findByPhone(@RequestBody String phone){
@@ -70,7 +70,14 @@ public class DoctorCol {
 		map.put("valid", valid);
 		return map;
 	}
-	
+	@RequestMapping(value = "find/regist/phone",method=RequestMethod.POST,produces="application/json")
+	@ResponseBody
+	public Map<String,Boolean> findByRegistPhone(String phone){
+		boolean valid = doctorService.findByRegistPhone(phone);
+		Map<String,Boolean> map = new HashMap<String, Boolean>();
+		map.put("valid", valid);
+		return map;
+	}
 	@RequestMapping(value = "find/hospital/{id}/doctors.do",method=RequestMethod.GET, consumes="application/json",produces="application/json")
 	@ResponseBody
 	public List<Doctor> findByHospitalId(@PathVariable int id){

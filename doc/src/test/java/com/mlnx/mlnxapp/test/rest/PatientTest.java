@@ -30,7 +30,7 @@ public class PatientTest {
 
 	private static void findByDoctorIdAndState(){
 		String sr = HttpUtil
-				.sendPost("http://localhost:8080/doc/patients/find/doctor/1/state.do","在疗");
+				.sendPost("http://localhost:8080/doc/patients/find/doctor/1/state.do","1");
 		System.out.println(sr);
 	}
 	private static void findById(){
@@ -57,8 +57,8 @@ public class PatientTest {
 	public static void main(String[] args) {
 
 //		regist();
-//		findByDoctorIdAndState();
+		findByDoctorIdAndState();
 //		findById();
-		modify();
+//		modify();
 	}
 }

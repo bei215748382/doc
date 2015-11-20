@@ -90,12 +90,12 @@ public class DoctorTest {
 	}
 	public static void main(String[] args) {
 
-		regist();
+//		regist();
 //		login();
 //		findAll();
 //		delete();
 //		findById();
-//		findByHospital();
+		findByHospital();
 //		findByName();
 //		findByPhone();
 //		findByDoctorId();

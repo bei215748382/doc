@@ -52,4 +52,10 @@ public interface CityService {
 	 */
 	List<City> findByProvinceId(Integer id);
 
+	/**
+	 * 更新数据
+	 * @param city
+	 */
+	void update(City city);
+
 }

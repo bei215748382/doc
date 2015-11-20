@@ -2370,3 +2370,16 @@ td.beauty-hover {
     display: none;
   }
 }
+
+img {
+	max-width: 400px;
+}
+
+.margin-top-15 {
+	margin-top: 15px;
+}
+
+#preview{
+	max-width:400px;
+	max-height:300px;
+}

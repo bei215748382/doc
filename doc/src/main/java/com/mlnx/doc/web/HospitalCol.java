@@ -33,9 +33,9 @@ public class HospitalCol {
 	public Response register(@RequestBody Hospital hospital) {
 		hospitalService.save(hospital);
 		Response response = new Response();
-		response.setResponseCode(EnumCollection.ResponseCode.HOSPITAL_REGISTER_SUSSESS
+		response.setResponseCode(EnumCollection.ResponseCode.HOSPITAL_REGISTER_SUCCESS
 				.getCode());
-		response.setMsg(EnumCollection.ResponseCode.HOSPITAL_REGISTER_SUSSESS
+		response.setMsg(EnumCollection.ResponseCode.HOSPITAL_REGISTER_SUCCESS
 				.getMsg());
 		return response;
 	}
