@@ -13,7 +13,8 @@ public class EnumCollection {
 				"000016", "修改医生信息成功"), DOMAIN_REGISTER_SUCCESS("000017",
 				"注册病区成功"), ROOM_REGISTER_SUCCESS("000018", "注册房间成功"), BED_REGISTER_SUCCESS(
 				"000019", "注册床号成功"), DELETE_DOCTOR_SUCCESS("000020", "删除医生成功"), DELETE_PATIENT_SUCCESS(
-				"000021", "删除病人成功"), UPDATE_DOCTOR_SUCCESS("000022", "修改医生信息成功");
+				"000021", "删除病人成功"), UPDATE_DOCTOR_SUCCESS("000022", "修改医生信息成功"), DELETE_ORDER_SUCCESS(
+				"000023", "删除预约成功"), UPDATE_ORDER_SUCCESS("000024", "更新预约表成功"), ADD_ORDER_SUCCESS("000025","添加预约成功");
 		// 成员变量
 		private String code;
 		private String msg;

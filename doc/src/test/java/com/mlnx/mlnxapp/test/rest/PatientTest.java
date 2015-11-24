@@ -1,5 +1,15 @@
 package com.mlnx.mlnxapp.test.rest;
 
+import java.io.ByteArrayInputStream;
+import java.io.UnsupportedEncodingException;
+import java.util.Iterator;
+import java.util.List;
+
+import org.dom4j.Document;
+import org.dom4j.DocumentException;
+import org.dom4j.Element;
+import org.dom4j.io.SAXReader;
+
 import com.alibaba.fastjson.JSONObject;
 import com.mlnx.mlnxapp.test.util.HttpUtil;
 /**
@@ -54,11 +64,50 @@ public class PatientTest {
 				obj.toJSONString());
 		System.out.println(sr);
 	}
-	public static void main(String[] args) {
+	
+	private static void findOnline() throws DocumentException, UnsupportedEncodingException{
+		String sr = HttpUtil
+				.sendGet("http://121.40.137.14:8080/pms-server/rest/devices/online");
+		 SAXReader saxReader = new SAXReader();
+		 Document document = saxReader.read(new ByteArrayInputStream(sr.getBytes("UTF-8")));
+		   // 获取根元素
+	        Element root = document.getRootElement();
+	        System.out.println("Root: " + root.getName());
+
+	        // 获取所有子元素
+	        List<Element> childList = root.elements();
+	        System.out.println("total child count: " + childList.size());
+
+	        // 获取特定名称的子元素
+//	        List<Element> childList2 = root.elements("hello");
+//	        System.out.println("hello child: " + childList2.size());
+//
+//	        // 获取名字为指定名称的第一个子元素
+//	        Element firstWorldElement = root.element("world");
+//	        // 输出其属性
+//	        System.out.println("first World Attr: "
+//	                + firstWorldElement.attribute(0).getName() + "="
+//	                + firstWorldElement.attributeValue("name"));
+
+	        System.out.println("迭代输出-----------------------");
+	        // 迭代输出
+	        for (Iterator iter = root.elementIterator(); iter.hasNext();)
+	        {
+	            Element e = (Element) iter.next();
+	            System.out.println(e.getName());
+	            for(Iterator it = e.elementIterator();it.hasNext();){
+	            	Element ee = (Element)it.next();
+	            	System.out.println(ee.getName()+":"+ee.getText());
+	            }
+	        }
+		System.out.println(sr);
+	}
+	public static void main(String[] args) throws Exception {
 
 //		regist();
-		findByDoctorIdAndState();
+//		findByDoctorIdAndState();
 //		findById();
 //		modify();
+		findOnline();
 	}
 }

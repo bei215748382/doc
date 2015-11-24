@@ -6,6 +6,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import com.mlnx.doc.entity.Order;
+import com.mlnx.doc.util.Response;
+import com.mlnx.doc.vo.OrderVo;
 
 public interface OrderService {
 
@@ -26,8 +28,10 @@ public interface OrderService {
 
 	/**
 	 * 删除
+	 * 
+	 * @return
 	 */
-	void delete(Integer id);
+	Response delete(Integer id);
 
 	/**
 	 * 查找所有
@@ -60,27 +64,47 @@ public interface OrderService {
 	 * @return
 	 */
 	List<Order> findByFriendIdAndState(Integer id, Integer state);
-	
+
 	/**
 	 * 根据医生id和当天时间查找今日手术的order
+	 * 
 	 * @param id
 	 * @param date
 	 * @return
 	 */
 	List<Order> findByDoctorIdAndToday(Integer id);
-	
+
 	/**
 	 * 根据被预约的id和当天的时间查找
+	 * 
 	 * @param id
 	 * @param date
 	 * @return
 	 */
 	List<Order> findByFriendIdAndToday(Integer id);
-	
+
 	/**
 	 * 提醒操作
+	 * 
 	 * @param id
 	 */
 	void updateRemind(Integer id);
+
+	/**
+	 * 更新预约表
+	 * 
+	 * @param order
+	 * @return
+	 */
+	Response update(Order order);
+
+	/**
+	 * 根据状态查找预约列表
+	 * @return
+	 */
+	List<Order> findAllBystate(Integer id);
+
+	
+	Response insert(OrderVo order);
 
 }

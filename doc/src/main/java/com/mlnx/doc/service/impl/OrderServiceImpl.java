@@ -12,10 +12,13 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.mlnx.doc.entity.Order;
+import com.mlnx.doc.entity.Doctor;
 import com.mlnx.doc.entity.Order;
 import com.mlnx.doc.repository.OrderDao;
 import com.mlnx.doc.service.OrderService;
+import com.mlnx.doc.util.EnumCollection;
+import com.mlnx.doc.util.Response;
+import com.mlnx.doc.vo.OrderVo;
 
 @Service
 @Transactional
@@ -44,8 +47,9 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
-	public void delete(Integer id) {
+	public Response delete(Integer id) {
 		orderDao.delete(id);
+		return new Response(EnumCollection.ResponseCode.DELETE_DOCTOR_SUCCESS);
 
 	}
 
@@ -97,6 +101,36 @@ public class OrderServiceImpl implements OrderService {
 		Query query = em.createNativeQuery(sql);
 		query.executeUpdate();
 	}
+	
+	@Transactional
+	@Override
+	public Response update(Order order) {
+		em.merge(order);
+		em.flush();
+		return new Response(EnumCollection.ResponseCode.UPDATE_DOCTOR_SUCCESS);
+	}
 
+	@Override
+	public List<Order> findAllBystate(Integer id) {
+		String sql = "SELECT * from t_order where state = " + id;
+		Query query = em.createNativeQuery(sql,Order.class);
+		return query.getResultList();
+	}
+
+	@Override
+	public Response insert(OrderVo orderVo) {
+		Doctor doctor = em.find(Doctor.class, orderVo.getFriend_id());
+		Order order = new Order();
+		order.setDoctor_id(orderVo.getDoctor_id());
+		order.setDoctor_name(doctor.getName());
+		order.setFriend_id(orderVo.getFriend_id());
+		order.setHospital_name(doctor.getHospital());
+		order.setDate(orderVo.getDate());
+		order.setRemind(0);
+		order.setState(0);
+		em.persist(order);
+		return new Response(EnumCollection.ResponseCode.ADD_ORDER_SUCCESS);
+		
+	}
 
 }

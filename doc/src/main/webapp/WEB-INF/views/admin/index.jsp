@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <c:set var="ctx" value="${pageContext.request.contextPath}" />
 <!DOCTYPE html>
 <html lang="en">
@@ -186,6 +187,24 @@
 						<li><a class="ajax-link" href="dictionary_info.do">内容明细</a></li>
 					</ul>
 				</li>
+				<li class="dropdown">
+					<a href="#" class="dropdown-toggle">
+						<i class="fa fa-table"></i>
+						 <span class="hidden-xs">预约管理</span>
+					</a>
+					<ul class="dropdown-menu">
+						<li><a class="ajax-link" href="orders_info.do">预约列表</a></li>
+					</ul>
+				</li>
+					<li class="dropdown">
+					<a href="#" class="dropdown-toggle">
+						<i class="fa fa-table"></i>
+						 <span class="hidden-xs">问题反馈管理</span>
+					</a>
+					<ul class="dropdown-menu">
+						<li><a class="ajax-link" href="feedbacks_info.do">反馈列表</a></li>
+					</ul>
+				</li>
 			</ul>
 		</div>
 		<!--Start Content-->
@@ -208,6 +227,7 @@
 <script src="${ctx}/common/plugins/justified-gallery/jquery.justifiedgallery.min.js"></script>
 <script src="${ctx}/common/plugins/tinymce/tinymce.min.js"></script>
 <script src="${ctx}/common/plugins/tinymce/jquery.tinymce.min.js"></script>
+<script src="${ctx}/common/plugins/jquery-ui-timepicker-addon/jquery-ui-timepicker-addon.js"></script>
 <!-- All functions for this theme + document.ready processing -->
 <script src="${ctx}/common/js/admin/devoops.js"></script>
 </body>

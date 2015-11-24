@@ -21,7 +21,9 @@ import com.mlnx.doc.entity.Bed;
 import com.mlnx.doc.entity.City;
 import com.mlnx.doc.entity.Doctor;
 import com.mlnx.doc.entity.Domain;
+import com.mlnx.doc.entity.Feedback;
 import com.mlnx.doc.entity.Hospital;
+import com.mlnx.doc.entity.Order;
 import com.mlnx.doc.entity.Patient;
 import com.mlnx.doc.entity.Province;
 import com.mlnx.doc.entity.Room;
@@ -29,13 +31,16 @@ import com.mlnx.doc.service.BedService;
 import com.mlnx.doc.service.CityService;
 import com.mlnx.doc.service.DoctorService;
 import com.mlnx.doc.service.DomainService;
+import com.mlnx.doc.service.FeedbackService;
 import com.mlnx.doc.service.HospitalService;
+import com.mlnx.doc.service.OrderService;
 import com.mlnx.doc.service.PatientService;
 import com.mlnx.doc.service.ProvinceService;
 import com.mlnx.doc.service.RoomService;
 import com.mlnx.doc.util.FileUtil;
 import com.mlnx.doc.util.Response;
 import com.mlnx.doc.util.StringUtil;
+import com.mlnx.doc.vo.OrderVo;
 
 @Controller
 @RequestMapping(value = "/admin")
@@ -64,6 +69,12 @@ public class AdminCol {
 
 	@Autowired
 	private BedService bedService;
+	
+	@Autowired
+	private OrderService orderService;
+
+	@Autowired
+	private FeedbackService feedbackService;
 
 	@RequestMapping(value = "index.do")
 	public String index() {
@@ -401,5 +412,76 @@ public class AdminCol {
 
 		}
 		response.sendRedirect("index.do#dictionary_info.do");
+	}
+	// -------------------------------------- 预约列表的管理
+	// ---------------------------------------
+	@RequestMapping(value = "orders_info.do")
+	public ModelAndView orders_info(HttpServletRequest request,
+			HttpServletResponse response) {
+		List<Order> orders = orderService.findAll();
+		ModelAndView modelAndView = new ModelAndView("admin/ajax/orders_info");
+		modelAndView.addObject("orders", orders);
+		return modelAndView;
+	}
+
+	@RequestMapping(value = "unaccept_orders_info.do")
+	public ModelAndView unaccept_orders_info(HttpServletRequest request,
+			HttpServletResponse response,int state) {
+		List<Order> orders = orderService.findAllBystate(state);
+		ModelAndView modelAndView = new ModelAndView("admin/ajax/orders_info");
+		modelAndView.addObject("orders", orders);
+		return modelAndView;
+	}
+	
+	@RequestMapping(value = "order_add.do")
+	public ModelAndView order_add() {
+		List<Doctor> doctors = doctorService.findAll();
+
+		ModelAndView modelAndView = new ModelAndView("admin/ajax/order_add");
+		modelAndView.addObject("doctors", doctors);
+		return modelAndView;
+	}
+
+	@RequestMapping(value = "order_add_json.do", method = RequestMethod.POST)
+	public void order_add_json(OrderVo order,
+			HttpServletRequest request, HttpServletResponse response)
+			throws IOException {
+		orderService.insert(order);
+		response.sendRedirect("index.do#orders_info.do");
+	}
+
+	@RequestMapping(value = "order_delete.do")
+	@ResponseBody
+	public Response order_delete(int id, HttpServletResponse response)
+			throws IOException {
+		return orderService.delete(id);
+	}
+
+	@RequestMapping(value = "order_edit")
+	public ModelAndView order_edit(int id) {
+		List<Doctor> doctors = doctorService.findAll();
+		Order order = orderService.get(id);
+		ModelAndView modelAndView = new ModelAndView("admin/ajax/order_edit");
+		modelAndView.addObject("order", order);
+		modelAndView.addObject("doctors", doctors);
+		return modelAndView;
+	}
+
+	@RequestMapping(value = "order_edit_json.do")
+	public void order_edit_json(Order order,
+			HttpServletRequest request, HttpServletResponse response)
+			throws IOException {
+		orderService.update(order);
+		response.sendRedirect("index.do#orders_info.do");
+	}
+	// -------------------------------------- 反馈列表的管理
+	// ---------------------------------------
+	@RequestMapping(value = "feedbacks_info.do")
+	public ModelAndView feedbacks_info(HttpServletRequest request,
+			HttpServletResponse response) {
+		List<Feedback> feedbacks = feedbackService.findAll();
+		ModelAndView modelAndView = new ModelAndView("admin/ajax/feedbacks_info");
+		modelAndView.addObject("feedbacks", feedbacks);
+		return modelAndView;
 	}
 }

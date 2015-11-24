@@ -1,7 +1,9 @@
 package com.mlnx.doc.web;
 
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 
+import org.dom4j.DocumentException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -61,5 +63,11 @@ public class PatientCol {
 	@ResponseBody
 	public Patient findById(@PathVariable int id){
 		return patientService.get(id);
+	}
+	
+	@RequestMapping(value = "find/doctor/{id}/patients/online",method=RequestMethod.GET, consumes="application/json",produces="application/json")
+	@ResponseBody
+	public List<Integer> findByPatientsOnline(@PathVariable int id) throws UnsupportedEncodingException, DocumentException{
+		return patientService.getOnlinePatientIds(id);
 	}
 }

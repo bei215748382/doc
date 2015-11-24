@@ -15,6 +15,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 @Entity
 @Table(name = "t_order")
 public class Order implements Serializable {
@@ -22,6 +24,7 @@ public class Order implements Serializable {
 	private String hospital_name;
 	private String doctor_name;
 	private Integer state;
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	private Date date;
 	private Integer doctor_id;
 	private Integer friend_id;
@@ -65,6 +68,7 @@ public class Order implements Serializable {
 		this.state = state;
 	}
 	
+
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="date", nullable=true)
 	public Date getDate() {

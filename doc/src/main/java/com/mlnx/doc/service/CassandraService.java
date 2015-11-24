@@ -92,10 +92,9 @@ public class CassandraService {
 			config.load(configIn);
 			log.info("Using Cassandra configuration %s", configResourceName);
 		} catch (IOException e) {
-//			log.info(e,
-//					"Failed to load Cassandra configuration %s from classpath"
-//							+ " - using default configuration",
-//					configResourceName);
+			log.info(String
+					.format("%s:Failed to load Cassandra configuration %s from classpath - using default configuration",
+							e.getMessage(), configResourceName));
 		}
 
 		String nodesValue = config.getProperty("cassandra.nodes");
@@ -106,21 +105,23 @@ public class CassandraService {
 		} catch (Exception e) {
 			port = DEFAULT_PORT;
 		}
-		keyspaceName = config
-				.getProperty("cassandra.keyspaceName", DEFAULT_KEYSPACE_NAME);
+		keyspaceName = config.getProperty("cassandra.keyspaceName",
+				DEFAULT_KEYSPACE_NAME);
 		strategyClass = config.getProperty("cassandra.strategyClass",
 				DEFAULT_STRATEGY_CLASS);
 
-		String replicationFactorValue = config.getProperty("cassandra.replicationFactor");
+		String replicationFactorValue = config
+				.getProperty("cassandra.replicationFactor");
 		if (replicationFactorValue == null) {
 			replicationFactor = DEFAULT_REPLICATION_FACTOR;
 		} else {
 			try {
 				replicationFactor = Integer.parseInt(replicationFactorValue);
 			} catch (NumberFormatException e) {
-//				log.info(e, "Invalid replication factor %s"
-//						+ " - using default value %d instead",
-//						replicationFactorValue, DEFAULT_REPLICATION_FACTOR);
+				log.info(String
+						.format("%s:Invalid replication factor %s  - using default value %d instead",
+								e.getMessage(), replicationFactorValue,
+								DEFAULT_REPLICATION_FACTOR));
 				replicationFactor = DEFAULT_REPLICATION_FACTOR;
 			}
 		}
@@ -144,13 +145,15 @@ public class CassandraService {
 			for (String createIndexQuery : createIndexQueries) {
 				session.execute(createIndexQuery);
 			}
-//			log.infof("Created table %s in keyspace %s", tableName,
-//					keyspaceName);
+			log.info(String.format("Created table %s in keyspace %s",
+					tableName, keyspaceName));
 		} catch (AlreadyExistsException e) {
-//			log.infof("Found table %s in keyspace %s", tableName, keyspaceName);
+			log.info(String.format("%s:Found table %s in keyspace %s",
+					e.getMessage(), tableName, keyspaceName));
 		} catch (DriverException e) {
-//			log.errorf(e, "Failed to create table %s in keyspace %s",
-//					tableName, keyspaceName);
+			log.error(String.format(
+					"%s:Failed to create table %s in keyspace %s",
+					e.getMessage(), tableName, keyspaceName));
 			throw e;
 		}
 	}
@@ -173,24 +176,4 @@ public class CassandraService {
 		return sb.toString();
 	}
 
-	public static void main(String[] args) {
-		try {
-//			String relativelyPath = Thread.currentThread()
-//					.getContextClassLoader()
-//					.getResource("properties/cassandra.properties").getPath();
-//			System.out.println(relativelyPath);
-//			InputStream in = new BufferedInputStream(new FileInputStream(
-//					relativelyPath));
-//			 InputStream in = Thread.currentThread()
-//				.getContextClassLoader()
-//				.getResourceAsStream("properties/cassandra.properties");
-//			Properties config = new Properties();
-//			config.load(in);
-//			System.out.println(config.getProperty("cassandra.nodes"));
-			new CassandraService().start();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
 }
