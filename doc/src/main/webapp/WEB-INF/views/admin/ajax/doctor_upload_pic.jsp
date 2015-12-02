@@ -1,13 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+  <%@ taglib prefix='fmt' uri="http://java.sun.com/jsp/jstl/fmt" %>  
 <div class="row">
 	<div id="breadcrumb" class="col-md-12">
-			<ol class="breadcrumb">
-			<li><a href="#" onclick="javacript:LoadAjaxContent('index.do')">医生交流平台</a></li>
-			<li><a href="#"
-				onclick="javacript:LoadAjaxContent('dictionary_info.do')">字典信息管理</a></li>
-			<li>修改${title}</li>
+		<ol class="breadcrumb">
+			<li><a href="index.do">医生交流平台</a></li>
+			<li><a href="index.do">医生信息管理</a></li>
+			<li>医生头像上传</li>
 		</ol>
 	</div>
 </div>
@@ -16,7 +16,7 @@
 		<div class="box">
 			<div class="box-header">
 				<div class="box-name">
-					<i class="fa fa-search"></i> <span>修改${title}信息</span>
+					<i class="fa fa-search"></i> <span>${doctor.name}医生头像信息</span>
 				</div>
 				<div class="box-icons">
 					<a class="collapse-link"> <i class="fa fa-chevron-up"></i>
@@ -27,20 +27,23 @@
 				<div class="no-move"></div>
 			</div>
 			<div class="box-content">
-				<h4 class="page-header">填写${title}信息</h4>
+				<h4 class="page-header">填写医生信息</h4>
 				<form class="form-horizontal" role="form" method="POST"
-					id="defaultForm" action="dictionary_edit_json.do">
-					<input type="hidden" name="type" value="${title}">
-					<input type="hidden" name="primary_id" value="${primary_id}">
+					id="defaultForm" action="doctor_upload_pic_add.do"
+					enctype="multipart/form-data">
+					<input type="hidden" name="id" value="${doctor.id}"/>
 					<div class="form-group">
-						<label class="col-sm-2 control-label">名称</label>
-						<div class="col-sm-4">
-							<input type="text" class="form-control" name="name" value="${name}"/>
+						<label class="col-sm-2 control-label">头像</label>
+						<div id="localImag" class="col-sm-4">
+							<img id="preview" class="img-rounded" src="" alt="" /> <input
+								type="file" name="file"
+								onchange="javascript:setImagePreview(this,localImag,preview);"
+								class="margin-top-15">
 						</div>
 					</div>
 					<div class="clearfix"></div>
 					<div class="form-group">
-						<div class="col-sm-offset-4 col-sm-2">
+						<div class="col-sm-2 col-sm-offset-2">
 							<button type="submit" class="btn btn-primary btn-label-left">
 								<span><i class="fa fa-clock-o"></i></span> Submit
 							</button>
@@ -53,10 +56,6 @@
 </div>
 <script type="text/javascript">
 	$(document).ready(function() {
-		// Add tooltip to form-controls
-		$('.form-control').tooltip();
-		LoadBootstrapValidatorScript(DemoFormValidator);
-		// Add drag-n-drop feature to boxes
 		WinMove();
 	});
 </script>

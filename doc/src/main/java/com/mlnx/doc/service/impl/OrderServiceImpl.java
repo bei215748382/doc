@@ -67,41 +67,46 @@ public class OrderServiceImpl implements OrderService {
 
 	@Override
 	public List<Order> findByDoctorIdAndState(Integer id, Integer state) {
-		String sql = "SELECT * FROM t_order where doctor_id = " + id
-				+ " and state = " + state;
+		String sql = String
+				.format("SELECT * FROM t_order where doctor_id = %d and state = %d order by date asc",
+						id, state);
 		Query query = em.createNativeQuery(sql, Order.class);
 		return query.getResultList();
 	}
 
 	@Override
 	public List<Order> findByFriendIdAndState(Integer id, Integer state) {
-		String sql = "SELECT * FROM t_order where friend_id = " + id
-				+ " and state = " + state;
+		String sql = String
+				.format("SELECT * FROM t_order where friend_id = %d and state = %d order by date asc",
+						id, state);
 		Query query = em.createNativeQuery(sql, Order.class);
 		return query.getResultList();
 	}
 
 	@Override
 	public List<Order> findByDoctorIdAndToday(Integer id) {
-		String sql = "SELECT * FROM t_order where date(date) = curdate() and doctor_id = " + id;
+		String sql = "SELECT * FROM t_order where date(date) = curdate() and doctor_id = "
+				+ id;
 		Query query = em.createNativeQuery(sql, Order.class);
 		return query.getResultList();
 	}
 
 	@Override
 	public List<Order> findByFriendIdAndToday(Integer id) {
-		String sql = "SELECT * FROM t_order where date(date) = curdate() and friend_id = " + id;
+		String sql = "SELECT * FROM t_order where date(date) = curdate() and friend_id = "
+				+ id;
 		Query query = em.createNativeQuery(sql, Order.class);
 		return query.getResultList();
 	}
 
 	@Override
-	public void updateRemind(Integer id) {
+	public Response updateRemind(Integer id) {
 		String sql = "UPDATE t_order set remind = 1 where id = " + id;
 		Query query = em.createNativeQuery(sql);
 		query.executeUpdate();
+		return new Response(EnumCollection.ResponseCode.ORDER_REMIND_SUCCESS);
 	}
-	
+
 	@Transactional
 	@Override
 	public Response update(Order order) {
@@ -113,7 +118,7 @@ public class OrderServiceImpl implements OrderService {
 	@Override
 	public List<Order> findAllBystate(Integer id) {
 		String sql = "SELECT * from t_order where state = " + id;
-		Query query = em.createNativeQuery(sql,Order.class);
+		Query query = em.createNativeQuery(sql, Order.class);
 		return query.getResultList();
 	}
 
@@ -130,7 +135,16 @@ public class OrderServiceImpl implements OrderService {
 		order.setState(0);
 		em.persist(order);
 		return new Response(EnumCollection.ResponseCode.ADD_ORDER_SUCCESS);
-		
+
+	}
+
+	@Override
+	public Response updateState(Integer id) {
+		String sql = String.format("UPDATE t_order set state = 1 where id = %d",id);
+		Query query = em.createNativeQuery(sql);
+		query.executeUpdate();
+		return new Response(
+				EnumCollection.ResponseCode.UPDATE_ORDER_STATE_SUCCESS);
 	}
 
 }

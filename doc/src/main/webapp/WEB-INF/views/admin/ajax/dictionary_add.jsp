@@ -4,9 +4,10 @@
 <div class="row">
 	<div id="breadcrumb" class="col-md-12">
 		<ol class="breadcrumb">
-			<li><a href="index.do">医生交流平台</a></li>
-			<li><a href="index.do">字典信息管理</a></li>
-			<li><a href="#">添加${title}</a></li>
+			<li><a href="#" onclick="javacript:LoadAjaxContent('index.do')">医生交流平台</a></li>
+			<li><a href="#"
+				onclick="javacript:LoadAjaxContent('dictionary_info.do')">字典信息管理</a></li>
+			<li>添加${title}</li>
 		</ol>
 	</div>
 </div>
@@ -29,8 +30,8 @@
 				<h4 class="page-header">填写${title}信息</h4>
 				<form class="form-horizontal" role="form" method="POST"
 					id="defaultForm" action="dictionary_add_json.do">
-					<input type="hidden" name="type" value="${title}">
-					<input type="hidden" name="foreign_id" value="${foreign_id}">
+					<input type="hidden" name="type" value="${title}"> <input
+						type="hidden" name="foreign_id" value="${foreign_id}">
 					<div class="form-group">
 						<label class="col-sm-2 control-label">名称</label>
 						<div class="col-sm-4">

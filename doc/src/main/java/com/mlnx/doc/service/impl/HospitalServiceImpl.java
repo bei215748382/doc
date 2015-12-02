@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.mlnx.doc.entity.Bed;
+import com.mlnx.doc.entity.City;
 import com.mlnx.doc.entity.Hospital;
 import com.mlnx.doc.repository.HospitalDao;
 import com.mlnx.doc.service.HospitalService;
@@ -57,22 +58,38 @@ public class HospitalServiceImpl implements HospitalService {
 	public List<Hospital> findByName(String name) {
 		String sqlString = "select * from t_hospital where name like '%" + name
 				+ "%'";
-		Query query = em.createNativeQuery(sqlString,Hospital.class);
+		Query query = em.createNativeQuery(sqlString, Hospital.class);
 		return query.getResultList();
 	}
 
 	@Override
 	public List<Hospital> findByCityId(Integer id) {
 		String sqlString = "select * from t_hospital where city_id = " + id;
-		Query query = em.createNativeQuery(sqlString,Hospital.class);
+		Query query = em.createNativeQuery(sqlString, Hospital.class);
 		return query.getResultList();
 	}
+
 	@Transactional
 	@Override
 	public void update(Hospital hospital) {
-		String sqlString =String.format("update t_hospital set name = '%s' where id = %d",hospital.getName(),hospital.getId());
-		Query query = em.createNativeQuery(sqlString,Hospital.class);
+		String sqlString = String.format(
+				"update t_hospital set name = '%s' where id = %d",
+				hospital.getName(), hospital.getId());
+		Query query = em.createNativeQuery(sqlString, Hospital.class);
 		query.executeUpdate();
+	}
+
+	@Override
+	public Hospital findByUName(String hospitalName) {
+		try {
+			String sqlString = String.format(
+					"select * from t_hospital where name = '%s'", hospitalName);
+			Query query = em.createNativeQuery(sqlString, Hospital.class);
+			Hospital h = (Hospital) query.getSingleResult();
+			return h;
+		} catch (Exception e) {
+			return null;
+		}
 	}
 
 }

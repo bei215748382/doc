@@ -48,4 +48,10 @@ public interface ProvinceService {
 	 */
 	void update(Province province);
 
+	/**
+	 * 根据唯一命名查找城市
+	 * @param name
+	 * @return
+	 */
+	Province findByUName(String name);
 }

@@ -6,7 +6,7 @@
 		<ol class="breadcrumb">
 			<li><a href="index.do">医生交流平台</a></li>
 			<li><a href="index.do">医生信息管理</a></li>
-			<li><a href="#">医生信息列表</a></li>
+			<li>医生信息列表</li>
 		</ol>
 	</div>
 </div>
@@ -36,6 +36,7 @@
 							<th>头像姓名</th>
 							<th>用户名</th>
 							<th>手机号</th>
+							<th>所属医院</th>
 							<th>注册时间</th>
 							<th>操作</th>
 						</tr>
@@ -50,10 +51,12 @@
 									onerror="this.src='../common/img/admin/avatar.jpg'" />${doctor.name}</td>
 								<td>${doctor.username}</td>
 								<td>${doctor.phone}</td>
+								<td>${doctor.hospital}</td>
 								<td>${doctor.date}</td>
 								<td><a href="#"
 									onclick="javacript:LoadAjaxContent('doctor_edit.do?id=${doctor.id}')">编辑</a>|<a
-									href="#" onclick="deleteDoctor(${doctor.id})">删除</a></td>
+									href="#" onclick="deleteDoctor(${doctor.id})">删除</a>|<a
+									href="#" onclick="javacript:LoadAjaxContent('doctor_upload_pic.do?id=${doctor.id}')">上传头像</a></td>
 							</tr>
 						</c:forEach>
 						<!-- End: list_row -->
@@ -64,6 +67,7 @@
 							<th>头像姓名</th>
 							<th>用户名</th>
 							<th>手机号</th>
+							<th>所属医院</th>
 							<th>注册时间</th>
 							<th>操作</th>
 						</tr>

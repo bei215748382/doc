@@ -6,7 +6,7 @@
 		<ol class="breadcrumb">
 			<li><a href="index.do">医生交流平台</a></li>
 			<li><a href="index.do">医生信息管理</a></li>
-			<li><a href="#">注册医生</a></li>
+			<li>注册医生</li>
 		</ol>
 	</div>
 </div>
@@ -76,12 +76,12 @@
 						<label class="col-sm-2 control-label">性别</label>
 						<div class="col-sm-4">
 							<div class="radio-inline">
-								<label> <input type="radio" name="sex" checked>
+								<label> <input type="radio" name="sex" value="男" checked>
 									男 <i class="fa fa-circle-o"></i>
 								</label>
 							</div>
 							<div class="radio-inline">
-								<label> <input type="radio" name="sex">
+								<label> <input type="radio" name="sex" value="女">
 									女 <i class="fa fa-circle-o"></i>
 								</label>
 							</div>
@@ -91,7 +91,7 @@
 						<label class="col-sm-2 control-label">出生年月</label>
 						<div class="col-sm-2">
 							<input type="text" id="input_date" class="form-control"
-								placeholder="Date"> <span
+								placeholder="Date" name="birthday"> <span
 								class="fa fa-calendar txt-danger form-control-feedback"></span>
 						</div>
 					</div>

@@ -58,4 +58,11 @@ public interface CityService {
 	 */
 	void update(City city);
 
+	/**
+	 * 根据唯一城市名查找城市
+	 * @param cityName
+	 * @return
+	 */
+	City findByUName(String cityName);
+
 }

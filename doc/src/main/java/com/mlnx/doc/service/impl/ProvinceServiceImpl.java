@@ -57,16 +57,32 @@ public class ProvinceServiceImpl implements ProvinceService {
 	public List<Province> findByName(String name) {
 		String sqlString = "select * from t_province where name like '%" + name
 				+ "%'";
-		Query query = em.createNativeQuery(sqlString,Province.class);
+		Query query = em.createNativeQuery(sqlString, Province.class);
 		return query.getResultList();
 	}
+
 	@Transactional
 	@Override
 	public void update(Province province) {
-		String sqlString =String.format("update t_province set name = '%s' where id = %d",province.getName(),province.getId());
-		Query query = em.createNativeQuery(sqlString,Province.class);
+		String sqlString = String.format(
+				"update t_province set name = '%s' where id = %d",
+				province.getName(), province.getId());
+		Query query = em.createNativeQuery(sqlString, Province.class);
 		query.executeUpdate();
-		
+
+	}
+
+	@Override
+	public Province findByUName(String name) {
+		try {
+			String sqlString = String.format(
+					"select * from t_province where name = '%s'", name);
+			Query query = em.createNativeQuery(sqlString, Province.class);
+			Province p = (Province) query.getSingleResult();
+			return p;
+		} catch (Exception e) {
+			return null;
+		}
 	}
 
 }

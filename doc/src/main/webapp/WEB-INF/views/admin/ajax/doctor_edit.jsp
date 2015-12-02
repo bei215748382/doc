@@ -6,7 +6,7 @@
 		<ol class="breadcrumb">
 			<li><a href="index.do">医生交流平台</a></li>
 			<li><a href="index.do">医生信息管理</a></li>
-			<li><a href="#">修改医生</a></li>
+			<li>修改医生</li>
 		</ol>
 	</div>
 </div>

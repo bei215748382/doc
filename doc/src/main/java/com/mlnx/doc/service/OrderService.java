@@ -88,7 +88,7 @@ public interface OrderService {
 	 * 
 	 * @param id
 	 */
-	void updateRemind(Integer id);
+	Response updateRemind(Integer id);
 
 	/**
 	 * 更新预约表
@@ -100,11 +100,25 @@ public interface OrderService {
 
 	/**
 	 * 根据状态查找预约列表
+	 * 
 	 * @return
 	 */
 	List<Order> findAllBystate(Integer id);
 
-	
+	/**
+	 * 添加预约
+	 * 
+	 * @param order
+	 * @return
+	 */
 	Response insert(OrderVo order);
+
+	/**
+	 * 接受预约
+	 * 
+	 * @param id
+	 * @return
+	 */
+	Response updateState(Integer id);
 
 }

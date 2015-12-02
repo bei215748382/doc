@@ -5,8 +5,8 @@
 	<div id="breadcrumb" class="col-md-12">
 		<ol class="breadcrumb">
 				<li><a href="index.do">医生交流平台</a></li>
-			<li><a href="index.do">voip账号管理</a></li>
-			<li><a href="#">voip账号列表</a></li>
+			<li><a href="#" onclick="javacript:LoadAjaxContent('voip_info.do')">voip账号管理</a></li>
+			<li>voip账号列表</li>
 		</ol>
 	</div>
 </div>

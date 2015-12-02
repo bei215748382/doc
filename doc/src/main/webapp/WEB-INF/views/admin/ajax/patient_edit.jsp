@@ -4,9 +4,10 @@
 <div class="row">
 	<div id="breadcrumb" class="col-md-12">
 		<ol class="breadcrumb">
-			<li><a href="index.do">医生交流平台</a></li>
-			<li><a href="index.do">病人信息管理</a></li>
-			<li><a href="#">修改病人</a></li>
+			<li><a href="#" onclick="javacript:LoadAjaxContent('index.do')">医生交流平台</a></li>
+			<li><a href="#"
+				onclick="javacript:LoadAjaxContent('patients_info.do')">病人信息管理</a></li>
+			<li>修改病人</li>
 		</ol>
 	</div>
 </div>

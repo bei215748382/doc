@@ -54,8 +54,17 @@ public interface HospitalService {
 
 	/**
 	 * 更新数据
+	 * 
 	 * @param hospital
 	 */
 	void update(Hospital hospital);
+
+	/**
+	 * 根据医院的唯一名字查找医院
+	 * 
+	 * @param hospitalName
+	 * @return
+	 */
+	Hospital findByUName(String hospitalName);
 
 }

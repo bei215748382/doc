@@ -69,4 +69,9 @@ public class DoctorColTest {
 		System.out.println(doctor.toString());
 	}
 
+	@Test
+	public void testFindByVoipAccount(){
+		Doctor doctor = doctorService.findByVoipAccount("8000904000000043");
+		System.out.println(doctor.toString());
+	}
 }

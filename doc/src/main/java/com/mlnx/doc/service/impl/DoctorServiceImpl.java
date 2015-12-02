@@ -19,6 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.cloopen.rest.sdk.CCPRestSDK;
 import com.mlnx.doc.entity.Doctor;
+import com.mlnx.doc.entity.Hospital;
 import com.mlnx.doc.repository.DoctorDao;
 import com.mlnx.doc.service.DoctorService;
 import com.mlnx.doc.util.EnumCollection;
@@ -302,5 +303,19 @@ public class DoctorServiceImpl implements DoctorService {
 			return false;
 		}
 		return true;
+	}
+
+	@Override
+	public Doctor findByVoipAccount(String voip) {
+		try {
+			String sqlString = String.format(
+					"select * from %s where voip_account = '%s'", table_name,
+					voip);
+			Query query = em.createNativeQuery(sqlString, Doctor.class);
+			Doctor d = (Doctor) query.getSingleResult();
+			return d;
+		} catch (Exception e) {
+			return null;
+		}
 	}
 }

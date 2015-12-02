@@ -4,11 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -70,6 +67,7 @@ public class DoctorCol {
 		map.put("valid", valid);
 		return map;
 	}
+	
 	@RequestMapping(value = "find/regist/phone",method=RequestMethod.POST,produces="application/json")
 	@ResponseBody
 	public Map<String,Boolean> findByRegistPhone(String phone){
@@ -94,5 +92,11 @@ public class DoctorCol {
 	@ResponseBody
 	public List<Doctor> findByDoctorId(@PathVariable int id){
 		return doctorService.findByDoctorId(id);
+	}
+	
+	@RequestMapping(value = "find/voip/{voip}/doctor.do",method=RequestMethod.GET, consumes="application/json",produces="application/json")
+	@ResponseBody
+	public Doctor findByVoipAccount(@PathVariable String voip){
+		return doctorService.findByVoipAccount(voip);
 	}
 }

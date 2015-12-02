@@ -7,9 +7,8 @@
 		<ol class="breadcrumb">
 			<li><a href="#" onclick="javacript:LoadAjaxContent('index.do')">医生交流平台</a></li>
 			<li><a href="#"
-				onclick="javacript:LoadAjaxContent('patients_info.do')">字典信息管理</a></li>
-			<li><a href="#"
-				onclick="javacript:LoadAjaxContent('patients_info.do')">字典信息列表</a></li>
+				onclick="javacript:LoadAjaxContent('dictionary_info.do')">字典信息管理</a></li>
+			<li>字典信息列表</li>
 		</ol>
 	</div>
 </div>

@@ -61,23 +61,39 @@ public class CityServiceImpl implements CityService {
 	public List<City> findByName(String name) {
 		String sqlString = "select * from t_city where name like '%" + name
 				+ "'%";
-		Query query = em.createNativeQuery(sqlString,City.class);
+		Query query = em.createNativeQuery(sqlString, City.class);
 		return query.getResultList();
 	}
 
 	@Override
 	public List<City> findByProvinceId(Integer id) {
 		String sqlString = "select * from t_city where province_id = " + id;
-		Query query = em.createNativeQuery(sqlString,City.class);
+		Query query = em.createNativeQuery(sqlString, City.class);
 		List<City> cities = query.getResultList();
 		return cities;
 	}
+
 	@Transactional
 	@Override
 	public void update(City city) {
-		String sqlString =String.format("update t_city set name = '%s' where id = %d",city.getName(),city.getId());
-		Query query = em.createNativeQuery(sqlString,City.class);
+		String sqlString = String.format(
+				"update t_city set name = '%s' where id = %d", city.getName(),
+				city.getId());
+		Query query = em.createNativeQuery(sqlString, City.class);
 		query.executeUpdate();
+	}
+
+	@Override
+	public City findByUName(String cityName) {
+		try {
+			String sqlString = String.format(
+					"select * from t_city where name = '%s'", cityName);
+			Query query = em.createNativeQuery(sqlString, City.class);
+			City c = (City) query.getSingleResult();
+			return c;
+		} catch (Exception e) {
+			return null;
+		}
 	}
 
 }

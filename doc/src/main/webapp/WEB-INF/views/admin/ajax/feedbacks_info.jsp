@@ -8,8 +8,7 @@
 			<li><a href="#" onclick="javacript:LoadAjaxContent('index.do')">医生交流平台</a></li>
 			<li><a href="#"
 				onclick="javacript:LoadAjaxContent('feedbacks_info.do')">问题反馈管理</a></li>
-			<li><a href="#"
-				onclick="javacript:LoadAjaxContent('feedbacks_info.do')">反馈列表</a></li>
+			<li>反馈列表</li>
 		</ol>
 	</div>
 </div>

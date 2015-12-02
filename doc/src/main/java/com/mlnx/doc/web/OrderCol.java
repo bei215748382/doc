@@ -36,12 +36,13 @@ public class OrderCol {
 
 	/**
 	 * 预约
+	 * 
 	 * @param order
 	 * @return
 	 */
 	@RequestMapping(value = "/{date}/register.do", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
 	@ResponseBody
-	public Response register(@PathVariable long date,@RequestBody Order order) {
+	public Response register(@PathVariable long date, @RequestBody Order order) {
 		int id = order.getFriend_id();
 		Doctor doctor = doctorService.get(id);
 		order.setDoctor_name(doctor.getName());
@@ -86,12 +87,12 @@ public class OrderCol {
 	@RequestMapping(value = "update/{id}/remind.do", method = RequestMethod.GET, consumes = "application/json", produces = "application/json")
 	@ResponseBody
 	public Response updateRemind(@PathVariable int id) {
-		orderService.updateRemind(id);
-		Response response = new Response();
-		response.setResponseCode(EnumCollection.ResponseCode.ORDER_REMIND_SUCCESS
-				.getCode());
-		response.setMsg(EnumCollection.ResponseCode.ORDER_REMIND_SUCCESS
-				.getMsg());
-		return response;
+		return orderService.updateRemind(id);
+	}
+
+	@RequestMapping(value = "update/{id}/state.do", method = RequestMethod.GET, consumes = "application/json", produces = "application/json")
+	@ResponseBody
+	public Response updateState(@PathVariable int id) {
+		return orderService.updateState(id);
 	}
 }

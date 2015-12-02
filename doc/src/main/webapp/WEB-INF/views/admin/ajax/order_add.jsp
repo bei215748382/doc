@@ -6,8 +6,9 @@
 	<div id="breadcrumb" class="col-md-12">
 		<ol class="breadcrumb">
 			<li><a href="index.do">医生交流平台</a></li>
-			<li><a href="index.do">预约信息管理</a></li>
-			<li><a href="#">新增预约</a></li>
+			<li><a href="#"
+				onclick="javacript:LoadAjaxContent('orders_info.do')">>预约信息管理</a></li>
+			<li>新增预约</li>
 		</ol>
 	</div>
 </div>
@@ -56,7 +57,7 @@
 						<label class="col-sm-2 control-label">预约时间</label>
 						<div class="col-sm-2">
 							<input type="date" id="input_date" class="form-control"
-								placeholder="Date" name="date" ><span
+								placeholder="Date" name="date"><span
 								class="fa fa-calendar txt-danger form-control-feedback"></span>
 						</div>
 					</div>
@@ -86,8 +87,8 @@
 	$(document).ready(function() {
 		// Initialize datetimepicker
 		$('#input_date').datetimepicker({
-			timeFormat: "HH:mm:ss",
-            dateFormat: "yy-mm-dd"
+			timeFormat : "HH:mm:ss",
+			dateFormat : "yy-mm-dd"
 		});
 		// Add tooltip to form-controls
 		$('.form-control').tooltip();

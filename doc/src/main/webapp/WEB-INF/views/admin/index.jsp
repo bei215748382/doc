@@ -129,7 +129,7 @@
 										</a>
 									</li>
 									<li>
-										<a href="#">
+										<a href="logout.do">
 											<i class="fa fa-power-off"></i>
 											<span>Logout</span>
 										</a>
@@ -175,7 +175,7 @@
 						 <span class="hidden-xs">容联云子账号管理</span>
 					</a>
 					<ul class="dropdown-menu">
-						<li><a class="ajax-link" href="voip_all.do">账号明细</a></li>
+						<li><a class="ajax-link" href="voip_info.do">账号明细</a></li>
 					</ul>
 				</li>
 				<li class="dropdown">

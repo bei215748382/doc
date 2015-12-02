@@ -50,8 +50,15 @@
 	</bean>
 
 	<mvc:default-servlet-handler />
-	<mvc:view-controller path="/" view-name="redirect:/task/list" />
+	<mvc:view-controller path="/" view-name="redirect:/admin/index" />
 
-
+	<!--拦截器 -->
+	<mvc:interceptors>
+		<!--多个拦截器,顺序执行 -->
+		<mvc:interceptor>
+			<mvc:mapping path="/admin/**" />
+			<bean class="com.mlnx.doc.filter.LoginInterceptor"></bean>
+		</mvc:interceptor>
+	</mvc:interceptors>
 
 </beans>

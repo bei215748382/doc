@@ -6,8 +6,8 @@
 	<div id="breadcrumb" class="col-md-12">
 		<ol class="breadcrumb">
 			<li><a href="index.do">医生交流平台</a></li>
-			<li><a href="index.do">预约信息管理</a></li>
-			<li><a href="#">预约信息列表</a></li>
+			<li><a href="#" onclick="javacript:LoadAjaxContent('orders_info.do')">>预约信息管理</a></li>
+			<li>预约信息列表</li>
 		</ol>
 	</div>
 </div>
