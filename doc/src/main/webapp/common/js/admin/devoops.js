@@ -2822,7 +2822,7 @@ $(document)
 					});
 					var ajax_url = location.hash.replace(/^#/, '');
 					if (ajax_url.length < 1) {
-						ajax_url = 'doctors_info.do';
+						ajax_url = 'index_info.do';
 					}
 					LoadAjaxContent(ajax_url);
 					$('.main-menu')

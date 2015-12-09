@@ -16,7 +16,7 @@ public class EnumCollection {
 				"000021", "删除病人成功"), UPDATE_DOCTOR_SUCCESS("000022", "修改医生信息成功"), DELETE_ORDER_SUCCESS(
 				"000023", "删除预约成功"), UPDATE_ORDER_SUCCESS("000024", "更新预约表成功"), ADD_ORDER_SUCCESS(
 				"000025", "添加预约成功"), UPDATE_ORDER_STATE_SUCCESS("000026",
-				"更新预约成功");
+				"更新预约成功"), ADD_LOG_SUCCESS("000027","客户端上传错误日志成功"), DELETE_LOG_SUCCESS("000028","删除客户端错误日志成功");
 		// 成员变量
 		private String code;
 		private String msg;

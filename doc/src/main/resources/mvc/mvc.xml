@@ -59,6 +59,11 @@
 			<mvc:mapping path="/admin/**" />
 			<bean class="com.mlnx.doc.filter.LoginInterceptor"></bean>
 		</mvc:interceptor>
+			<!--多个拦截器,顺序执行 -->
+		<mvc:interceptor>
+			<mvc:mapping path="/log/**" />
+			<bean class="com.mlnx.doc.filter.LogLoginInterceptor"></bean>
+		</mvc:interceptor>
 	</mvc:interceptors>
 
 </beans>

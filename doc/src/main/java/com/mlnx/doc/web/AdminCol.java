@@ -177,11 +177,19 @@ public class AdminCol {
 		return "admin/index";
 	}
 
+	@RequestMapping(value = "index_info.do")
+	public ModelAndView index_info(HttpServletRequest request,
+			HttpServletResponse response) {
+		List<Doctor> doctors = doctorService.findAll();
+		ModelAndView modelAndView = new ModelAndView("admin/ajax/doctors_info");
+		modelAndView.addObject("doctors", doctors);
+		return modelAndView;
+	}
+	
 	@RequestMapping(value = "doctors_info.do")
 	public ModelAndView tables_datatables(HttpServletRequest request,
 			HttpServletResponse response) {
 		List<Doctor> doctors = doctorService.findAll();
-
 		ModelAndView modelAndView = new ModelAndView("admin/ajax/doctors_info");
 		modelAndView.addObject("doctors", doctors);
 		return modelAndView;
