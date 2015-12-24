@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <div class="row">
 	<div id="breadcrumb" class="col-md-12">
 		<ol class="breadcrumb">
@@ -32,6 +33,8 @@
 					id="defaultForm" action="patient_edit_json.do"
 					enctype="multipart/form-data">
 					<input type="hidden" name="id" value="${patient.id}" />
+					<input type="hidden" name="patient_id" value="${patient.patient_id}"/>
+					<input type="hidden" name="pic" value="${patient.pic}">
 					<div class="form-group">
 						<label class="col-sm-2 control-label">名字</label>
 						<div class="col-sm-4">
@@ -42,7 +45,8 @@
 					<div class="form-group">
 						<label class="col-sm-2 control-label">手机号</label>
 						<div class="col-sm-4">
-							<input type="text" class="form-control" name="phone" />
+							<input type="text" class="form-control" name="phone"
+								value="${patient.phone}" />
 						</div>
 					</div>
 					<div class="form-group">
@@ -58,29 +62,39 @@
 					<div class="form-group">
 						<label class="col-sm-2 control-label">性别</label>
 						<div class="col-sm-4">
-							<div class="radio-inline">
-								<label> <input type="radio" name="sex" checked value="男">
-									男 <i class="fa fa-circle-o"></i>
-								</label>
-							</div>
-							<div class="radio-inline">
-								<label> <input type="radio" name="sex" value="女">
-									女 <i class="fa fa-circle-o"></i>
-								</label>
-							</div>
-						</div>
-						<label class="col-sm-2 control-label">手机号</label>
-						<div class="col-sm-4">
-							<input type="text" class="form-control" name="phone"
-								value="${patient.phone }" />
+							<c:if test="${patient.sex == '男' }">
+								<div class="radio-inline">
+									<label> <input type="radio" name="sex" value="男"
+										checked> 男 <i class="fa fa-circle-o"></i>
+									</label>
+								</div>
+								<div class="radio-inline">
+									<label> <input type="radio" name="sex" value="女">
+										女 <i class="fa fa-circle-o"></i>
+									</label>
+								</div>
+							</c:if>
+							<c:if test="${patient.sex == '女' }">
+								<div class="radio-inline">
+									<label> <input type="radio" name="sex" value="男">
+										男 <i class="fa fa-circle-o"></i>
+									</label>
+								</div>
+								<div class="radio-inline">
+									<label> <input type="radio" name="sex" value="女"
+										checked> 女 <i class="fa fa-circle-o"></i>
+									</label>
+								</div>
+							</c:if>
 						</div>
 					</div>
 					<div class="form-group has-feedback">
 						<label class="col-sm-2 control-label">出生年月</label>
 						<div class="col-sm-2">
 							<input type="text" id="input_date" class="form-control"
-								placeholder="Date" name="date"> <span
-								class="fa fa-calendar txt-danger form-control-feedback"></span>
+								placeholder="Date" name="date"
+								value='<fmt:formatDate value="${patient.date}" pattern="dd/MM/yyyy"/>'>
+							<span class="fa fa-calendar txt-danger form-control-feedback"></span>
 						</div>
 					</div>
 					<div class="form-group ">
@@ -98,7 +112,7 @@
 						<div class="col-sm-3">
 							<select class="populate placeholder" name="hospital"
 								id="hospital">
-								<option value="">-- 选择医院 --</option>
+								<option value="${patient.hospital}">-- 选择医院 --</option>
 							</select>
 						</div>
 					</div>
@@ -114,17 +128,17 @@
 						<label class="col-sm-2 control-label">对应床位号</label>
 						<div class="col-sm-2">
 							<select class="populate placeholder" id="domain" name="domain">
-								<option value=''>-- 选择病区 --</option>
+								<option value='${patient.domain }'>-- 选择病区 --</option>
 							</select>
 						</div>
 						<div class="col-sm-2">
 							<select class="populate placeholder" id="room" name="room">
-								<option value="">-- 选择房间 --</option>
+								<option value="${patient.room }">-- 选择房间 --</option>
 							</select>
 						</div>
 						<div class="col-sm-3">
-							<select class="populate placeholder" id="bed" name="bed">
-								<option value="">-- 选择床号 --</option>
+							<select class="populate placeholder" id="bed" name="bed_id">
+								<option value="${patient.bed_id }">${patient.bed}</option>
 							</select>
 						</div>
 					</div>
@@ -132,8 +146,14 @@
 						<label class="col-sm-2 control-label">是否在疗</label>
 						<div class="col-sm-2">
 							<select class="populate placeholder" name="state" id="state">
-								<option value='1'>-- 在疗 --</option>
-								<option value='2'>-- 出院 --</option>
+								<c:if test="${patient.state == 1}">
+									<option value='1'>-- 在疗 --</option>
+									<option value='2'>-- 出院 --</option>
+								</c:if>
+								<c:if test="${patient.state == 2}">
+									<option value='2'>-- 出院 --</option>
+									<option value='1'>-- 在疗 --</option>
+								</c:if>
 							</select>
 						</div>
 					</div>
@@ -142,7 +162,7 @@
 						<div class="col-sm-4">
 							<select class="populate placeholder" name="doctor_id"
 								id="doctor_id">
-								<option value="">-- 关联医生 --</option>
+								<option value="${patient.doctor_id}">-- 默认关联医生 --</option>
 								<c:forEach items="${doctors}" var="doctor">
 									<option value="${doctor.id}">${doctor.name}</option>
 								</c:forEach>

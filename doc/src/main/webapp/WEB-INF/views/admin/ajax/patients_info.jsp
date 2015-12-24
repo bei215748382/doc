@@ -50,6 +50,8 @@
 									value="照片" class="search_init" /></label></th>
 							<th><label><input type="text" name="search_version"
 									value="医生id" class="search_init" /></label></th>
+										<th><label><input type="text" name="search_version"
+									value="病人id" class="search_init" /></label></th>
 							<th><label><input type="text" name="search_version"
 									value="操作" class="search_init" /></label></th>
 						</tr>
@@ -68,6 +70,7 @@
 									alt="${patient.pic}"
 									onerror="this.src='../common/img/admin/avatar.jpg'" />${patient.pic}</td>
 								<td>${patient.doctor_id}</td>
+								<td>${patient.patient_id}</td>
 								<td><a href="#"
 									onclick="javacript:LoadAjaxContent('patient_edit.do?id=${patient.id}')">编辑</a>|<a
 									href="#" onclick="deletePatient(${patient.id})">删除</a></td>
@@ -85,6 +88,7 @@
 							<th>床位号</th>
 							<th>照片</th>
 							<th>管理医生id</th>
+							<th>心电病人id</th>
 							<th>操作</th>
 						</tr>
 					</tfoot>

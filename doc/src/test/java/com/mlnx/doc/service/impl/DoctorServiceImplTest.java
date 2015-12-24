@@ -50,7 +50,7 @@ public class DoctorServiceImplTest {
 	@Test
 	public void testRegister() {
 		Doctor doctor = new Doctor();
-		doctor.setPhone("15867404048");
+		doctor.setPhone("15867400025");
 		doctor.setPassword("123456");
 		doctorDao.save(doctor);
 	}

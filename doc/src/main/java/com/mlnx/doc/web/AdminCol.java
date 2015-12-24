@@ -27,6 +27,7 @@ import com.cloopen.rest.sdk.CCPRestSDK;
 import com.mlnx.doc.entity.Bed;
 import com.mlnx.doc.entity.City;
 import com.mlnx.doc.entity.Doctor;
+import com.mlnx.doc.entity.Doctor_doctor;
 import com.mlnx.doc.entity.Domain;
 import com.mlnx.doc.entity.Feedback;
 import com.mlnx.doc.entity.Hospital;
@@ -37,6 +38,7 @@ import com.mlnx.doc.entity.Room;
 import com.mlnx.doc.service.BedService;
 import com.mlnx.doc.service.CityService;
 import com.mlnx.doc.service.DoctorService;
+import com.mlnx.doc.service.Doctor_doctorService;
 import com.mlnx.doc.service.DomainService;
 import com.mlnx.doc.service.FeedbackService;
 import com.mlnx.doc.service.HospitalService;
@@ -44,7 +46,6 @@ import com.mlnx.doc.service.OrderService;
 import com.mlnx.doc.service.PatientService;
 import com.mlnx.doc.service.ProvinceService;
 import com.mlnx.doc.service.RoomService;
-import com.mlnx.doc.util.DoctorInfoExcel;
 import com.mlnx.doc.util.ExcelReader;
 import com.mlnx.doc.util.FileUtil;
 import com.mlnx.doc.util.Response;
@@ -61,6 +62,9 @@ public class AdminCol {
 	
 	@Autowired
 	private DoctorService doctorService;
+	
+	@Autowired
+	private Doctor_doctorService doctor_doctorService;
 
 	@Autowired
 	private PatientService patientService;
@@ -325,9 +329,11 @@ public class AdminCol {
 
 	@RequestMapping(value = "patient_edit")
 	public ModelAndView patient_edit(int id) {
+		List<Doctor> doctors = doctorService.findAll();
 		Patient patient = patientService.get(id);
 		ModelAndView modelAndView = new ModelAndView("admin/ajax/patient_edit");
-		modelAndView.addObject("patient", patient);
+		modelAndView.addObject("patient", patient);	
+		modelAndView.addObject("doctors", doctors);
 		return modelAndView;
 	}
 
@@ -344,7 +350,17 @@ public class AdminCol {
 		patientService.modifyPatient(patient);
 		response.sendRedirect("index.do#patients_info.do");
 	}
-
+	// -------------------------------------- 医生好友信息管理
+		// ---------------------------------------
+	@RequestMapping(value = "friends_info.do")
+	public ModelAndView friends_info(){
+		List<Doctor_doctor> friends = doctor_doctorService.findAll();
+		ModelAndView modelAndView = new ModelAndView(
+				"admin/ajax/friends_info");
+		modelAndView.addObject("friends", friends);
+		return modelAndView;
+	}
+	
 	// -------------------------------------- 字典信息管理
 	// ---------------------------------------
 	@RequestMapping(value = "dictionary_info.do")

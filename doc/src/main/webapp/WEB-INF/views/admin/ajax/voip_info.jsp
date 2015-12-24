@@ -35,9 +35,10 @@
 				<table class="table table-bordered table-striped table-hover table-heading table-datatable" id="datatable-1">
 					<thead>
 						<tr>
-							<th>id</th>
-							<th>账号</th>
-							<th>密码</th>
+							<th>subAccountSid</th>
+							<th>subToken</th>
+							<th>voip账号</th>
+							<th>voip密码</th>
 							<th>创建日期</th>
 							<th>friendlyName</th>
 						</tr>
@@ -47,6 +48,7 @@
 						<c:forEach items="${data.SubAccount}" var="voip">
 							<tr>
 							<td>${voip.subAccountSid}</td>
+							<td>${voip.subToken }</td>
 							<td>${voip.voipAccount}</td>
 							<td>${voip.voipPwd}</td>
 							<td>${voip.dateCreated}</td>
@@ -57,9 +59,10 @@
 					</tbody>
 					<tfoot>
 						<tr>
-							<th>id</th>
-							<th>账号</th>
-							<th>密码</th>
+							<th>subAccountSid</th>
+							<th>subToken</th>
+							<th>voip账号</th>
+							<th>voip密码</th>
 							<th>创建日期</th>
 							<th>friendlyName</th>
 						</tr>

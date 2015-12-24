@@ -94,4 +94,7 @@
 	<!-- Activates scanning of @Repository and @Service -->
 	<context:component-scan base-package="com.mlnx.doc.repo" />
 	
+	<!-- 注入videoService的服务类 ，用来获取远程的造影信息 -->
+	<bean id="videoService" class="com.mlnx.doc.video.MedicalServer"></bean>
+	
 </beans>

@@ -83,12 +83,16 @@ public class DoctorServiceImpl implements DoctorService {
 		}
 		String voipAccount = null;
 		String voipPassword = null;
+		String subAccountSid = null;
+		String subToken = null;
+		String dateCreated = null;
+		String friendName = doctor.getPhone();
 		HashMap<String, Object> result = null;
 		CCPRestSDK restAPI = new CCPRestSDK();
 		restAPI.init("sandboxapp.cloopen.com", "8883");// 初始化服务器地址和端口，格式如下，服务器地址不需要写https://
 		restAPI.setAccount(StringUtil.accountSid, StringUtil.accountToken);// 初始化主帐号和主帐号TOKEN
 		restAPI.setAppId(StringUtil.appId);// 初始化应用ID
-		result = restAPI.createSubAccount(doctor.getPhone());
+		result = restAPI.createSubAccount(friendName);
 		log.info("SDKTestCreateSubAccount result=" + result);
 		if ("000000".equals(result.get("statusCode"))) {
 			// 正常返回输出data包体信息（map）
@@ -99,10 +103,16 @@ public class DoctorServiceImpl implements DoctorService {
 				Object object = data.get(key);
 				log.info(key + " = " + object);
 				String[] s = object.toString().split(",");
-				String[] a = s[1].split("=");
-				String[] b = s[3].split("=");
-				voipAccount = a[1];
-				voipPassword = b[1];
+				String[] subAccountSidStr = s[0].split("=");
+				String[] subTokenStr = s[4].split("=");
+				String[] voipAccountStr = s[1].split("=");
+				String[] voipPwdtStr = s[3].split("=");
+				String[] dateCreateStr = s[2].split("=");
+				voipAccount = voipAccountStr[1];
+				voipPassword = voipPwdtStr[1];
+				subAccountSid = subAccountSidStr[1];
+				subToken = subTokenStr[1];
+				dateCreated = dateCreateStr[1];
 			}
 		} else {
 			// 异常返回输出错误码和错误信息
@@ -115,6 +125,10 @@ public class DoctorServiceImpl implements DoctorService {
 		}
 		doctor.setVoipAccount(voipAccount);
 		doctor.setVoipPassword(voipPassword);
+		doctor.setSubAccountSid(subAccountSid);
+		doctor.setSubToken(subToken);
+		doctor.setDateCreated(dateCreated);
+		doctor.setFriendName(friendName);
 		doctorDao.save(doctor);
 		response.setResponseCode(EnumCollection.ResponseCode.SUCCESS.getCode());
 		response.setMsg(EnumCollection.ResponseCode.SUCCESS.getMsg());
@@ -142,6 +156,10 @@ public class DoctorServiceImpl implements DoctorService {
 		}
 		String voipAccount = null;
 		String voipPassword = null;
+		String subAccountSid = null;
+		String subToken = null;
+		String dateCreated = null;
+		String friendName = doctor.getPhone();
 		HashMap<String, Object> result = null;
 		CCPRestSDK restAPI = new CCPRestSDK();
 		restAPI.init("sandboxapp.cloopen.com", "8883");// 初始化服务器地址和端口，格式如下，服务器地址不需要写https://
@@ -158,10 +176,16 @@ public class DoctorServiceImpl implements DoctorService {
 				Object object = data.get(key);
 				log.info(key + " = " + object);
 				String[] s = object.toString().split(",");
-				String[] a = s[1].split("=");
-				String[] b = s[3].split("=");
-				voipAccount = a[1];
-				voipPassword = b[1];
+				String[] subAccountSidStr = s[0].split("=");
+				String[] subTokenStr = s[4].split("=");
+				String[] voipAccountStr = s[1].split("=");
+				String[] voipPwdtStr = s[3].split("=");
+				String[] dateCreateStr = s[2].split("=");
+				voipAccount = voipAccountStr[1];
+				voipPassword = voipPwdtStr[1];
+				subAccountSid = subAccountSidStr[1];
+				subToken = subTokenStr[1];
+				dateCreated = dateCreateStr[1];
 			}
 		} else {
 			// 异常返回输出错误码和错误信息
@@ -174,6 +198,10 @@ public class DoctorServiceImpl implements DoctorService {
 		}
 		doctor.setVoipAccount(voipAccount);
 		doctor.setVoipPassword(voipPassword);
+		doctor.setSubAccountSid(subAccountSid);
+		doctor.setSubToken(subToken);
+		doctor.setDateCreated(dateCreated);
+		doctor.setFriendName(friendName);
 		doctorDao.save(doctor);
 		response.setResponseCode(EnumCollection.ResponseCode.SUCCESS.getCode());
 		response.setMsg(EnumCollection.ResponseCode.SUCCESS.getMsg());

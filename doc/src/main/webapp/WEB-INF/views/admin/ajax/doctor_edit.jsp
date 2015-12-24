@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <div class="row">
 	<div id="breadcrumb" class="col-md-12">
 		<ol class="breadcrumb">
@@ -30,9 +31,11 @@
 				<form class="form-horizontal" role="form" method="POST"
 					id="defaultForm" action="doctor_edit_json.do"
 					enctype="multipart/form-data">
-					<input type="hidden" name="id" value="${doctor.id}">
-					<input type="hidden" name="voipAccount" value="${doctor.voipAccount}">
-					<input type="hidden" name="voipPassword" value="${doctor.voipPassword}">
+					<input type="hidden" name="id" value="${doctor.id}"> <input
+						type="hidden" name="voipAccount" value="${doctor.voipAccount}">
+					<input type="hidden" name="voipPassword"
+						value="${doctor.voipPassword}">
+					<input type="hidden" name="pic" value="${doctor.pic}">
 					<div class="form-group">
 						<label class="col-sm-2 control-label">用户名</label>
 						<div class="col-sm-4">
@@ -43,14 +46,15 @@
 					<div class="form-group">
 						<label class="col-sm-2 control-label">密码</label>
 						<div class="col-sm-4">
-							<input type="password" class="form-control" name="password" />
+							<input type="password" class="form-control" name="password"
+								value="${doctor.password}" />
 						</div>
 					</div>
 					<div class="form-group">
 						<label class="col-sm-2 control-label">确认密码</label>
 						<div class="col-sm-4">
 							<input type="password" class="form-control"
-								name="confirmPassword" />
+								name="confirmPassword" value="${doctor.password}" />
 						</div>
 					</div>
 					<div class="form-group">
@@ -64,7 +68,8 @@
 					<div class="form-group">
 						<label class="col-sm-2 control-label">手机号</label>
 						<div class="col-sm-4">
-							<input type="text" class="form-control" name="phone" value="${doctor.phone}"/>
+							<input type="text" class="form-control" name="phone"
+								value="${doctor.phone}" />
 						</div>
 					</div>
 					<div class="form-group">
@@ -80,23 +85,37 @@
 					<div class="form-group">
 						<label class="col-sm-2 control-label">性别</label>
 						<div class="col-sm-4">
-							<div class="radio-inline">
-								<label> <input type="radio" name="sex"
-									value="男" checked> 男 <i class="fa fa-circle-o"></i>
-								</label>
-							</div>
-							<div class="radio-inline">
-								<label> <input type="radio" name="sex"
-									value="女"> 女 <i class="fa fa-circle-o"></i>
-								</label>
-							</div>
+							<c:if test="${doctor.sex == '男'}">
+								<div class="radio-inline">
+									<label> <input type="radio" name="sex" value="男"
+										checked> 男 <i class="fa fa-circle-o"></i>
+									</label>
+								</div>
+								<div class="radio-inline">
+									<label> <input type="radio" name="sex" value="女">
+										女 <i class="fa fa-circle-o"></i>
+									</label>
+								</div>
+							</c:if>
+							<c:if test="${doctor.sex == '女'}">
+								<div class="radio-inline">
+									<label> <input type="radio" name="sex" value="男">
+										男 <i class="fa fa-circle-o"></i>
+									</label>
+								</div>
+								<div class="radio-inline">
+									<label> <input type="radio" name="sex" value="女"
+										checked> 女 <i class="fa fa-circle-o"></i>
+									</label>
+								</div>
+							</c:if>
 						</div>
 					</div>
 					<div class="form-group has-feedback">
 						<label class="col-sm-2 control-label">出生年月</label>
 						<div class="col-sm-2">
 							<input type="text" id="input_date" class="form-control"
-								placeholder="Date"> <span
+								placeholder="Date" name="birthday" value='<fmt:formatDate value="${doctor.birthday}" pattern="dd/MM/yyyy"/>'> <span
 								class="fa fa-calendar txt-danger form-control-feedback"></span>
 						</div>
 					</div>
@@ -105,18 +124,18 @@
 						<div class="col-sm-2">
 							<select class="populate placeholder" name="province"
 								id="province">
-								<option value=''>-- 选择省 --</option>
+								<option value='${doctor.province}'>--选择省--</option>
 							</select>
 						</div>
 						<div class="col-sm-2">
 							<select class="populate placeholder" name="city" id="city">
-								<option value="">-- 选择市 --</option>
+								<option value="${doctor.city}">--选择城市--</option>
 							</select>
 						</div>
 						<div class="col-sm-3">
 							<select class="populate placeholder" name="hospital_id"
 								id="hospital">
-								<option value="">-- 选择医院 --</option>
+								<option value="${doctor.hospital_id}">${doctor.hospital}</option>
 							</select>
 						</div>
 					</div>

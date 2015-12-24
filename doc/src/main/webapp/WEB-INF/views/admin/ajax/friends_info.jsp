@@ -1,11 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<c:set var="ctx" value="${pageContext.request.contextPath}" />
 <div class="row">
 	<div id="breadcrumb" class="col-md-12">
 		<ol class="breadcrumb">
 			<li><a href="index.do">医生交流平台</a></li>
-			<li><a href="index.do">医生信息管理</a></li>
+			<li><a href="index.do">医生好友信息管理</a></li>
 			<li>医生信息列表</li>
 		</ol>
 	</div>
@@ -15,8 +16,7 @@
 		<div class="box">
 			<div class="box-header">
 				<div class="box-name">
-					<i class="fa fa-usd"></i> <span>医生信息列表</span> | <a href="#"
-						onclick="javacript:LoadAjaxContent('doctor_add.do')">添加</a>
+					<i class="fa fa-usd"></i> <span>医生好友信息列表</span>
 				</div>
 				<div class="box-icons">
 					<a class="collapse-link"> <i class="fa fa-chevron-up"></i>
@@ -33,33 +33,17 @@
 					<thead>
 						<tr>
 							<th>id</th>
-							<th>头像姓名</th>
-							<th>用户名</th>
-							<th>手机号</th>
-							<th>所属医院</th>
-							<th>性别</th>
-							<th>注册时间</th>
-							<th>操作</th>
+							<th>用户id</th>
+							<th>好友id</th>
 						</tr>
 					</thead>
 					<tbody>
 						<!-- Start: list_row -->
-						<c:forEach items="${doctors}" var="doctor">
+						<c:forEach items="${friends}" var="friend">
 							<tr>
-								<td>${doctor.id}</td>
-								<td><img class="img-rounded" src="${doctor.pic}"
-									alt="${doctor.pic}"
-									onerror="this.src='../common/img/admin/avatar.jpg'" />${doctor.name}</td>
-								<td>${doctor.username}</td>
-								<td>${doctor.phone}</td>
-								<td>${doctor.hospital}</td>
-								<td>${doctor.sex}</td>
-								<td>${doctor.date}</td>
-								<td><a href="#"
-									onclick="javacript:LoadAjaxContent('doctor_edit.do?id=${doctor.id}')">编辑</a>|<a
-									href="#" onclick="deleteDoctor(${doctor.id})">删除</a>|<a
-									href="#"
-									onclick="javacript:LoadAjaxContent('doctor_upload_pic.do?id=${doctor.id}')">上传头像</a></td>
+								<td>${friend.id}</td>
+								<td><a href="#" onclick="openDoctorInfoBox(${friend.doctor_id})">${friend.doctor_id}</a></td>
+								<td><a href="#" onclick="openDoctorInfoBox(${friend.friend_id})">${friend.friend_id}</a></td>
 							</tr>
 						</c:forEach>
 						<!-- End: list_row -->
@@ -67,13 +51,8 @@
 					<tfoot>
 						<tr>
 							<th>id</th>
-							<th>头像姓名</th>
-							<th>用户名</th>
-							<th>手机号</th>
-							<th>所属医院</th>
-							<th>性别</th>
-							<th>注册时间</th>
-							<th>操作</th>
+							<th>用户id</th>
+							<th>好友id</th>
 						</tr>
 					</tfoot>
 				</table>
@@ -82,6 +61,31 @@
 	</div>
 </div>
 <script type="text/javascript">
+function openDoctorInfoBox(id){
+	$.ajax({
+		type : 'get',
+		url : '${ctx}/doctors/find/'+id+'/doctor.do',
+		data : {},
+		cache : false,
+		dataType : 'json',
+		success : function(data) {
+			var str="";
+			var header="id为："+data.id+"的医生详情";
+			for(var a in data){
+				if(a!='password'){
+					str+= a + ":" + data[a]+"<br/>";
+				}
+				console.log(a!='password');
+			}
+			OpenModalBox(header, str,header);
+		},
+		error : function() {
+			console.log("异常");
+		}
+	});
+	
+}
+	
 	// Run Datables plugin and create 3 variants of settings
 	function AllTables() {
 		TestTable1();
@@ -97,22 +101,22 @@
 							'Search');
 				});
 	}
-	function deleteDoctor(id){
+	function deleteDoctor(id) {
 		$.ajax({
-			 type:'post',  
-		     url:'doctor_delete_json.do?id='+id,  
-		     data:{},  
-		     cache:false,  
-		     dataType:'json',  
-		     success:function(data){  
-			     console.log(data);
-		      	alert(data.msg);
-		      	LoadAjaxContent("index.do"); 
-		      },  
-		      error:function(){
-			      console.log("异常");
-			     }
-			});
+			type : 'post',
+			url : 'doctor_delete_json.do?id=' + id,
+			data : {},
+			cache : false,
+			dataType : 'json',
+			success : function(data) {
+				console.log(data);
+				alert(data.msg);
+				LoadAjaxContent("index.do");
+			},
+			error : function() {
+				console.log("异常");
+			}
+		});
 	}
 	$(document).ready(function() {
 		// Load Datatables and run plugin on tables 

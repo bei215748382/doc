@@ -76,25 +76,25 @@ public class DoctorCol {
 		map.put("valid", valid);
 		return map;
 	}
-	@RequestMapping(value = "find/hospital/{id}/doctors.do",method=RequestMethod.GET, consumes="application/json",produces="application/json")
+	@RequestMapping(value = "find/hospital/{id}/doctors.do",method=RequestMethod.GET)
 	@ResponseBody
 	public List<Doctor> findByHospitalId(@PathVariable int id){
 		return doctorService.findByHospitalId(id);
 	}
 	
-	@RequestMapping(value = "find/{id}/doctor.do",method=RequestMethod.GET, consumes="application/json",produces="application/json")
+	@RequestMapping(value = "find/{id}/doctor.do",method=RequestMethod.GET)
 	@ResponseBody
 	public Doctor findById(@PathVariable int id){
 		return doctorService.get(id);
 	}
 	
-	@RequestMapping(value = "find/{id}/friends.do",method=RequestMethod.GET, consumes="application/json",produces="application/json")
+	@RequestMapping(value = "find/{id}/friends.do",method=RequestMethod.GET)
 	@ResponseBody
 	public List<Doctor> findByDoctorId(@PathVariable int id){
 		return doctorService.findByDoctorId(id);
 	}
 	
-	@RequestMapping(value = "find/voip/{voip}/doctor.do",method=RequestMethod.GET, consumes="application/json",produces="application/json")
+	@RequestMapping(value = "find/voip/{voip}/doctor.do",method=RequestMethod.GET)
 	@ResponseBody
 	public Doctor findByVoipAccount(@PathVariable String voip){
 		return doctorService.findByVoipAccount(voip);
