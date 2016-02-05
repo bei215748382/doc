@@ -7,6 +7,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import com.mlnx.doc.entity.Doctor;
+import com.mlnx.doc.entity.State;
 import com.mlnx.doc.util.Response;
 
 public interface DoctorService {
@@ -133,5 +134,39 @@ public interface DoctorService {
 	 * @return
 	 */
 	Doctor findByVoipAccount(String voip);
+
+	/**
+	 * 登入时候携带状态
+	 * 
+	 * @param doctor
+	 * @param state
+	 * @return
+	 */
+	Map<String, String> login(Doctor doctor, int state);
+	
+	/**
+	 * 登入时候携带状态
+	 * 
+	 * @param doctor
+	 * @param state
+	 * @return
+	 */
+	Map<String, String> login(String phone,String password, int state);
+
+	/**
+	 * 查找医生状态
+	 * 
+	 * @param id
+	 * @return
+	 */
+	Map<String, Object> findDoctorState(int id);
+
+	/**
+	 * 更新医生登入状态
+	 * 
+	 * @param state
+	 * @return
+	 */
+	Map<String, Object> updateDoctorState(State state);
 
 }

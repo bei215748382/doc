@@ -25,8 +25,12 @@ public class VideoCol {
 		ModelAndView mav = new ModelAndView("video/zy");
 		List<MeetingRoom> list = server.getServer().getMeetingRoomList(server.getUser(), "");
 		mav.addObject("rooms", list);
-		System.out.println(list);
 		return mav;
+	}
+	
+	@RequestMapping(value = "/index2", method = RequestMethod.GET)
+	public String index2() {
+		return "video/zy2";
 	}
 
 	@RequestMapping(value = "get_meet_place", method = RequestMethod.GET, produces = "application/json")

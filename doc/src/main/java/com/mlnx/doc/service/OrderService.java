@@ -121,4 +121,19 @@ public interface OrderService {
 	 */
 	Response updateState(Integer id);
 
+	/**
+	 * 返回不过期的预约列表
+	 * 
+	 * @param id
+	 * @return
+	 */
+	List<Order> findByDoctorIdAndStateAndValid(int id);
+
+	/**
+	 * 
+	 * @param id
+	 * @return
+	 */
+	List<Order> findByFriendIdAndStateAndValid(int id);
+
 }

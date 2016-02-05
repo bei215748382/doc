@@ -23,6 +23,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.mlnx.doc.entity.Patient;
+import com.mlnx.doc.model.Patient.Gender;
 import com.mlnx.doc.repo.PatientRepository;
 import com.mlnx.doc.repository.PatientDao;
 import com.mlnx.doc.service.PatientService;
@@ -115,6 +116,13 @@ public class PatientServiceImpl implements PatientService {
 	@Override
 	public Response register(Patient patient) {
 		com.mlnx.doc.model.Patient p = new com.mlnx.doc.model.Patient();
+		p.setBirthday(patient.getDate());
+		p.setName(patient.getName());
+		if ("女".equals(patient.getSex())) {
+			p.setGender(Gender.FEMALE);
+		} else {
+			p.setGender(Gender.MALE);
+		}
 		int patientId = patientRepository.save(p);
 		patient.setPatient_id(patientId);
 		logger.info(String.format("patientId : %d", patientId));
@@ -155,12 +163,12 @@ public class PatientServiceImpl implements PatientService {
 			StringBuilder sb = new StringBuilder();
 			sb.append("(");
 			for (int i = 0; i < ids.size() - 1; i++) {
-				sb.append(ids.get(i)+",");
+				sb.append(ids.get(i) + ",");
 			}
 			sb.append(ids.get(ids.size() - 1) + ")");
-			String sqlString = String.format(
-					"select id from t_patient where doctor_id=%d and patient_id in %s",doctorId,
-					sb.toString());
+			String sqlString = String
+					.format("select id from t_patient where doctor_id=%d and patient_id in %s",
+							doctorId, sb.toString());
 			Query query = em.createNativeQuery(sqlString);
 			return query.getResultList();
 		} else {

@@ -2,8 +2,12 @@ package com.mlnx.doc.util;
 
 import java.util.HashMap;
 import java.util.Set;
+import java.util.UUID;
 
 import com.cloopen.rest.sdk.CCPRestSDK;
+import com.mlnx.doc.entity.Doctor;
+import com.mlnx.doc.repository.DoctorDao;
+import com.mlnx.doc.util.EnumCollection.ResponseCode;
 
 public class RegistVoipUtil {
 	
@@ -38,7 +42,54 @@ public class RegistVoipUtil {
 				subToken = subTokenStr[1];
 				dateCreated = dateCreateStr[1];
 			}
+			return new String[]{voipAccount,voipPassword,subAccountSid,subToken,dateCreated};
+		} else {
+			return new String[]{""};
 		}
-		return new String[]{voipAccount,voipPassword,subAccountSid,subToken};
+	}
+	public static Response registDoctor(Doctor doctor,DoctorDao doctorDao){
+		Response response = new Response();
+		// 注册移动端 voip
+		String friendName = UUID.randomUUID().toString();
+		String[] str = RegistVoipUtil.registVoip(friendName);
+		if (str.length == 5) {
+			doctor.setVoipAccount(str[0]);
+			doctor.setVoipPassword(str[1]);
+			doctor.setSubAccountSid(str[2]);
+			doctor.setSubToken(str[3]);
+			doctor.setDateCreated(str[4]);
+			doctor.setFriendName(friendName);
+		} else {
+			// 异常返回输出错误码和错误信息
+			response.setResponseCode(EnumCollection.ResponseCode.VOIP_EXIST
+					.getCode());
+			response.setMsg(EnumCollection.ResponseCode.VOIP_EXIST.getMsg());
+			return response;
+		}
+
+		// 注册PC端 voip
+		String friendName2 = UUID.randomUUID().toString();
+		String[] str2 = RegistVoipUtil.registVoip(friendName2);
+		if (str.length == 5) {
+			doctor.setVoipAccount2(str2[0]);
+			doctor.setVoipPassword2(str2[1]);
+			doctor.setSubAccountSid2(str2[2]);
+			doctor.setSubToken2(str2[3]);
+		} else {
+			// 异常返回输出错误码和错误信息
+			response.setResponseCode(EnumCollection.ResponseCode.VOIP_EXIST
+					.getCode());
+			response.setMsg(EnumCollection.ResponseCode.VOIP_EXIST.getMsg());
+			return response;
+		}
+		try {
+			doctorDao.save(doctor);
+			response.setResponseCode(ResponseCode.SUCCESS.getCode());
+			response.setMsg(ResponseCode.SUCCESS.getMsg());
+		} catch (Exception e) {
+			response.setResponseCode(ResponseCode.ERROR.getCode());
+			response.setMsg(ResponseCode.ERROR.getMsg());
+		}
+		return response;
 	}
 }

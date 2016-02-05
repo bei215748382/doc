@@ -171,7 +171,7 @@ public class AdminCol {
 	@RequestMapping(value = "doctor_add_json.do", method = RequestMethod.POST)
 	public String doctor_add_json(MultipartFile file,
 			HttpServletRequest request, Doctor doctor) {
-		if (file != null) {
+		if (file != null && file.getOriginalFilename() != "") {
 			String pic = FileUtil.savePic(request, file);
 			doctor.setPic(pic);
 		}

@@ -147,4 +147,22 @@ public class OrderServiceImpl implements OrderService {
 				EnumCollection.ResponseCode.UPDATE_ORDER_STATE_SUCCESS);
 	}
 
+	@Override
+	public List<Order> findByDoctorIdAndStateAndValid(int id) {
+		String sql = String
+				.format("SELECT * FROM t_order where doctor_id = %d and state = 0 and date > now() order by date asc",
+						id);
+		Query query = em.createNativeQuery(sql, Order.class);
+		return query.getResultList();
+	}
+
+	@Override
+	public List<Order> findByFriendIdAndStateAndValid(int id) {
+		String sql = String
+				.format("SELECT * FROM t_order where friend_id = %d and state = 0 and date > now() order by date asc",
+						id);
+		Query query = em.createNativeQuery(sql, Order.class);
+		return query.getResultList();
+	}
+
 }

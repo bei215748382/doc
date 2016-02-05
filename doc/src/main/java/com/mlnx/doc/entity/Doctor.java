@@ -7,8 +7,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 
 @Entity
@@ -23,7 +21,7 @@ public class Doctor implements Serializable {
 
 	@NotNull
 	private String password;
-	
+
 	private String username;
 
 	private Date date;
@@ -44,7 +42,6 @@ public class Doctor implements Serializable {
 
 	private String background;
 
-	
 	private String achievement;
 
 	private String province;
@@ -58,6 +55,22 @@ public class Doctor implements Serializable {
 	private String voipPassword;
 
 	private Integer hospital_id;
+
+	private String subAccountSid;
+
+	private String subToken;
+
+	private String friendName;
+
+	private String dateCreated;
+	
+	private String voipAccount2;
+
+	private String voipPassword2;
+	
+	private String subAccountSid2;  
+
+	private String subToken2;
 
 	public void setId(int id) {
 		this.id = id;
@@ -219,6 +232,70 @@ public class Doctor implements Serializable {
 		this.hospital_id = hospital_id;
 	}
 
+	public String getSubAccountSid() {
+		return subAccountSid;
+	}
+
+	public void setSubAccountSid(String subAccountSid) {
+		this.subAccountSid = subAccountSid;
+	}
+
+	public String getSubToken() {
+		return subToken;
+	}
+
+	public void setSubToken(String subToken) {
+		this.subToken = subToken;
+	}
+
+	public String getFriendName() {
+		return friendName;
+	}
+
+	public void setFriendName(String friendName) {
+		this.friendName = friendName;
+	}
+
+	public String getDateCreated() {
+		return dateCreated;
+	}
+
+	public void setDateCreated(String dateCreated) {
+		this.dateCreated = dateCreated;
+	}
+
+	public String getVoipAccount2() {
+		return voipAccount2;
+	}
+
+	public void setVoipAccount2(String voipAccount2) {
+		this.voipAccount2 = voipAccount2;
+	}
+
+	public String getVoipPassword2() {
+		return voipPassword2;
+	}
+
+	public void setVoipPassword2(String voipPassword2) {
+		this.voipPassword2 = voipPassword2;
+	}
+
+	public String getSubAccountSid2() {
+		return subAccountSid2;
+	}
+
+	public void setSubAccountSid2(String subAccountSid2) {
+		this.subAccountSid2 = subAccountSid2;
+	}
+
+	public String getSubToken2() {
+		return subToken2;
+	}
+
+	public void setSubToken2(String subToken2) {
+		this.subToken2 = subToken2;
+	}
+
 	@Override
 	public String toString() {
 		return "Doctor [id=" + id + ", phone=" + phone + ", password="
@@ -229,7 +306,12 @@ public class Doctor implements Serializable {
 				+ ", achievement=" + achievement + ", province=" + province
 				+ ", city=" + city + ", pic=" + pic + ", voipAccount="
 				+ voipAccount + ", voipPassword=" + voipPassword
-				+ ", hospital_id=" + hospital_id + "]";
+				+ ", hospital_id=" + hospital_id + ", subAccountSid="
+				+ subAccountSid + ", subToken=" + subToken + ", friendName="
+				+ friendName + ", dateCreated=" + dateCreated
+				+ ", voipAccount2=" + voipAccount2 + ", voipPassword2="
+				+ voipPassword2 + ", subAccountSid2=" + subAccountSid2
+				+ ", subToken2=" + subToken2 + "]";
 	}
 
 }

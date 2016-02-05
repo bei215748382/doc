@@ -64,6 +64,10 @@
 			<mvc:mapping path="/log/**" />
 			<bean class="com.mlnx.doc.filter.LogLoginInterceptor"></bean>
 		</mvc:interceptor>
+		<mvc:interceptor>
+			<mvc:mapping path="/doc_admin/**" />
+			<bean class="com.mlnx.doc.filter.DocLoginInterceptor"></bean>
+		</mvc:interceptor>
 	</mvc:interceptors>
 
 </beans>

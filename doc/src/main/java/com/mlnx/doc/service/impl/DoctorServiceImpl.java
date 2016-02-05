@@ -3,7 +3,6 @@ package com.mlnx.doc.service.impl;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -17,12 +16,14 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.cloopen.rest.sdk.CCPRestSDK;
 import com.mlnx.doc.entity.Doctor;
-import com.mlnx.doc.entity.Hospital;
+import com.mlnx.doc.entity.State;
 import com.mlnx.doc.repository.DoctorDao;
+import com.mlnx.doc.repository.StateDao;
 import com.mlnx.doc.service.DoctorService;
 import com.mlnx.doc.util.EnumCollection;
+import com.mlnx.doc.util.EnumCollection.ResponseCode;
+import com.mlnx.doc.util.RegistVoipUtil;
 import com.mlnx.doc.util.Response;
 import com.mlnx.doc.util.StringUtil;
 
@@ -36,6 +37,9 @@ public class DoctorServiceImpl implements DoctorService {
 
 	@Autowired
 	private DoctorDao doctorDao;
+
+	@Autowired
+	private StateDao stateDao;
 
 	@PersistenceContext
 	private EntityManager em;
@@ -81,58 +85,7 @@ public class DoctorServiceImpl implements DoctorService {
 			response.setMsg(EnumCollection.ResponseCode.EXIST.getMsg());
 			return response;
 		}
-		String voipAccount = null;
-		String voipPassword = null;
-		String subAccountSid = null;
-		String subToken = null;
-		String dateCreated = null;
-		String friendName = doctor.getPhone();
-		HashMap<String, Object> result = null;
-		CCPRestSDK restAPI = new CCPRestSDK();
-		restAPI.init("sandboxapp.cloopen.com", "8883");// 初始化服务器地址和端口，格式如下，服务器地址不需要写https://
-		restAPI.setAccount(StringUtil.accountSid, StringUtil.accountToken);// 初始化主帐号和主帐号TOKEN
-		restAPI.setAppId(StringUtil.appId);// 初始化应用ID
-		result = restAPI.createSubAccount(friendName);
-		log.info("SDKTestCreateSubAccount result=" + result);
-		if ("000000".equals(result.get("statusCode"))) {
-			// 正常返回输出data包体信息（map）
-			HashMap<String, Object> data = (HashMap<String, Object>) result
-					.get("data");
-			Set<String> keySet = data.keySet();
-			for (String key : keySet) {
-				Object object = data.get(key);
-				log.info(key + " = " + object);
-				String[] s = object.toString().split(",");
-				String[] subAccountSidStr = s[0].split("=");
-				String[] subTokenStr = s[4].split("=");
-				String[] voipAccountStr = s[1].split("=");
-				String[] voipPwdtStr = s[3].split("=");
-				String[] dateCreateStr = s[2].split("=");
-				voipAccount = voipAccountStr[1];
-				voipPassword = voipPwdtStr[1];
-				subAccountSid = subAccountSidStr[1];
-				subToken = subTokenStr[1];
-				dateCreated = dateCreateStr[1];
-			}
-		} else {
-			// 异常返回输出错误码和错误信息
-			log.info("错误码=" + result.get("statusCode") + " 错误信息= "
-					+ result.get("statusMsg"));
-			response.setResponseCode(EnumCollection.ResponseCode.VOIP_EXIST
-					.getCode());
-			response.setMsg(EnumCollection.ResponseCode.VOIP_EXIST.getMsg());
-			return response;
-		}
-		doctor.setVoipAccount(voipAccount);
-		doctor.setVoipPassword(voipPassword);
-		doctor.setSubAccountSid(subAccountSid);
-		doctor.setSubToken(subToken);
-		doctor.setDateCreated(dateCreated);
-		doctor.setFriendName(friendName);
-		doctorDao.save(doctor);
-		response.setResponseCode(EnumCollection.ResponseCode.SUCCESS.getCode());
-		response.setMsg(EnumCollection.ResponseCode.SUCCESS.getMsg());
-		return response;
+		return RegistVoipUtil.registDoctor(doctor, doctorDao);
 	}
 
 	/**
@@ -154,58 +107,7 @@ public class DoctorServiceImpl implements DoctorService {
 			response.setMsg(EnumCollection.ResponseCode.EXIST.getMsg());
 			return response;
 		}
-		String voipAccount = null;
-		String voipPassword = null;
-		String subAccountSid = null;
-		String subToken = null;
-		String dateCreated = null;
-		String friendName = doctor.getPhone();
-		HashMap<String, Object> result = null;
-		CCPRestSDK restAPI = new CCPRestSDK();
-		restAPI.init("sandboxapp.cloopen.com", "8883");// 初始化服务器地址和端口，格式如下，服务器地址不需要写https://
-		restAPI.setAccount(StringUtil.accountSid, StringUtil.accountToken);// 初始化主帐号和主帐号TOKEN
-		restAPI.setAppId(StringUtil.appId);// 初始化应用ID
-		result = restAPI.createSubAccount(doctor.getUsername());
-		log.info("SDKTestCreateSubAccount result=" + result);
-		if ("000000".equals(result.get("statusCode"))) {
-			// 正常返回输出data包体信息（map）
-			HashMap<String, Object> data = (HashMap<String, Object>) result
-					.get("data");
-			Set<String> keySet = data.keySet();
-			for (String key : keySet) {
-				Object object = data.get(key);
-				log.info(key + " = " + object);
-				String[] s = object.toString().split(",");
-				String[] subAccountSidStr = s[0].split("=");
-				String[] subTokenStr = s[4].split("=");
-				String[] voipAccountStr = s[1].split("=");
-				String[] voipPwdtStr = s[3].split("=");
-				String[] dateCreateStr = s[2].split("=");
-				voipAccount = voipAccountStr[1];
-				voipPassword = voipPwdtStr[1];
-				subAccountSid = subAccountSidStr[1];
-				subToken = subTokenStr[1];
-				dateCreated = dateCreateStr[1];
-			}
-		} else {
-			// 异常返回输出错误码和错误信息
-			log.info("错误码=" + result.get("statusCode") + " 错误信息= "
-					+ result.get("statusMsg"));
-			response.setResponseCode(EnumCollection.ResponseCode.VOIP_EXIST
-					.getCode());
-			response.setMsg(EnumCollection.ResponseCode.VOIP_EXIST.getMsg());
-			return response;
-		}
-		doctor.setVoipAccount(voipAccount);
-		doctor.setVoipPassword(voipPassword);
-		doctor.setSubAccountSid(subAccountSid);
-		doctor.setSubToken(subToken);
-		doctor.setDateCreated(dateCreated);
-		doctor.setFriendName(friendName);
-		doctorDao.save(doctor);
-		response.setResponseCode(EnumCollection.ResponseCode.SUCCESS.getCode());
-		response.setMsg(EnumCollection.ResponseCode.SUCCESS.getMsg());
-		return response;
+		return RegistVoipUtil.registDoctor(doctor, doctorDao);
 	}
 
 	@Override
@@ -336,14 +238,136 @@ public class DoctorServiceImpl implements DoctorService {
 	@Override
 	public Doctor findByVoipAccount(String voip) {
 		try {
-			String sqlString = String.format(
-					"select * from %s where voip_account = '%s'", table_name,
-					voip);
+			String sqlString = String
+					.format("select * from %s where voip_account = '%s' or voip_account2 = '%s'",
+							table_name, voip, voip);
 			Query query = em.createNativeQuery(sqlString, Doctor.class);
 			Doctor d = (Doctor) query.getSingleResult();
 			return d;
 		} catch (Exception e) {
 			return null;
 		}
+	}
+
+	@Override
+	public Map<String, String> login(Doctor doctor, int state) {
+		Map<String, String> map = new HashMap<String, String>();
+		String sql = "SELECT * FROM t_doctor where phone = '"
+				+ doctor.getPhone() + "'";
+		Query query = em.createNativeQuery(sql, Doctor.class);
+		try {
+			Doctor d = (Doctor) query.getSingleResult();
+			if (d != null) {
+				if (doctor.getPassword().equals(d.getPassword())) {
+					// 返回登入成功
+					map.put(StringUtil.responseCode,
+							ResponseCode.LOGIN_SUCCESS.getCode());
+					map.put(StringUtil.responseMsg,
+							EnumCollection.ResponseCode.LOGIN_SUCCESS.getMsg());
+					map.put("id", d.getId() + "");
+					State st = new State();
+					st.setDoctor_id(d.getId());
+					st.setState(state);
+					stateDao.save(st);
+					return map;
+				} else {
+					// 返回用户名密码错误
+					map.put(StringUtil.responseCode,
+							EnumCollection.ResponseCode.LOGIN_PASSWORD_ERROR
+									.getCode());
+					map.put(StringUtil.responseMsg,
+							EnumCollection.ResponseCode.LOGIN_PASSWORD_ERROR
+									.getMsg());
+					return map;
+				}
+			}
+		} catch (Exception e) {
+			// 返回用户名不存在
+
+		}
+		map.put(StringUtil.responseCode,
+				EnumCollection.ResponseCode.LOGIN_USERNAME_NOT_EXIST.getCode());
+		map.put(StringUtil.responseMsg,
+				EnumCollection.ResponseCode.LOGIN_USERNAME_NOT_EXIST.getMsg());
+		return map;
+	}
+
+	@Override
+	public Map<String, Object> findDoctorState(int id) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		try {
+			State state = stateDao.findOne(id);
+			map.put(StringUtil.responseCode,
+					ResponseCode.FIND_DOCTOR_STATE_SUCCESS.getCode());
+			map.put(StringUtil.responseMsg,
+					ResponseCode.FIND_DOCTOR_STATE_SUCCESS.getMsg());
+			map.put(StringUtil.responseObj, state);
+		} catch (Exception e) {
+			map.put(StringUtil.responseCode,
+					ResponseCode.FIND_DOCTOR_STATE_ERROR.getCode());
+			map.put(StringUtil.responseMsg,
+					ResponseCode.FIND_DOCTOR_STATE_ERROR.getMsg());
+		}
+		return map;
+	}
+
+	@Override
+	public Map<String, Object> updateDoctorState(State state) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		try {
+			stateDao.save(state);
+			map.put(StringUtil.responseCode,
+					ResponseCode.UPDATE_DOCTOR_STATE_SUCCESS.getCode());
+			map.put(StringUtil.responseMsg,
+					ResponseCode.UPDATE_DOCTOR_STATE_SUCCESS.getMsg());
+		} catch (Exception e) {
+			map.put(StringUtil.responseCode,
+					ResponseCode.UPDATE_DOCTOR_STATE_ERROR.getCode());
+			map.put(StringUtil.responseMsg,
+					ResponseCode.UPDATE_DOCTOR_STATE_ERROR.getMsg());
+		}
+		return map;
+	}
+
+	@Override
+	public Map<String, String> login(String phone, String password, int state) {
+		Map<String, String> map = new HashMap<String, String>();
+		String sql = "SELECT * FROM t_doctor where phone = '" + phone + "'";
+		Query query = em.createNativeQuery(sql, Doctor.class);
+		try {
+			Doctor d = (Doctor) query.getSingleResult();
+			if (d != null) {
+				if (password.equals(d.getPassword())) {
+					// 返回登入成功
+					map.put(StringUtil.responseCode,
+							ResponseCode.LOGIN_SUCCESS.getCode());
+					map.put(StringUtil.responseMsg,
+							EnumCollection.ResponseCode.LOGIN_SUCCESS.getMsg());
+					map.put("id", d.getId() + "");
+					State st = new State();
+					st.setDoctor_id(d.getId());
+					st.setState(state);
+					stateDao.save(st);
+					return map;
+				} else {
+					// 返回用户名密码错误
+					map.put(StringUtil.responseCode,
+							EnumCollection.ResponseCode.LOGIN_PASSWORD_ERROR
+									.getCode());
+					map.put(StringUtil.responseMsg,
+							EnumCollection.ResponseCode.LOGIN_PASSWORD_ERROR
+									.getMsg());
+					return map;
+				}
+			}
+		} catch (Exception e) {
+			// 返回用户名不存在
+
+		}
+		map.put(StringUtil.responseCode,
+				EnumCollection.ResponseCode.LOGIN_USERNAME_NOT_EXIST.getCode());
+		map.put(StringUtil.responseMsg,
+				EnumCollection.ResponseCode.LOGIN_USERNAME_NOT_EXIST.getMsg());
+		return map;
 	}
 }

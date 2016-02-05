@@ -62,14 +62,23 @@ public class OrderCol {
 	@ResponseBody
 	public List<Order> findByDoctorIdAndState(@PathVariable int id,
 			@PathVariable int sid) {
-		return orderService.findByDoctorIdAndState(id, sid);
+		if(sid ==0){//如果是未接受的话，过期的不再返回给客户端
+			return orderService.findByDoctorIdAndStateAndValid(id);
+		} else{
+			return orderService.findByDoctorIdAndState(id, sid);
+		}
 	}
 
 	@RequestMapping(value = "find/friend/{id}/state/{sid}/orders.do", method = RequestMethod.GET, consumes = "application/json", produces = "application/json")
 	@ResponseBody
 	public List<Order> findByFriendIdAndState(@PathVariable int id,
 			@PathVariable int sid) {
-		return orderService.findByFriendIdAndState(id, sid);
+		if(sid == 0){//如果是未接受的话，过期的不再返回给客户端
+			return orderService.findByFriendIdAndStateAndValid(id);
+		} else{
+			return orderService.findByFriendIdAndState(id, sid);
+		}
+		
 	}
 
 	@RequestMapping(value = "find/doctor/{id}/today.do", method = RequestMethod.GET, consumes = "application/json", produces = "application/json")

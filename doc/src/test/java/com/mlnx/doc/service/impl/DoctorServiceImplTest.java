@@ -1,23 +1,21 @@
 package com.mlnx.doc.service.impl;
 
 import static org.junit.Assert.fail;
+
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.mlnx.doc.entity.Doctor;
-import com.mlnx.doc.repository.DoctorDao;
+import com.mlnx.doc.entity.State;
+import com.mlnx.doc.service.DoctorService;
+import com.mlnx.doc.web.BaseCol;
 
-@RunWith(SpringJUnit4ClassRunner.class)  
-@ContextConfiguration({"file:src/main/resources/spring/spring.xml"}) 
-public class DoctorServiceImplTest {
+public class DoctorServiceImplTest extends BaseCol {
 
 	@Autowired
-	private DoctorDao doctorDao;
-	
+	private DoctorService doctorService;
+
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
 	}
@@ -34,7 +32,7 @@ public class DoctorServiceImplTest {
 
 	@Test
 	public void testGet() {
-		fail("Not yet implemented");
+		System.out.println(doctorService.get(77));
 	}
 
 	@Test
@@ -52,7 +50,7 @@ public class DoctorServiceImplTest {
 		Doctor doctor = new Doctor();
 		doctor.setPhone("15867400025");
 		doctor.setPassword("123456");
-		doctorDao.save(doctor);
+		System.out.println(doctorService.register(doctor));
 	}
 
 	@Test
@@ -75,4 +73,24 @@ public class DoctorServiceImplTest {
 		fail("Not yet implemented");
 	}
 
+	@Test
+	public void testLogin() {
+		Doctor doctor = new Doctor();
+		doctor.setPhone("15867400025");
+		doctor.setPassword("123456");
+		System.out.println(doctorService.login(doctor, 2));
+	}
+	
+	@Test
+	public void testFindDoctorState(){
+		System.out.println(doctorService.findDoctorState(1546));
+	}
+
+	@Test 
+	public void testUpdateDoctorState(){
+		State state = new State();
+		state.setDoctor_id(1546);
+		state.setState(1);
+		System.out.println(doctorService.updateDoctorState(state));
+	}
 }
