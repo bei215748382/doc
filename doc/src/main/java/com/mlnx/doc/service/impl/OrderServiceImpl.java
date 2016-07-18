@@ -86,7 +86,7 @@ public class OrderServiceImpl implements OrderService {
 	@Override
 	public List<Order> findByDoctorIdAndToday(Integer id) {
 		String sql = "SELECT * FROM t_order where date(date) = curdate() and doctor_id = "
-				+ id;
+				+ id +" order by date desc";
 		Query query = em.createNativeQuery(sql, Order.class);
 		return query.getResultList();
 	}
@@ -94,7 +94,7 @@ public class OrderServiceImpl implements OrderService {
 	@Override
 	public List<Order> findByFriendIdAndToday(Integer id) {
 		String sql = "SELECT * FROM t_order where date(date) = curdate() and friend_id = "
-				+ id;
+				+ id+" order by date desc";
 		Query query = em.createNativeQuery(sql, Order.class);
 		return query.getResultList();
 	}

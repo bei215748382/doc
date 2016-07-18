@@ -126,7 +126,6 @@ public class PatientServiceImpl implements PatientService {
 		int patientId = patientRepository.save(p);
 		patient.setPatient_id(patientId);
 		logger.info(String.format("patientId : %d", patientId));
-		System.out.println(patientId);
 		patientDao.save(patient);
 		Response response = new Response();
 		response.setResponseCode(EnumCollection.ResponseCode.PATIENT_REGISTER_SUCCESS

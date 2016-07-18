@@ -20,8 +20,9 @@ public class EnumCollection {
 				"000028", "删除客户端错误日志成功"), ERROR("000029", "用户注册失败"), FIND_DOCTOR_STATE_SUCCESS(
 				"000030", "获取用户登入状态成功"), FIND_DOCTOR_STATE_ERROR("000031",
 				"获取用户登入状态失败"), UPDATE_DOCTOR_STATE_SUCCESS("000032",
-				"更新医生登入状态成功"), UPDATE_DOCTOR_STATE_ERROR("000033",
-				"更新医生登入状态失败");
+				"更新医生登入状态成功"), UPDATE_DOCTOR_STATE_ERROR("000033", "更新医生登入状态失败"), MODIFY_PASSWORD_OLD_PASSWORD_NOT_RIGHT(
+				"000034", "修改密码原密码不正确"), MODIFY_PASSWORD_SUCCESS("000035",
+				"修改密码成功"), MODIFY_PASSWORD_ERROR("000035", "修改密码失败");
 		// 成员变量
 		private String code;
 		private String msg;

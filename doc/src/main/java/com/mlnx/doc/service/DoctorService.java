@@ -169,4 +169,13 @@ public interface DoctorService {
 	 */
 	Map<String, Object> updateDoctorState(State state);
 
+	/**
+	 * 修改密码
+	 * @param old_password
+	 * @param new_password
+	 * @param phone 
+	 * @return
+	 */
+	Map<String, String> modifyPassword(String phone,String old_password, String new_password);
+
 }

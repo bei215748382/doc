@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -43,11 +45,18 @@ public class DoctorCol {
 		return doctorService.modify(doctor);
 	}
 
-	@RequestMapping(value = "login.do", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
+	@RequestMapping(value = "login.do", method = RequestMethod.POST, produces = "application/json")
 	@ResponseBody
 	public Map<String, String> login(@RequestHeader("phone") String phone,@RequestHeader("password") String password,
-			@RequestHeader("state") int state) {
+			@RequestHeader("state") int state,HttpServletRequest request) {
+		System.out.println(request.getContentType());
 		return doctorService.login(phone,password,state);
+	}
+	
+	@RequestMapping(value = "modify/password.do", method = RequestMethod.POST, produces = "application/json")
+	@ResponseBody
+	public Map<String, String> modifyPassword(@RequestHeader("phone") String phone,@RequestHeader("old_password") String old_password,@RequestHeader("new_password") String new_password) {
+		return doctorService.modifyPassword(phone,old_password,new_password);
 	}
 
 	@RequestMapping(value = "find/name.do", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")

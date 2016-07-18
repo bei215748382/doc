@@ -370,4 +370,36 @@ public class DoctorServiceImpl implements DoctorService {
 				EnumCollection.ResponseCode.LOGIN_USERNAME_NOT_EXIST.getMsg());
 		return map;
 	}
+
+	@Transactional
+	@Override
+	public Map<String, String> modifyPassword(String phone,String old_password,
+			String new_password) {
+		Map<String, String> map = new HashMap<String, String>();
+		String sql = "SELECT * FROM t_doctor where phone = '" + phone
+				+ "'";
+		Query query = em.createNativeQuery(sql, Doctor.class);
+		try {
+			Doctor d = (Doctor) query.getSingleResult();
+			if (d != null) {
+				if(d.getPassword().equals(old_password)){
+					d.setPassword(new_password);
+					em.merge(d);
+					em.flush();
+					map.put(StringUtil.responseCode, ResponseCode.MODIFY_PASSWORD_SUCCESS.getCode());
+					map.put(StringUtil.responseMsg, ResponseCode.MODIFY_PASSWORD_SUCCESS.getMsg());
+				} else {
+					// TODO 提示原密码错误
+					map.put(StringUtil.responseCode, ResponseCode.MODIFY_PASSWORD_OLD_PASSWORD_NOT_RIGHT.getCode());
+					map.put(StringUtil.responseMsg, ResponseCode.MODIFY_PASSWORD_OLD_PASSWORD_NOT_RIGHT.getMsg());
+				}
+			} else{
+				
+			}
+		} catch (Exception e) {
+			map.put(StringUtil.responseCode, ResponseCode.MODIFY_PASSWORD_ERROR.getCode());
+			map.put(StringUtil.responseMsg, ResponseCode.MODIFY_PASSWORD_ERROR.getMsg());
+		}
+		return map;
+	}
 }
