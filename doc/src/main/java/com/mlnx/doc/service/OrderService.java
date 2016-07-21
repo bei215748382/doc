@@ -7,6 +7,7 @@ import org.springframework.data.domain.Pageable;
 
 import com.mlnx.doc.entity.Order;
 import com.mlnx.doc.util.Response;
+import com.mlnx.doc.vo.OrderInfo;
 import com.mlnx.doc.vo.OrderVo;
 
 public interface OrderService {
@@ -135,5 +136,35 @@ public interface OrderService {
 	 * @return
 	 */
 	List<Order> findByFriendIdAndStateAndValid(int id);
+
+	/**
+	 * 返回不过期的预约列表 IOS
+	 * 
+	 * @param id
+	 * @return
+	 */
+	List<OrderInfo> iosFindByDoctorIdAndStateAndValid(int id);
+
+	/**
+	 * IOS
+	 * @param id
+	 * @return
+	 */
+	List<OrderInfo> iosFindByDoctorIdAndState(int id, int sid);
+
+	/**
+	 * IOS
+	 * @param id
+	 * @return
+	 */
+	List<OrderInfo> iosFindByFriendIdAndStateAndValid(int id);
+
+	/**
+	 * IOS
+	 * @param id
+	 * @param sid
+	 * @return
+	 */
+	List<OrderInfo> iosFindByFriendIdAndState(int id, int sid);
 
 }

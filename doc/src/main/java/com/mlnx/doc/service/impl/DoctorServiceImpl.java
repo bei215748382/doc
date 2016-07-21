@@ -402,4 +402,45 @@ public class DoctorServiceImpl implements DoctorService {
 		}
 		return map;
 	}
+
+	@Override
+	public Map<String, Object> iosLogin(String phone, String password, int state) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		String sql = "SELECT * FROM t_doctor where phone = '" + phone + "'";
+		Query query = em.createNativeQuery(sql, Doctor.class);
+		try {
+			Doctor d = (Doctor) query.getSingleResult();
+			if (d != null) {
+				if (password.equals(d.getPassword())) {
+					// 返回登入成功
+					map.put(StringUtil.responseCode,
+							ResponseCode.LOGIN_SUCCESS.getCode());
+					map.put(StringUtil.responseMsg,
+							EnumCollection.ResponseCode.LOGIN_SUCCESS.getMsg());
+					map.put("user", d);
+					State st = new State();
+					st.setDoctor_id(d.getId());
+					st.setState(state);
+					stateDao.save(st);
+					return map;
+				} else {
+					// 返回用户名密码错误
+					map.put(StringUtil.responseCode,
+							EnumCollection.ResponseCode.LOGIN_PASSWORD_ERROR
+									.getCode());
+					map.put(StringUtil.responseMsg,
+							EnumCollection.ResponseCode.LOGIN_PASSWORD_ERROR
+									.getMsg());
+					return map;
+				}
+			}
+		} catch (Exception e) {
+			// 返回用户名不存在
+		}
+		map.put(StringUtil.responseCode,
+				EnumCollection.ResponseCode.LOGIN_USERNAME_NOT_EXIST.getCode());
+		map.put(StringUtil.responseMsg,
+				EnumCollection.ResponseCode.LOGIN_USERNAME_NOT_EXIST.getMsg());
+		return map;
+	}
 }

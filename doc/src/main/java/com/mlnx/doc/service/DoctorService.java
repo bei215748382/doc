@@ -154,6 +154,15 @@ public interface DoctorService {
 	Map<String, String> login(String phone,String password, int state);
 
 	/**
+	 * 登入时候携带状态
+	 * 
+	 * @param doctor
+	 * @param state
+	 * @return
+	 */
+	Map<String, Object> iosLogin(String phone,String password, int state);
+	
+	/**
 	 * 查找医生状态
 	 * 
 	 * @param id

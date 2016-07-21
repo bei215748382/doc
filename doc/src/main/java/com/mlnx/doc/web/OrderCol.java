@@ -17,6 +17,7 @@ import com.mlnx.doc.service.DoctorService;
 import com.mlnx.doc.service.OrderService;
 import com.mlnx.doc.util.EnumCollection;
 import com.mlnx.doc.util.Response;
+import com.mlnx.doc.vo.OrderInfo;
 
 @Controller
 @RequestMapping(value = "/orders")
@@ -77,6 +78,29 @@ public class OrderCol {
 			return orderService.findByFriendIdAndStateAndValid(id);
 		} else{
 			return orderService.findByFriendIdAndState(id, sid);
+		}
+		
+	}
+	
+	@RequestMapping(value = "ios/find/doctor/{id}/state/{sid}/orders.do", method = RequestMethod.GET, consumes = "application/json", produces = "application/json")
+	@ResponseBody
+	public List<OrderInfo> iosFindByDoctorIdAndState(@PathVariable int id,
+			@PathVariable int sid) {
+		if(sid ==0){//如果是未接受的话，过期的不再返回给客户端
+			return orderService.iosFindByDoctorIdAndStateAndValid(id);
+		} else{
+			return orderService.iosFindByDoctorIdAndState(id, sid);
+		}
+	}
+
+	@RequestMapping(value = "ios/find/friend/{id}/state/{sid}/orders.do", method = RequestMethod.GET, consumes = "application/json", produces = "application/json")
+	@ResponseBody
+	public List<OrderInfo> iosFindByFriendIdAndState(@PathVariable int id,
+			@PathVariable int sid) {
+		if(sid == 0){//如果是未接受的话，过期的不再返回给客户端
+			return orderService.iosFindByFriendIdAndStateAndValid(id);
+		} else{
+			return orderService.iosFindByFriendIdAndState(id, sid);
 		}
 		
 	}

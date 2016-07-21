@@ -22,7 +22,7 @@ public class EnumCollection {
 				"获取用户登入状态失败"), UPDATE_DOCTOR_STATE_SUCCESS("000032",
 				"更新医生登入状态成功"), UPDATE_DOCTOR_STATE_ERROR("000033", "更新医生登入状态失败"), MODIFY_PASSWORD_OLD_PASSWORD_NOT_RIGHT(
 				"000034", "修改密码原密码不正确"), MODIFY_PASSWORD_SUCCESS("000035",
-				"修改密码成功"), MODIFY_PASSWORD_ERROR("000035", "修改密码失败");
+				"修改密码成功"), MODIFY_PASSWORD_ERROR("000036", "修改密码失败");
 		// 成员变量
 		private String code;
 		private String msg;

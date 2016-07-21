@@ -53,6 +53,13 @@ public class DoctorCol {
 		return doctorService.login(phone,password,state);
 	}
 	
+	@RequestMapping(value = "ios/login.do", method = RequestMethod.POST, produces = "application/json")
+	@ResponseBody
+	public Map<String, Object> iosLogin(@RequestHeader("phone") String phone,@RequestHeader("password") String password,
+			@RequestHeader("state") int state,HttpServletRequest request) {
+		return doctorService.iosLogin(phone,password,state);
+	}
+	
 	@RequestMapping(value = "modify/password.do", method = RequestMethod.POST, produces = "application/json")
 	@ResponseBody
 	public Map<String, String> modifyPassword(@RequestHeader("phone") String phone,@RequestHeader("old_password") String old_password,@RequestHeader("new_password") String new_password) {

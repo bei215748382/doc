@@ -74,4 +74,13 @@ public class DoctorColTest {
 		Doctor doctor = doctorService.findByVoipAccount("8000904000000043");
 		System.out.println(doctor.toString());
 	}
+	
+	@Test
+	public void testModifyPassword(){
+		String phone = "12312340001";
+		String old_password ="123654";
+		String new_password="123456";
+		Map<String,String> map = doctorService.modifyPassword(phone,old_password, new_password);
+		System.out.println(map.toString());
+	}
 }

@@ -18,6 +18,7 @@ import com.mlnx.doc.repository.OrderDao;
 import com.mlnx.doc.service.OrderService;
 import com.mlnx.doc.util.EnumCollection;
 import com.mlnx.doc.util.Response;
+import com.mlnx.doc.vo.OrderInfo;
 import com.mlnx.doc.vo.OrderVo;
 
 @Service
@@ -86,7 +87,7 @@ public class OrderServiceImpl implements OrderService {
 	@Override
 	public List<Order> findByDoctorIdAndToday(Integer id) {
 		String sql = "SELECT * FROM t_order where date(date) = curdate() and doctor_id = "
-				+ id +" order by date desc";
+				+ id + " order by date desc";
 		Query query = em.createNativeQuery(sql, Order.class);
 		return query.getResultList();
 	}
@@ -94,7 +95,7 @@ public class OrderServiceImpl implements OrderService {
 	@Override
 	public List<Order> findByFriendIdAndToday(Integer id) {
 		String sql = "SELECT * FROM t_order where date(date) = curdate() and friend_id = "
-				+ id+" order by date desc";
+				+ id + " order by date desc";
 		Query query = em.createNativeQuery(sql, Order.class);
 		return query.getResultList();
 	}
@@ -140,7 +141,8 @@ public class OrderServiceImpl implements OrderService {
 
 	@Override
 	public Response updateState(Integer id) {
-		String sql = String.format("UPDATE t_order set state = 1 where id = %d",id);
+		String sql = String.format(
+				"UPDATE t_order set state = 1 where id = %d", id);
 		Query query = em.createNativeQuery(sql);
 		query.executeUpdate();
 		return new Response(
@@ -162,6 +164,42 @@ public class OrderServiceImpl implements OrderService {
 				.format("SELECT * FROM t_order where friend_id = %d and state = 0 and date > now() order by date asc",
 						id);
 		Query query = em.createNativeQuery(sql, Order.class);
+		return query.getResultList();
+	}
+
+	@Override
+	public List<OrderInfo> iosFindByDoctorIdAndStateAndValid(int id) {
+		String sql = String
+				.format("SELECT o.*, d.name friend_name,d.voip_account friend_voip_account,dd.voip_account doctor_voip_account FROM t_order o left outer join t_doctor d on d.id=o.friend_id left outer join t_doctor dd on dd.id = o.doctor_id where doctor_id = %d and state = 0 and o.date > now() order by o.date asc;",
+						id);
+		Query query = em.createNativeQuery(sql, OrderInfo.class);
+		return query.getResultList();
+	}
+
+	@Override
+	public List<OrderInfo> iosFindByDoctorIdAndState(int id, int sid) {
+		String sql = String
+				.format("SELECT o.*, d.name friend_name,d.voip_account friend_voip_account,dd.voip_account doctor_voip_account FROM t_order o left outer join t_doctor d on d.id=o.friend_id left outer join t_doctor dd on dd.id = o.doctor_id where doctor_id = %d and state = %d order by o.date asc",
+						id, sid);
+		Query query = em.createNativeQuery(sql, OrderInfo.class);
+		return query.getResultList();
+	}
+
+	@Override
+	public List<OrderInfo> iosFindByFriendIdAndStateAndValid(int id) {
+		String sql = String
+				.format("SELECT o.*, d.name friend_name,d.voip_account friend_voip_account,dd.voip_account doctor_voip_account FROM t_order o left outer join t_doctor d on d.id=o.friend_id left outer join t_doctor dd on dd.id = o.doctor_id where friend_id = %d and state = 0 and date > now() order by o.date asc",
+						id);
+		Query query = em.createNativeQuery(sql, OrderInfo.class);
+		return query.getResultList();
+	}
+
+	@Override
+	public List<OrderInfo> iosFindByFriendIdAndState(int id, int sid) {
+		String sql = String
+				.format("SELECT o.*, d.name friend_name,d.voip_account friend_voip_account,dd.voip_account doctor_voip_account FROM t_order o left outer join t_doctor d on d.id=o.friend_id left outer join t_doctor dd on dd.id = o.doctor_id where friend_id = %d and state = %d order by o.date asc",
+						id, sid);
+		Query query = em.createNativeQuery(sql, OrderInfo.class);
 		return query.getResultList();
 	}
 

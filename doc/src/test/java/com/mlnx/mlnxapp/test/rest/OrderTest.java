@@ -2,6 +2,8 @@ package com.mlnx.mlnxapp.test.rest;
 
 import java.util.Date;
 
+import org.junit.Test;
+
 import com.alibaba.fastjson.JSONObject;
 import com.mlnx.mlnxapp.test.util.HttpUtil;
 /**
@@ -18,7 +20,7 @@ public class OrderTest {
 		JSONObject obj = new JSONObject();
 		obj.put("doctor_id", 60);
 		obj.put("friend_id", 62);
-		String sr = HttpUtil.sendPost(String.format("http://localhost:8080/doc/orders/%d/register.do", new Date().getTime())
+		String sr = HttpUtil.sendPost(String.format("http://localhost:8082/doc/orders/%d/register.do", new Date().getTime())
 				,
 				obj.toJSONString());
 		System.out.println(sr);
@@ -26,37 +28,50 @@ public class OrderTest {
 
 	private static void findOrdersByDoctorIdAndState(){
 		String sr = HttpUtil
-				.sendGet("http://localhost:8080/doc/orders/find/doctor/1/state/0/orders.do");
+				.sendGet("http://localhost:8082/doc/orders/find/doctor/1591/state/0/orders.do");
 		System.out.println(sr);
 	}
 	
 	private static void findOrdersByFriendIdAndState(){
 		String sr = HttpUtil
-				.sendGet("http://localhost:8080/doc/orders/find/friend/2/state/0/orders.do");
+				.sendGet("http://localhost:8082/doc/orders/find/friend/1591/state/0/orders.do");
+		System.out.println(sr);
+	}
+	private static void iosFindOrdersByDoctorIdAndState(){
+		String sr = HttpUtil
+				.sendGet("http://localhost:8082/doc/orders/ios/find/doctor/1591/state/0/orders.do");
+		System.out.println(sr);
+	}
+	
+	private static void iosFindOrdersByFriendIdAndState(){
+		String sr = HttpUtil
+				.sendGet("http://localhost:8082/doc/orders/ios/find/friend/1591/state/0/orders.do");
 		System.out.println(sr);
 	}
 	private static void findByDoctorIdAndToday(){
 		String sr = HttpUtil
-				.sendGet("http://localhost:8080/doc/orders/find/doctor/1/today.do");
+				.sendGet("http://localhost:8082/doc/orders/find/doctor/1591/today.do");
 		System.out.println(sr);
 	}
 	private static void findByFriendIdAndToday(){
 		String sr = HttpUtil
-				.sendGet("http://localhost:8080/doc/orders/find/friend/4/today.do");
+				.sendGet("http://localhost:8082/doc/orders/find/friend/1591/today.do");
 		System.out.println(sr);
 	}
 	private static void updateRemind(){
 		String sr = HttpUtil
-				.sendGet("http://localhost:8080/doc/orders/update/8/remind.do");
+				.sendGet("http://localhost:8082/doc/orders/update/1591/remind.do");
 		System.out.println(sr);
 	}
 	public static void main(String[] args) {
 
-		regist();
+	//	regist();
 //		findOrdersByDoctorIdAndState();
 //		findOrdersByFriendIdAndState();
 //		findByDoctorIdAndToday();
 //		findByFriendIdAndToday();
 //		updateRemind();
+		iosFindOrdersByDoctorIdAndState();
+//		iosFindOrdersByFriendIdAndState();
 	}
 }
