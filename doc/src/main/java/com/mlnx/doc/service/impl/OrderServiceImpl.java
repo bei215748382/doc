@@ -6,12 +6,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import com.mlnx.doc.entity.Doctor;
 import com.mlnx.doc.entity.Order;
 import com.mlnx.doc.repository.OrderDao;
@@ -20,6 +14,12 @@ import com.mlnx.doc.util.EnumCollection;
 import com.mlnx.doc.util.Response;
 import com.mlnx.doc.vo.OrderInfo;
 import com.mlnx.doc.vo.OrderVo;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Transactional
@@ -188,7 +188,7 @@ public class OrderServiceImpl implements OrderService {
 	@Override
 	public List<OrderInfo> iosFindByFriendIdAndStateAndValid(int id) {
 		String sql = String
-				.format("SELECT o.*, d.name friend_name,d.voip_account friend_voip_account,dd.voip_account doctor_voip_account FROM t_order o left outer join t_doctor d on d.id=o.friend_id left outer join t_doctor dd on dd.id = o.doctor_id where friend_id = %d and state = 0 and date > now() order by o.date asc",
+				.format("SELECT o.*, d.name friend_name,d.voip_account friend_voip_account,dd.voip_account doctor_voip_account FROM t_order o left outer join t_doctor d on d.id=o.friend_id left outer join t_doctor dd on dd.id = o.doctor_id where friend_id = %d and state = 0 and o.date > now() order by o.date asc",
 						id);
 		Query query = em.createNativeQuery(sql, OrderInfo.class);
 		return query.getResultList();
